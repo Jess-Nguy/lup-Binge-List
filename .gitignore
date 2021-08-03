@@ -3,6 +3,4 @@ node_modules
 dist
 dist-ssr
 *.local
-
-# Rust intermediate objects
-**/target
+package-lock.json
