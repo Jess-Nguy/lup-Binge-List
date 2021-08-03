@@ -1,0 +1,27 @@
+{
+  "name": "lup-binge-list",
+  "version": "1.0.0",
+  "description": "Newly improved BingeList coming soon... Capstone project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Level-Up-Partnership/lup-Binge-List.git"
+  },
+  "author": "jess nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Level-Up-Partnership/lup-Binge-List/issues"
+  },
+  "homepage": "https://github.com/Level-Up-Partnership/lup-Binge-List#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  }
+}

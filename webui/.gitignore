@@ -1,13 +1,6 @@
-
 .DS_Store
-dist
-dist-ssr
-*.local
-webui/node_modules
-webui/package-lock.json
-package-lock.json
-.env
 node_modules
+/dist
 
 /tests/e2e/reports/
 selenium-debug.log
