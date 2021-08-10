@@ -128,7 +128,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "activity",
   props: {
     msg: String,
   },

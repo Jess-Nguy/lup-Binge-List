@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/Level-Up-Partnership/lup-Binge-List#readme",
   "dependencies": {
+    "bootstrap": "^5.1.0",
+    "bootstrap-vue": "^2.21.2",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
