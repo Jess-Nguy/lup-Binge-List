@@ -1,41 +1,18 @@
 <template>
 <div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid" id="nav">
-      <a class="navbar-brand" href="#">BingeList</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link to="/" class="nav-link">Home</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/browse" class="nav-link">Browse</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/stats" class="nav-link">Stats</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link to="/forum" class="nav-link">Forum</router-link>
-          </li>
-        </ul>
-      </div>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-      <div >
+  <!-- only show this nav header when user is logged in -->
+  <nav-header-logged-in></nav-header-logged-in>
+  <!-- show different nav header for a user not logged in -->
+  <img src="@/assets/LogoBL.png" alt="Banner" width="500" height="200">
+  <!-- if user isn't logged in then show this. Buttons will show modals -->
+    <div>
         <button class="btn btn-outline-success">Login</button>
         <button class="btn btn-outline-primary">Register</button>
-      </div>
-      <div>
-        <button class="btn btn-outline-danger">Logout</button>
-      </div>
     </div>
-  </nav>
-  <router-view />
+    <!-- if user is logged in then show this. -->
+    <div>
+      <button class="btn btn-outline-danger">Logout</button>
+    </div>
 </div>
 </template>
 
@@ -65,8 +42,12 @@
 <script>
 // @ is an alias to /src
 // import Login from "@/components/Login.vue";
-
-export default{
+// v-if="(this.$route.path).slice()"
+import NavHeaderLoggedIn from "@/components/NavHeaderLoggedIn.vue";
+export default {
   name: "Home",
+  components: {
+    NavHeaderLoggedIn
+  },
 };
 </script>
