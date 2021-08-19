@@ -35,7 +35,7 @@ If you are using VS code you should:
 - Install Vetur
 - Install Prettier
     - Check your prettier settings and make sure your Prettier Ignore Path is set to ./webui/.prettierignore
-- You can now configure VSCode to lint/format on save (suggested) or manually `run npm run lint`.
+- You can now configure VSCode to lint/format on save (suggested) or manually run `npm run lint`.
 
 ## FAQ
 
