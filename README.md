@@ -28,9 +28,7 @@ If you are using VS code you should:
       "eslint.validate": [
         "javascript",
         "javascriptreact",
-        "vue",
-        "typescript",
-        "typescriptreact"
+        "vue"
       ]
     }
 ```
