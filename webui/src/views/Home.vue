@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <activity-list msg="Welcome to BingeList"/>
+    <activity-list msg="Welcome to BingeList" />
   </div>
 </template>
 
