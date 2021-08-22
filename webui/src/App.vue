@@ -7,7 +7,6 @@
 
     <!-- if user isn't logged in then show this. Buttons will show modals -->
     <div>
-      <!-- <fa icon="twitter" type="fab" class="classname"></fa> -->
       <login-register-buttons></login-register-buttons>
     </div>
     <!-- if user is logged in then show this. -->
@@ -45,15 +44,15 @@
 // @ is an alias to /src
 // import Login from "@/components/Login.vue";
 // v-if="(this.$route.path).slice()"
-import NavHeaderLoggedIn from "@/components/NavHeaderLoggedIn.vue";
-import LoginRegisterButtons from "@/components/LoginRegisterButtons.vue";
+import NavHeaderLoggedIn from '@/components/NavHeaderLoggedIn.vue';
+import LoginRegisterButtons from '@/components/LoginRegisterButtons.vue';
 export default {
   data() {
     return {
       showLoginModal: false,
     };
   },
-  name: "Home",
+  name: 'Home',
   components: {
     NavHeaderLoggedIn,
     LoginRegisterButtons,

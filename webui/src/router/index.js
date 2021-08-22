@@ -1,42 +1,39 @@
-import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/Home.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
 
 const routes = [
   {
-    path: "/",
-    name: "Dashboard",
+    path: '/',
+    name: 'Dashboard',
   },
   {
-    path: "/home",
-    name: "Home",
+    path: '/home',
+    name: 'Home',
     component: Home,
   },
   {
-    path: "/browse",
-    name: "Browse",
+    path: '/browse',
+    name: 'Browse',
     // route level code-splitting
     // this generates a separate chunk (browse.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "browse" */ "../views/Browse.vue"),
+    component: () => import(/* webpackChunkName: "browse" */ '../views/Browse.vue'),
   },
   {
-    path: "/stats",
-    name: "Stats",
+    path: '/stats',
+    name: 'Stats',
     // route level code-splitting
     // this generates a separate chunk (browse.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "browse" */ "../views/Stats.vue"),
+    component: () => import(/* webpackChunkName: "browse" */ '../views/Stats.vue'),
   },
   {
-    path: "/forum",
-    name: "Forum",
+    path: '/forum',
+    name: 'Forum',
     // route level code-splitting
     // this generates a separate chunk (browse.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "browse" */ "../views/Forum.vue"),
+    component: () => import(/* webpackChunkName: "browse" */ '../views/Forum.vue'),
   },
 ];
 
