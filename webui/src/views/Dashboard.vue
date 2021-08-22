@@ -5,7 +5,7 @@
       <login-register-buttons></login-register-buttons>
     </div>
     <div>
-      <button class="btn btn-outline-danger">Logout</button>
+      <button class="btn btn-danger">Logout</button>
     </div>
   </div>
 </template>

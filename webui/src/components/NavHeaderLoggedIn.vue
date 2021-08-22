@@ -13,7 +13,7 @@
       <div class="collapse navbar-collapse" id="basicExampleNav">
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
             <router-link to="/home" class="nav-link">Home</router-link>
           </li>
           <li class="nav-item">
@@ -48,3 +48,13 @@
     <!--/.Navbar-->
   </div>
 </template>
+<style lang="scss">
+
+nav li:hover,
+ nav li.router-link-active,
+ nav li.router-link-exact-active {
+   background-color: rgb(0, 94, 255);
+   cursor: pointer;
+ }
+ 
+</style>
