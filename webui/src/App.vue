@@ -2,21 +2,14 @@
   <div>
     <!-- only show this nav header when user is logged in -->
     <nav-header-logged-in></nav-header-logged-in>
-    <!-- show different nav header for a user not logged in -->
+    <!-- TO DO: show different nav header for a user not logged in -->
     <img src="@/assets/LogoBL.png" alt="Banner" width="500" height="200" />
-
-    <!-- if user isn't logged in then show this. Buttons will show modals -->
-    <div>
-      <login-register-buttons></login-register-buttons>
-    </div>
-    <!-- if user is logged in then show this. -->
-    <div>
-      <button class="btn btn-outline-danger">Logout</button>
-    </div>
   </div>
 </template>
 
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -45,17 +38,15 @@
 // import Login from "@/components/Login.vue";
 // v-if="(this.$route.path).slice()"
 import NavHeaderLoggedIn from '@/components/NavHeaderLoggedIn.vue';
-import LoginRegisterButtons from '@/components/LoginRegisterButtons.vue';
 export default {
   data() {
     return {
-      showLoginModal: false,
+      showLoginModal: false, // don't need anymore
     };
   },
   name: 'Home',
   components: {
     NavHeaderLoggedIn,
-    LoginRegisterButtons,
   },
 };
 </script>
