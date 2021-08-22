@@ -30,13 +30,13 @@
           </div>
           <div class="modal-body mx-3">
             <div class="md-form mb-5">
-              <fa icon="twitter" type="fab" class="fa-solid fa-question-circle"></fa>
+              <fa icon="user" type="fas" width="35" height="35"></fa>
               <input type="email" id="defaultForm-email" class="form-control validate" />
               <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
             </div>
 
             <div class="md-form mb-4">
-              <!-- <i class="fas fa-lock prefix grey-text"></i> -->
+              <fa icon="lock" type="fas" width="35" height="35"></fa>
               <input type="password" id="defaultForm-pass" class="form-control validate" />
               <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
             </div>
@@ -67,18 +67,18 @@
           </div>
           <div class="modal-body mx-3">
             <div class="md-form mb-5">
-              <!-- <font-awesome-icon icon="coffee" ></font-awesome-icon> -->
+              <fa icon="user" type="fas" width="35" height="35"></fa>
               <input type="text" id="orangeForm-name" class="form-control validate" />
               <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
             </div>
             <div class="md-form mb-5">
-              <!-- <i class="fas fa-envelope prefix grey-text"></i> -->
+              <fa icon="envelope" type="fas" width="35" height="35"></fa>
               <input type="email" id="orangeForm-email" class="form-control validate" />
               <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
             </div>
 
             <div class="md-form mb-4">
-              <!-- <i class="fas fa-lock prefix grey-text"></i> -->
+              <fa icon="lock" type="fas" width="35" height="35"></fa>
               <input type="password" id="orangeForm-pass" class="form-control validate" />
               <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
             </div>
