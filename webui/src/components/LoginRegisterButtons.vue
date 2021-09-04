@@ -125,25 +125,28 @@ export default {
       console.log('submit register email: ', this.registerEmail);
       console.log('submit register name: ', this.registerName);
       console.log('submit register pass: ', this.registerPass);
-     
     },
     async userRegister() {
       this.submitRegister();
       // POST request using fetch with async/await
-      
-      const data =  { user_name: this.registerName, user_password: this.registerPass, email: this.registerEmail, timezone: this.zone, user_role: this.role};
+
+      const data = {
+        user_name: this.registerName,
+        user_password: this.registerPass,
+        email: this.registerEmail,
+        timezone: this.zone,
+        user_role: this.role,
+      };
       // const response = await this.$http.post('http://localhost:5000/register', data);
-    
+
       const result = await DataService.createUser(data);
-      console.log("RESULT: ", result);
+      console.log('RESULT: ', result);
       // const result = await response.json();
       // this.postId = result.id;
-       this.registerName = '';
-       this.registerPass = '';
-       this.registerEmail = '';
-      
+      this.registerName = '';
+      this.registerPass = '';
+      this.registerEmail = '';
     },
-
   },
   // mounted(){
   //   this.userRegister();
