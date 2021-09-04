@@ -102,8 +102,13 @@ If you are using VS code you should:
 ## FAQ
 
 - Build fails
-  - If you had an older version of the inspections code base, you may need to do the following:
+
+  - If you had an older version of the project code base, you may need to do the following:
   - Delete the node_modules folder from the webui folder.
   - From the terminal window, navigate to the webui folder, type and enter npm i.
   - Type and enter npm run dev.
   - Review the results of the build
+
+- `server` crashes after saving/restarting due to changes...
+  - make sure package.json is `"nodemon":"2.0.7"` If it any newer version and have ^ it will have trouble restarting.
+  - Shutdown the server and webui and run `npm run dev` and `npm run serve` to allow nodemon to get the changes if it wasn't the proper version.

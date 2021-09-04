@@ -67,7 +67,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form @submit.prevent="submitRegister">
+          <form @submit.prevent="userRegister">
             <div class="modal-body mx-3">
               <div class="md-form mb-5">
                 <i class="fas fa-user prefix grey-text"></i>
@@ -86,7 +86,7 @@
               </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-              <button type="submit" class="btn btn-deep-orange" data-bs-dismiss="modal">Sign up</button>
+              <button type="submit" class="btn btn-deep-orange">Sign up</button>
             </div>
           </form>
         </div>
@@ -96,7 +96,9 @@
 </template>
 
 <script>
-import moment from 'moment';
+// import moment from 'moment';
+import DataService from '../../service/dataService';
+
 export default {
   data() {
     return {
@@ -105,6 +107,10 @@ export default {
       registerName: '',
       registerEmail: '',
       registerPass: '',
+      postId: '',
+      zone: 'America/Toronto',
+      role: 'User',
+      submitted: false,
     };
   },
   methods: {
@@ -115,26 +121,32 @@ export default {
       this.loginPass = '';
     },
     submitRegister() {
-      var timedifference = moment().tz("America/Los_Angeles").format();
-      console.log('TIMEZONE: ', timedifference);
+      console.log('TIMEZONE: ', this.zone);
       console.log('submit register email: ', this.registerEmail);
-      this.registerEmail = '';
       console.log('submit register name: ', this.registerName);
-      this.registerName = '';
       console.log('submit register pass: ', this.registerPass);
-      this.registerPass = '';
+     
     },
-    // async registerUser() {
-    //   // POST request using fetch with async/await
-    //   const requestOptions = {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ username: this.registerUser, email: registerEmail, timezone: "America/Toronto"})
-    //   };
-    //   const response = await axios("/register", requestOptions);
-    //   const data = await response.json();
-    //   this.postId = data.id;
-    // }
+    async userRegister() {
+      this.submitRegister();
+      // POST request using fetch with async/await
+      
+      const data =  { user_name: this.registerName, user_password: this.registerPass, email: this.registerEmail, timezone: this.zone, user_role: this.role};
+      // const response = await this.$http.post('http://localhost:5000/register', data);
+    
+      const result = await DataService.createUser(data);
+      console.log("RESULT: ", result);
+      // const result = await response.json();
+      // this.postId = result.id;
+       this.registerName = '';
+       this.registerPass = '';
+       this.registerEmail = '';
+      
+    },
+
   },
+  // mounted(){
+  //   this.userRegister();
+  // }
 };
 </script>

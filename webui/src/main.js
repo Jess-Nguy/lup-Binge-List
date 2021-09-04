@@ -10,4 +10,8 @@ import store from './store';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
+import Axios from 'axios';
+
+createApp(App).config.globalProperties.$http = Axios;
+
 createApp(App).use(store).use(router).mount('#app');
