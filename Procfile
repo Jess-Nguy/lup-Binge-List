@@ -1,2 +1,2 @@
-webui: cd webui && npm run start
-server: cd server && npm start
+web: ./webui npm run start
+server: ./server npm run start
