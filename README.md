@@ -20,11 +20,11 @@ This installs both MBD and Font awesome -
 https://mdbootstrap.com/docs/vue/getting-started/installation/
 
 Setup:
-? Please choose type of installation: Existing app
-? Free or Pro version? Free
-? Select the styling option: Compiled in the mdbvue package (CSS)
-? Add Roboto font? Yes
-? Add Font Awesome 5? Yes
+- **Please choose type of installation:** Existing app
+- **Free or Pro version?** Free
+- **Select the styling option:** Compiled in the mdbvue package (CSS)
+- **Add Roboto font?** Yes
+- **Add Font Awesome 5?** Yes
 
 ## Just Font Awesome
 
