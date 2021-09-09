@@ -1,11 +1,13 @@
+const path = require('path');
+const PORT = process.env.PORT || 5000;
+const url = 'http://localhost:5000' + PORT;
 module.exports = {
-  chainWebpack: (config) => {
-    config.module
-      .rule('vue')
-      .use('vue-loader')
-      .tap((options) => {
-        options.compiler = require('vue-template-babel-compiler');
-        return options;
-      });
+  outputDir: path.resolve(__dirname, '../server/public'),
+  devServer: {
+    proxy: {
+      '/': {
+        target: url,
+      },
+    },
   },
 };
