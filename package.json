@@ -20,12 +20,11 @@
     "dotenv": "10.0.0",
     "express": "4.17.1",
     "nodemon": "2.0.7",
-    "pg": "8.7.1"
-  },
-  "devDependencies": {
+    "pg": "8.7.1",
     "@vue/cli-plugin-babel": "^4.5.13",
     "vue-template-babel-compiler": "^1.0.3"
   },
+  "devDependencies": {},
   "bugs": {
     "url": "https://github.com/Level-Up-Partnership/lup-Binge-List/issues"
   },
