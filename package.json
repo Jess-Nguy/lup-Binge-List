@@ -51,6 +51,7 @@
     "sass-loader": "^8.0.2",
     "vue": "^3.0.0",
     "vue-cli-plugin-mdb": "^2.1.0",
+    "vue-loader": "^15.9.8",
     "vue-router": "^3.5.2",
     "vue-template-babel-compiler": "1.0.3",
     "vue-template-compiler": "^2.6.14",
