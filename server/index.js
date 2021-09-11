@@ -1,3 +1,5 @@
+const serveStatic = require("serve-static");
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const app = express();
@@ -7,14 +9,12 @@ app.use(express.json());
 app.use(cors());
 app.use("/register", require("./routes/register/register"));
 
-// Handle production
-if(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'stage' ){
-    // Static folder
-    app.use(express.static(__dirname + '/public/'));
+app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 
-    // Handle SPA
-    app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
-}
+// this * route is to serve project on different page routes except root `/`
+app.get(/.*/, function (req, res) {
+  res.sendFile(path.join(__dirname, "../webui/dist/index.html"));
+});
 
 const PORT = process.env.PORT || 5000;
 

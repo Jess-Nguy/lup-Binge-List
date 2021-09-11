@@ -1,1 +1,0 @@
-web: sh -c 'cd ./webui && npm install && npm run start'

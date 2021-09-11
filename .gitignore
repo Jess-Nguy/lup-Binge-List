@@ -1,7 +1,6 @@
 
 .DS_Store
-dist
-dist-ssr
+
 *.local
 webui/node_modules
 webui/package-lock.json
