@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-
+// This is needed for `npm run build`
 import { register } from 'register-service-worker';
 
 if (process.env.NODE_ENV === 'production') {
