@@ -137,8 +137,6 @@ export default {
         timezone: this.zone,
         user_role: this.role,
       };
-      // const response = await this.$http.post('http://localhost:5000/register', data);
-
       const result = await DataService.createUser(data);
       console.log('RESULT: ', result);
       // const result = await response.json();
