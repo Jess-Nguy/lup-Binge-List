@@ -1,1 +1,1 @@
-web: sh -c 'cd ./webui && npm run start'
+web: sh -c 'cd ./webui && npm install && npm run start'
