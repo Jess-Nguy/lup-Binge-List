@@ -4,7 +4,7 @@ require("dotenv").config();
 const client = new Client({
   connectionString:
     process.env.CONNECTION ||
-    "postgres://pesknufeycrpxe:d12599ab2adcfda2d509568ab447805fa24ba3affca11ac8f0d3d60ecccef8a5@ec2-3-233-100-43.compute-1.amazonaws.com:5432/dema24mn6r1t6r",
+    "postgres://wfqpgoyrmnighy:07705bf4cf49d1f1fe526c1759a8bad616132c7768e0d68a5c909a0a7a210a35@ec2-44-198-100-81.compute-1.amazonaws.com:5432/d9kep4quq6lfcc",
   ssl: {
     rejectUnauthorized: false,
   },
