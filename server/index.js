@@ -7,7 +7,11 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors());
-app.use("/register", require("./routes/register/register"));
+
+app.use("/register", require("./routes/users/postUser"));
+
+app.use("/google", require("./routes/googleAuth/fetchAll"));
+app.use("/google/callback", require("./routes/googleAuth/fetchAll"));
 
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 
