@@ -3,15 +3,15 @@ const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+require("dotenv").config();
+const auth = require("../server/authentication");
 // Middleware
 app.use(express.json());
 app.use(cors());
 
 app.use("/register", require("./routes/users/postUser"));
 
-app.use("/google", require("./routes/googleAuth/fetchAll"));
-app.use("/google/callback", require("./routes/googleAuth/fetchAll"));
+app.use("/auth", auth);
 
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 

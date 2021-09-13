@@ -44,7 +44,7 @@
             </div>
             <div class="modal-footer d-flex justify-content-center">
               <input type="submit" class="btn btn-default" value="Login" />
-              <a class="btn btn-md btn-success" href="http://localhost:5000/google">Continue with Google</a>
+              <a class="btn btn-md btn-success" href="http://localhost:8000/auth/google">Continue with Google</a>
             </div>
           </form>
         </div>
