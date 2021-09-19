@@ -5,7 +5,8 @@ export default {
     return axios.create({
       baseURL: 'http://localhost:8000',
       headers: {
-        'Content-type': 'application/json',
+        'content-type': 'application/json',
+        authorization: `Bearer ${localStorage.token}`,
       },
     });
   },

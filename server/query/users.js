@@ -18,7 +18,6 @@ module.exports = {
   findByEmail(email) {
     const userResponse = db.query(`SELECT * FROM users WHERE email = '${email}'`);
     return userResponse;
-    // return db("users").where("email", email).first();
   },
   update(id, user) {
     const result = schema.validate(user);

@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const passport = require("passport");
+const { checkAuthHeaderSetUser, notFound, errorHandler } = require("./middlewares");
 
 require("dotenv").config();
 const auth = require("../server/authentication");
@@ -11,12 +12,15 @@ const auth = require("../server/authentication");
 app.use(express.json());
 app.use(cors());
 
-app.use("/register", require("./routes/users/postUser"));
+app.use(passport.initialize());
 
+app.use("/register", require("./routes/users/postUser"));
+app.use(checkAuthHeaderSetUser);
 app.use("/auth", auth);
 
+// app.use(checkAuthHeaderSetUserUnAuthorized);
+
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
-app.use(passport.initialize());
 
 // this * route is to serve project on different page routes except root `/`
 app.get(/.*/, function (req, res) {
@@ -24,5 +28,7 @@ app.get(/.*/, function (req, res) {
 });
 
 const PORT = process.env.PORT || 5000;
-
+app.use(notFound);
+app.use(errorHandler);
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+module.exports = app;

@@ -6,7 +6,7 @@
       <!-- <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalLoginForm">
         Login
       </button> -->
-      <a class="btn btn-md btn-success" href="http://localhost:8000/auth/google">Login/Register with Google</a>
+      <a class="btn btn-md btn-success" href="http://localhost:8000/auth/google">Login with Google</a>
     </div>
 
     <!-- Login Modal -->

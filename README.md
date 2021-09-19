@@ -20,6 +20,7 @@ This installs both MBD and Font awesome -
 https://mdbootstrap.com/docs/vue/getting-started/installation/
 
 Setup:
+
 - **Please choose type of installation:** Existing app
 - **Free or Pro version?** Free
 - **Select the styling option:** Compiled in the mdbvue package (CSS)
@@ -38,6 +39,12 @@ List of icons:
 - https://fontawesome.com/icons?s=solid&m=free
 - https://fontawesome.com/icons?s=regular&m=free
 - https://fontawesome.com/icons?s=brands
+
+## Google Auth
+
+https://console.cloud.google.com/home/dashboard?project=bingelist
+
+https://www.passportjs.org/docs/oauth2-api/
 
 ## Moment.js
 
