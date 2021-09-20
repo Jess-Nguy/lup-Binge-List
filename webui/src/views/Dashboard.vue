@@ -1,11 +1,12 @@
 <template>
   <div class="dashboard">
     <h1>This is a Dashboard page</h1>
-    <div>
-      <a class="btn btn-md btn-success" :href="getLoginURL">Login with Google</a>
+    <div v-if="user">
+      <!-- doesn't work -->
+      <a class="btn btn-danger" :href="getLoginURL">Logout</a>
     </div>
-    <div>
-      <button class="btn btn-danger">Logout</button>
+    <div v-else>
+      <a class="btn btn-md btn-success" :href="getLoginURL">Login with Google</a>
     </div>
   </div>
 </template>
@@ -17,7 +18,7 @@
 export default {
   data() {
     return {
-      showLoginModal: false, // don't need anymore
+      user: {}
     };
   },
   name: 'Dashboard',
@@ -30,6 +31,12 @@ export default {
         return 'https://bingelist.herokuapp.com/auth/google';
       }
     },
+    getUser() {
+      return this.$store.getters.getUser;
+    },
+  },
+  mounted() {
+    this.user = this.getUser;
   },
 };
 </script>
