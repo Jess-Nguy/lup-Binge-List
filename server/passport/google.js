@@ -3,14 +3,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const users = require("../query/users");
 
-// passport.serializeUser((user, done) => {
-//   done(null, user);
-// });
-
-// passport.deserializeUser((id, done) => {
-//   done(null, id);
-// });
-
 passport.use(
   new GoogleStrategy(
     {
@@ -32,15 +24,14 @@ passport.use(
       };
 
       if (user.rowCount > 0) {
-        //update the user
-        // googleUser.role = user.role;
-        console.log("UPDATE USER HERE.... ", user);
+        // Use changed user name for db update
+        if (user.rows[0].username !== googleUser.username) {
+          googleUser.username = user.rows[0].username;
+        }
         user = await users.update(user.id, googleUser);
       } else {
         user = await users.insert(googleUser);
       }
-
-      console.log("GOT user from DB: ", user.rows[0]);
       return cb(null, user.rows[0]);
     }
   )

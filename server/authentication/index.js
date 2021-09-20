@@ -1,13 +1,22 @@
 const passport = require("passport");
 const express = require("express");
-const { create } = require("./utils");
-const router = express.Router();
-
 require("../passport/google");
 
-console.log("passport: ", passport);
-// console.log("passportLocal: ", passportLocal);
-// console.log("passportlocal: ", passportlocal);
+const { create } = require("./utils");
+
+const router = express.Router();
+
+router.get("/isAdmin", async (req, res) => {
+  if (req.user) {
+    if (req.user.role === "Admin") {
+      return res.json({
+        isAdmin: true,
+      });
+    }
+  }
+  res.json({ isAdmin: false });
+});
+
 router.get(
   "/google",
   passport.authenticate("google", {
@@ -21,22 +30,6 @@ router.get("/google/callback", (req, res, next) => {
       return next(err);
     }
     try {
-      const token = await create(user);
-      res.json({ token });
-    } catch (error) {
-      next(error);
-    }
-  })(req, res, next);
-});
-
-router.get("/google/callback", (req, res, next) => {
-  passport.authenticate("google", async (err, user) => {
-    if (err) {
-      return next(err);
-    }
-    try {
-      console.log("creating token with ", user);
-
       const token = await create(user);
       res.redirect(`${process.env.CLIENT_REDIRECT}${token}`);
     } catch (error) {
