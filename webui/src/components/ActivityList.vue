@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <img :src="profileUrl" alt="Trulli" width="250" height="250">
+    <img :src="profileUrl" alt="Trulli" width="100" height="100">
   </div>
 </template>
 
