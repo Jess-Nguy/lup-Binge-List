@@ -21,10 +21,14 @@ export default createStore({
   actions: {
     login({ commit }, token) {
       commit('setToken', token);
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const user = JSON.parse(window.atob(base64));
-      commit('setUser', user);
+      if (token !== '') {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const user = JSON.parse(window.atob(base64));
+        commit('setUser', user);
+      } else {
+        commit('setUser', null);
+      }
     },
     isAdmin({ commit }) {
       const role = DataService.isAdmin();

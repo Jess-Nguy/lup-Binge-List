@@ -17,7 +17,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <!-- Collapsible content -->
-      <div class="collapse navbar-collapse" id="basicExampleNav">
+      <div v-if="user" class="collapse navbar-collapse" id="basicExampleNav">
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
@@ -69,3 +69,24 @@ nav li.router-link-exact-active {
   cursor: pointer;
 }
 </style>
+
+<script>
+export default {
+  data() {
+    return {
+      user: {},
+    };
+  },
+  name: 'Nav Header',
+  computed: {
+    getUser() {
+      return this.$store.getters.getUser;
+    },
+  },
+  mounted() {
+    this.user = this.getUser;
+    console.log("USER: ", this.user);
+    console.log("GET USER: ", this.getUser);
+  },
+}
+</script>

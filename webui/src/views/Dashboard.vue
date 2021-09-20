@@ -3,7 +3,7 @@
     <h1>This is a Dashboard page</h1>
     <div v-if="user">
       <!-- doesn't work -->
-      <a class="btn btn-danger" :href="getLoginURL">Logout</a>
+      <button class="btn btn-danger" v-on:click="logoutUser">Logout</button>
     </div>
     <div v-else>
       <a class="btn btn-md btn-success" :href="getLoginURL">Login with Google</a>
@@ -12,9 +12,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import Login from "@/components/Login.vue";
-// v-if="(this.$route.path).slice()"
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -37,6 +36,14 @@ export default {
   },
   mounted() {
     this.user = this.getUser;
+  },
+  methods: {
+    ...mapActions(['login']),
+    logoutUser() {
+      this.login('');
+      console.log("GET USER: ", this.getUser);
+      this.user = this.getUser;
+    },
   },
 };
 </script>
