@@ -19,6 +19,7 @@
     "@popperjs/core": "^2.9.3",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
+    "chromedriver": "^93.0.1",
     "core-js": "^3.6.5",
     "mdbvue": "6.7.3",
     "moment-timezone": "^0.5.33",

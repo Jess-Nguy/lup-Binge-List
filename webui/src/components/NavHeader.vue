@@ -33,17 +33,19 @@
             <router-link to="/forum" class="nav-link">Forum</router-link>
           </li>
         </ul>
-        <!-- Links -->
+        <!-- Search -->
         <form class="form-inline">
           <div class="md-form my-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
           </div>
+          <button class="btn btn-outline-white btn-md my-2 my-sm-0 ml-3" type="submit">Search</button>
         </form>
+        <!-- Dropdown -->
         <ul class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             id="navbarDropdownMenuLink-4"
-            data-toggle="dropdown"
+            data-bs-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
           >
@@ -51,11 +53,17 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
             <a class="dropdown-item" href="#">My account</a>
-            <a class="dropdown-item" href="#">Log out</a>
+            <a class="dropdown-item" href="#">Setting</a>
           </div>
         </ul>
       </div>
       <!-- Collapsible content -->
+      <div v-if="user">
+        <button class="btn btn-danger" v-on:click="logoutUser"><i class="fas fa-sign-out-alt"></i> Logout</button>
+      </div>
+      <div v-else>
+        <a class="btn btn-md btn-success" :href="getLoginURL"><i class="fas fa-sign-in-alt"></i> Login with Google</a>
+      </div>
     </nav>
     <router-view />
     <!--/.Navbar-->
@@ -71,22 +79,45 @@ nav li.router-link-exact-active {
 </style>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
       user: {},
+      isUser: false,
     };
   },
   name: 'Nav Header',
   computed: {
+    getLoginURL() {
+      if (window.location.hostname === 'localhost') {
+        return 'http://localhost:8000/auth/google';
+      } else {
+        // Need to change this to call the api port version.
+        return 'https://bingelist.herokuapp.com/auth/google';
+      }
+    },
     getUser() {
       return this.$store.getters.getUser;
     },
   },
   mounted() {
     this.user = this.getUser;
-    console.log("USER: ", this.user);
-    console.log("GET USER: ", this.getUser);
+    this.$store.subscribe((setUser, user) => {
+      console.log(setUser.type);
+      console.log(setUser.payload);
+      console.log('USER: ', user);
+      this.user = user;
+    });
+  },
+  methods: {
+    ...mapActions(['login']),
+    logoutUser() {
+      this.login('');
+      this.user = this.getUser;
+      this.$router.push('/');
+    },
   },
 }
 </script>
