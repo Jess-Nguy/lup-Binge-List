@@ -1,7 +1,7 @@
 <template>
-  <div class="hello">
+  <div class="activitylist">
     <h1>{{ msg }}</h1>
-    <img :src="profileUrl" alt="profile image" width="100" height="100">
+    <img :src="profileUrl" alt="profile image" width="100" height="100" />
   </div>
 </template>
 

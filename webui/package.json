@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
+    "test:unit": "vue-cli-service test:unit --watch",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
     "start": "vue-cli-service serve --open"
@@ -21,6 +21,7 @@
     "bootstrap": "^5.1.0",
     "chromedriver": "^93.0.1",
     "core-js": "^3.6.5",
+    "flush-promises": "^1.0.2",
     "mdbvue": "6.7.3",
     "moment-timezone": "^0.5.33",
     "passport-google-oauth20": "^2.0.0",
@@ -32,11 +33,10 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-e2e-nightwatch": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-pwa": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-unit-mocha": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "^4.5.13",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
@@ -52,6 +52,8 @@
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-mdb": "~2.1.0"
+    "typescript": "~3.9.3",
+    "vue-cli-plugin-mdb": "~2.1.0",
+    "vue-jest": "^5.0.0-0"
   }
 }
