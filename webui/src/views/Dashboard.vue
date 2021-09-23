@@ -6,19 +6,31 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {};
   },
   name: 'Dashboard',
-  computed: {},
+  computed: {
+    getUser() {
+      return this.$store.getters.getUser;
+    },
+  },
   mounted() {
-    if (this.getUser == null) {
+    const localToken = localStorage.getItem('user-token');
+    if (!localToken) {
       this.$router.push('/');
     } else {
-      console.log('dashboard mount');
+      if (!this.getUser) {
+        this.login(localToken);
+      }
+      console.log('Dashboard mount');
     }
   },
-  methods: {},
+  methods: {
+    ...mapActions(['login']),
+  },
 };
 </script>

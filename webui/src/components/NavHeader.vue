@@ -116,6 +116,7 @@ export default {
     logoutUser() {
       this.login('');
       this.user = this.getUser;
+      localStorage.clear();
       this.$router.push('/');
     },
   },

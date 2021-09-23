@@ -5,10 +5,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import ActivityList from '@/components/ActivityList.vue';
-// import Vue from "vue";
-// import App from './app.vue';
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -33,15 +31,20 @@ export default {
       console.log('USER: ', user);
       this.user = user;
     });
-    // console.log('GET USER: ', this.getUser);
-    // console.log('this USER: ', this.user);
 
-    if (this.getUser == null) {
+    const localToken = localStorage.getItem('user-token');
+    if (!localToken) {
       this.$router.push('/');
     } else {
+      if (!this.getUser) {
+        this.login(localToken);
+      }
       this.welcomeMessage = 'Welcome ' + this.getUser.username;
       this.profileUrl = this.getUser.profile_image;
     }
   },
+  methods: {
+    ...mapActions(['login']),
+  }
 };
 </script>

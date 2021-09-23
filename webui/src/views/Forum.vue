@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {};
@@ -11,12 +12,18 @@ export default {
   name: 'Forum',
   computed: {},
   mounted() {
-    if (this.getUser == null) {
+    const localToken = localStorage.getItem('user-token');
+    if (!localToken) {
       this.$router.push('/');
     } else {
+      if (!this.getUser) {
+        this.login(localToken);
+      }
       console.log('Forum mount');
     }
   },
-  methods: {},
+  methods: {
+    ...mapActions(['login']),
+  },
 };
 </script>
