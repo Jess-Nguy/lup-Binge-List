@@ -27,6 +27,7 @@
     "core-js": "^3.6.5",
     "cypress": "^8.4.1",
     "flush-promises": "^1.0.2",
+    "mdb-ui-kit": "^3.9.0",
     "mdbvue": "6.7.3",
     "moment-timezone": "^0.5.33",
     "passport-google-oauth20": "^2.0.0",

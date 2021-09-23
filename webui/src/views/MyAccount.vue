@@ -1,8 +1,6 @@
 <template>
-  <div class="dashboard">
-    <h1>{{ welcomeMessage }}</h1>
-    <img :src="profileUrl" alt="profile image" width="100" height="100" />
-    <h1>Banner</h1>
+  <div class="myaccount">
+    <h1>My Account</h1>
   </div>
 </template>
 
@@ -16,7 +14,7 @@ export default {
       profileUrl: '',
     };
   },
-  name: 'Dashboard',
+  name: 'My Account',
   computed: {
     getUser() {
       return this.$store.getters.getUser;
@@ -39,7 +37,7 @@ export default {
         this.welcomeMessage = 'Welcome ' + this.getUser.username;
         this.profileUrl = this.getUser.profile_image;
       }
-      console.log('Dashboard mount');
+      console.log('My Account mount');
     }
   },
   methods: {

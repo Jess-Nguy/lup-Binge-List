@@ -52,17 +52,21 @@
             <i class="fas fa-user"></i> Profile
           </a>
           <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-            <a class="dropdown-item" href="#">My account</a>
-            <a class="dropdown-item" href="#">Setting</a>
+            <router-link to="/myaccount" class="dropdown-item">My account</router-link>
+            <router-link to="/settings" class="dropdown-item">Settings</router-link>
           </div>
         </ul>
       </div>
       <!-- Collapsible content -->
       <div v-if="user">
-        <button data-cy="logout-button" class="btn btn-danger" v-on:click="logoutUser"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <button data-cy="logout-button" class="btn btn-danger" v-on:click="logoutUser">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
       </div>
       <div v-else>
-        <a data-cy="login-link" class="btn btn-md btn-success" :href="getLoginURL"><i class="fas fa-sign-in-alt"></i> Login with Google</a>
+        <a data-cy="login-link" class="btn btn-md btn-success" :href="getLoginURL"
+          ><i class="fas fa-sign-in-alt"></i> Login with Google</a
+        >
       </div>
     </nav>
     <router-view />

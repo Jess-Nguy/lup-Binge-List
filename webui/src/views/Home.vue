@@ -1,23 +1,30 @@
 <template>
   <div class="home">
-    <activity-list :msg="welcomeMessage" :profileUrl="profileUrl" />
+    <h1>Activity List</h1>
+    <activity-list />
+    <h1>In Progress</h1>
+    <show-preview />
+    <h1>Trending shows</h1>
+    <show-preview />
+    <h1>Newly added shows</h1>
+    <show-preview />
   </div>
 </template>
 
 <script>
 import ActivityList from '@/components/ActivityList.vue';
+import ShowPreview from '@/components/ShowPreview.vue';
 import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      welcomeMessage: 'Welcome user',
-      profileUrl: '',
       user: {},
     };
   },
   name: 'Home',
   components: {
     ActivityList,
+    ShowPreview,
   },
   computed: {
     getUser() {
@@ -39,12 +46,10 @@ export default {
       if (!this.getUser) {
         this.login(localToken);
       }
-      this.welcomeMessage = 'Welcome ' + this.getUser.username;
-      this.profileUrl = this.getUser.profile_image;
     }
   },
   methods: {
     ...mapActions(['login']),
-  }
+  },
 };
 </script>

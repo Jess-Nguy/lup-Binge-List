@@ -47,6 +47,16 @@ const routes = [
     name: 'admin',
     component: Admin,
   },
+  {
+    path: '/myaccount',
+    name: 'My-Account',
+    component: () => import('../views/MyAccount.vue'),
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../views/Settings.vue'),
+  },
 ];
 
 const router = createRouter({
