@@ -106,6 +106,34 @@ If you are using VS code you should:
   - Check your prettier settings and make sure your Prettier Ignore Path is set to ./webui/.prettierignore
 - You can now configure VSCode to lint/format on save (suggested) or manually run `npm run lint`.
 
+## Eslint Cypress
+
+https://openbase.com/js/eslint-plugin-cypress
+
+`npm install eslint-plugin-cypress --save-dev`
+
+Add an .eslintrc.json file to your cypress directory with the following:
+
+```
+{
+  "plugins": [
+    "cypress"
+  ],
+  "rules": {
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "error",
+    "cypress/assertion-before-screenshot": "warn",
+    "cypress/no-force": "warn",
+    "cypress/no-async-tests": "error",
+    "cypress/no-pause": "error"
+  }
+}
+```
+
+## Cypress E2e
+
+https://docs.cypress.io/guides/getting-started/testing-your-app#Step-1-Start-your-server
+
 ## FAQ
 
 - Build fails

@@ -59,10 +59,10 @@
       </div>
       <!-- Collapsible content -->
       <div v-if="user">
-        <button class="btn btn-danger" v-on:click="logoutUser"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        <button data-cy="logout-button" class="btn btn-danger" v-on:click="logoutUser"><i class="fas fa-sign-out-alt"></i> Logout</button>
       </div>
       <div v-else>
-        <a class="btn btn-md btn-success" :href="getLoginURL"><i class="fas fa-sign-in-alt"></i> Login with Google</a>
+        <a data-cy="login-link" class="btn btn-md btn-success" :href="getLoginURL"><i class="fas fa-sign-in-alt"></i> Login with Google</a>
       </div>
     </nav>
     <router-view />
