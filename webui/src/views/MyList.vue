@@ -1,20 +1,20 @@
 <template>
-  <div class="myaccount">
-    <h1>My Account</h1>
+  <div class="myList">
+    <h1>My List</h1>
+    <account-nav />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import AccountNav from '../components/AccountNav.vue';
 
 export default {
+  components: { AccountNav },
   data() {
-    return {
-      welcomeMessage: 'Welcome user',
-      profileUrl: '',
-    };
+    return {};
   },
-  name: 'My Account',
+  name: 'My List',
   computed: {
     getUser() {
       return this.$store.getters.getUser;
@@ -34,10 +34,8 @@ export default {
     } else {
       if (!this.getUser) {
         this.login(localToken);
-        this.welcomeMessage = 'Welcome ' + this.getUser.username;
-        this.profileUrl = this.getUser.profile_image;
       }
-      console.log('My Account mount');
+      console.log('My List mount');
     }
   },
   methods: {

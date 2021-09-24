@@ -39,14 +39,15 @@ export default {
       this.user = user;
     });
 
-    const localToken = localStorage.getItem('user-token');
-    if (!localToken) {
-      this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-    }
+    // const localToken =
+    localStorage.getItem('user-token');
+    // if (!localToken) {
+    //   this.$router.push('/');
+    // } else {
+    //   if (!this.getUser) {
+    //     this.login(localToken);
+    //   }
+    // }
   },
   methods: {
     ...mapActions(['login']),

@@ -1,22 +1,24 @@
 <template>
-  <div class="dashboard">
-    <h1 v-if="welcomeMessage">{{ welcomeMessage }}</h1>
-    <img v-if="profileUrl" :src="profileUrl" alt="profile image" width="100" height="100" />
-    <h1>Banner</h1>
+  <div class="favourite">
+    <h1>Favourite</h1>
+    <account-nav />
+    <favourite-filter />
+    <favourite-list />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import AccountNav from '../components/AccountNav.vue';
+import FavouriteFilter from '../components/FavouriteFilter.vue';
+import FavouriteList from '../components/FavouriteList.vue';
 
 export default {
+  components: { AccountNav, FavouriteFilter, FavouriteList },
   data() {
-    return {
-      welcomeMessage: '',
-      profileUrl: '',
-    };
+    return {};
   },
-  name: 'Dashboard',
+  name: 'Favourite',
   computed: {
     getUser() {
       return this.$store.getters.getUser;
@@ -36,10 +38,8 @@ export default {
     } else {
       if (!this.getUser) {
         this.login(localToken);
-        this.welcomeMessage = 'Welcome ' + this.getUser.username;
-        this.profileUrl = this.getUser.profile_image;
       }
-      console.log('Dashboard mount');
+      console.log('Favourite mount');
     }
   },
   methods: {

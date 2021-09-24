@@ -130,7 +130,22 @@ Add an .eslintrc.json file to your cypress directory with the following:
 }
 ```
 
-## Cypress E2e
+## ESlint VScode
+
+https://www.digitalocean.com/community/tutorials/workflow-auto-eslinting
+Adding Code Actions on Save
+`.vscode/settings.json`
+
+```
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript"]
+}
+```
+
+## Cypress E2E
 
 https://docs.cypress.io/guides/getting-started/testing-your-app#Step-1-Start-your-server
 

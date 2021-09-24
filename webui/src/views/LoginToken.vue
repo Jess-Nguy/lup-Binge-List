@@ -11,6 +11,7 @@ export default {
     ...mapActions(['login']),
   },
   mounted() {
+    console.log('REACHED!');
     const { token } = this.$route.params;
     if (token) {
       localStorage.setItem('user-token', token);

@@ -15,8 +15,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #ffffff;
-  background: #b1d4e0;
+  color: #000000;
+  background: #e6e6e6;
 }
 
 #nav {
@@ -35,7 +35,6 @@
 
 <script>
 import NavHeader from '@/components/NavHeader.vue';
-import { mapActions } from 'vuex';
 export default {
   data() {
     return {};
@@ -44,32 +43,8 @@ export default {
   components: {
     NavHeader,
   },
-  computed: {
-    getUser() {
-      return this.$store.getters.getUser;
-    },
-  },
-  mounted() {
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-    const localToken = localStorage.getItem('user-token');
-    if (!localToken) {
-      this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-        this.welcomeMessage = 'Welcome ' + this.getUser.username;
-        this.profileUrl = this.getUser.profile_image;
-      }
-      console.log('App mount');
-    }
-  },
-  methods: {
-    ...mapActions(['login']),
-  },
+  computed: {},
+  mounted() {},
+  methods: {},
 };
 </script>

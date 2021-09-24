@@ -1,22 +1,37 @@
 <template>
-  <div class="dashboard">
-    <h1 v-if="welcomeMessage">{{ welcomeMessage }}</h1>
-    <img v-if="profileUrl" :src="profileUrl" alt="profile image" width="100" height="100" />
-    <h1>Banner</h1>
+  <div class="account">
+    <h1>My Account</h1>
+    <account-nav />
+    <img :src="profileUrl" alt="profile image" width="100" height="100" />
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ username }}</h5>
+      </div>
+    </div>
+    <h1>Activity List</h1>
+    <activity-list />
+    <overview-stats />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-
+import AccountNav from '@/components/AccountNav.vue';
+import ActivityList from '@/components/ActivityList.vue';
+import OverviewStats from '@/components/OverviewStats.vue';
 export default {
   data() {
     return {
-      welcomeMessage: '',
+      username: '',
       profileUrl: '',
     };
   },
-  name: 'Dashboard',
+  name: 'My Account',
+  components: {
+    AccountNav,
+    ActivityList,
+    OverviewStats,
+  },
   computed: {
     getUser() {
       return this.$store.getters.getUser;
@@ -36,10 +51,10 @@ export default {
     } else {
       if (!this.getUser) {
         this.login(localToken);
-        this.welcomeMessage = 'Welcome ' + this.getUser.username;
+        this.username = this.getUser.username;
         this.profileUrl = this.getUser.profile_image;
       }
-      console.log('Dashboard mount');
+      console.log('My Account mount');
     }
   },
   methods: {

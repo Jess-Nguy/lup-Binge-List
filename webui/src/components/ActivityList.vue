@@ -7,6 +7,7 @@
             <img src="https://mdbootstrap.com/wp-content/uploads/2020/06/vertical.jpg" alt="..." class="img-fluid" />
           </div>
           <div class="col-md-8">
+            <i class="fas fa-times-circle"></i>
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
               <p class="card-text">
@@ -39,6 +40,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.fa-times-circle {
+  color: red;
 }
 </style>
 

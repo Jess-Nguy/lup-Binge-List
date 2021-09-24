@@ -80,7 +80,7 @@
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 .form-outline,
 .form-label {
   color: black;
