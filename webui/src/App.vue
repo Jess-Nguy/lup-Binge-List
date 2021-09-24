@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- only show this nav header when user is logged in -->
     <nav-header></nav-header>
-    <!-- TO DO: show different nav header for a user not logged in -->
-    <img src="@/assets/LogoBL.png" alt="Banner" width="500" height="200" />
   </div>
 </template>
 

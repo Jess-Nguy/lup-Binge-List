@@ -3,7 +3,11 @@
     <h1>Favourite</h1>
     <account-nav />
     <favourite-filter />
-    <favourite-list />
+    <div class="card border border-dark shadow-0">
+      <div class="card-body">
+        <favourite-list />
+      </div>
+    </div>
   </div>
 </template>
 

@@ -7,7 +7,7 @@
           <router-link to="/account" class="nav-link">Overview</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/mylist" class="nav-link">My List</router-link>
+          <router-link to="/accountList" class="nav-link">My List</router-link>
         </li>
         <li class="nav-item">
           <router-link to="/favourite" class="nav-link">Favourite</router-link>

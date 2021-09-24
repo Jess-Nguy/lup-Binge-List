@@ -2,15 +2,29 @@
   <div class="social">
     <h1>Social</h1>
     <account-nav />
+    <label>Request</label>
+    <div class="card border border-dark shadow-0">
+      <div class="card-body">
+        <friend-request />
+      </div>
+    </div>
+    <label>Friends</label>
+    <div class="card border border-dark shadow-0">
+      <div class="card-body">
+        <friends-list />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import AccountNav from '../components/AccountNav.vue';
+import FriendRequest from '../components/FriendRequest.vue';
+import FriendsList from '../components/FriendsList.vue';
 
 export default {
-  components: { AccountNav },
+  components: { AccountNav, FriendRequest, FriendsList },
   data() {
     return {};
   },

@@ -3,7 +3,9 @@
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark primary-color">
       <!-- Navbar brand -->
-      <router-link to="/" class="navbar-brand">BingeList</router-link>
+      <router-link to="/" class="navbar-brand">
+        <img src="@/assets/img/LogoBL.png" alt="BingeList" width="100" height="40"
+      /></router-link>
       <!-- Collapse button -->
       <button
         class="navbar-toggler"
@@ -73,6 +75,7 @@
   float: none;
   display: block;
 }
+
 #profile-dropdown {
   float: none;
   display: block;

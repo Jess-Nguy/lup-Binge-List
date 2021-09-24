@@ -6,6 +6,13 @@
     </a>
   </div>
   <div class="card-body">
-    <h5 class="card-title"><a>Tv show name</a></h5>
+    <h5 class="card-title">
+      <a>Friend request name <i class="fas fa-plus-square"></i></a>
+    </h5>
   </div>
 </template>
+<style scoped>
+.fa-plus-square {
+  color: #8fd14f;
+}
+</style>

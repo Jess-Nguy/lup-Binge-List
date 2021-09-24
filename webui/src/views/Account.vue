@@ -51,10 +51,10 @@ export default {
     } else {
       if (!this.getUser) {
         this.login(localToken);
-        this.username = this.getUser.username;
-        this.profileUrl = this.getUser.profile_image;
       }
       console.log('My Account mount');
+      this.username = this.getUser.username;
+      this.profileUrl = this.getUser.profile_image;
     }
   },
   methods: {

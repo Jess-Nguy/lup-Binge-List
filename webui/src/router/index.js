@@ -58,9 +58,9 @@ const routes = [
     component: () => import('../views/Settings.vue'),
   },
   {
-    path: '/mylist',
-    name: 'My List',
-    component: () => import('../views/MyList.vue'),
+    path: '/accountList',
+    name: 'Account List',
+    component: () => import('../views/AccountList.vue'),
   },
   {
     path: '/favourite',

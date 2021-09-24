@@ -77,10 +77,10 @@ export default {
     } else {
       if (!this.getUser) {
         this.login(localToken);
-        this.welcomeMessage = 'Welcome ' + this.getUser.username;
-        this.profileUrl = this.getUser.profile_image;
       }
-      console.log('Dashboard mount');
+      this.welcomeMessage = 'Welcome ' + this.getUser.username;
+      this.profileUrl = this.getUser.profile_image;
+      console.log('Bargraph mount');
     }
     new mdb.Chart(document.getElementById('chart-mixed-example'), this.dataMixedChartExample);
   },
