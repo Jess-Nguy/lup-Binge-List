@@ -46,6 +46,12 @@ https://console.cloud.google.com/home/dashboard?project=bingelist
 
 https://www.passportjs.org/docs/oauth2-api/
 
+## Joi Validation
+
+Express Validation
+https://softchris.github.io/pages/joi.html
+https://www.npmjs.com/package/joi/v/14.0.4
+
 ## Moment.js
 
 To parse and display dates in any timezone.

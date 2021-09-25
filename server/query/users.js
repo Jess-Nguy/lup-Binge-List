@@ -15,12 +15,17 @@ const schema = Joi.object().keys({
 });
 
 module.exports = {
+  fetchById(id) {
+    const userResponse = db.query(`SELECT * FROM users WHERE id_user = '${id}'`);
+    return userResponse;
+  },
   findByEmail(email) {
     const userResponse = db.query(`SELECT * FROM users WHERE email = '${email}'`);
     return userResponse;
   },
   update(id, user) {
     const result = schema.validate(user);
+
     if (result !== null) {
       return db.query(
         `UPDATE users SET username='${user.username}', email='${user.email}', profile_image='${user.profile_image}' WHERE google_id = '${user.google_id}' RETURNING *`
