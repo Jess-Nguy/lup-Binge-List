@@ -20,6 +20,7 @@ This installs both MBD and Font awesome -
 https://mdbootstrap.com/docs/vue/getting-started/installation/
 
 Setup:
+
 - **Please choose type of installation:** Existing app
 - **Free or Pro version?** Free
 - **Select the styling option:** Compiled in the mdbvue package (CSS)
@@ -38,6 +39,18 @@ List of icons:
 - https://fontawesome.com/icons?s=solid&m=free
 - https://fontawesome.com/icons?s=regular&m=free
 - https://fontawesome.com/icons?s=brands
+
+## Google Auth
+
+https://console.cloud.google.com/home/dashboard?project=bingelist
+
+https://www.passportjs.org/docs/oauth2-api/
+
+## Joi Validation
+
+Express Validation
+https://softchris.github.io/pages/joi.html
+https://www.npmjs.com/package/joi/v/14.0.4
 
 ## Moment.js
 
@@ -99,6 +112,49 @@ If you are using VS code you should:
   - Check your prettier settings and make sure your Prettier Ignore Path is set to ./webui/.prettierignore
 - You can now configure VSCode to lint/format on save (suggested) or manually run `npm run lint`.
 
+## Eslint Cypress
+
+https://openbase.com/js/eslint-plugin-cypress
+
+`npm install eslint-plugin-cypress --save-dev`
+
+Add an .eslintrc.json file to your cypress directory with the following:
+
+```
+{
+  "plugins": [
+    "cypress"
+  ],
+  "rules": {
+    "cypress/no-assigning-return-values": "error",
+    "cypress/no-unnecessary-waiting": "error",
+    "cypress/assertion-before-screenshot": "warn",
+    "cypress/no-force": "warn",
+    "cypress/no-async-tests": "error",
+    "cypress/no-pause": "error"
+  }
+}
+```
+
+## ESlint VScode
+
+https://www.digitalocean.com/community/tutorials/workflow-auto-eslinting
+Adding Code Actions on Save
+`.vscode/settings.json`
+
+```
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript"]
+}
+```
+
+## Cypress E2E
+
+https://docs.cypress.io/guides/getting-started/testing-your-app#Step-1-Start-your-server
+
 ## FAQ
 
 - Build fails
@@ -110,5 +166,9 @@ If you are using VS code you should:
   - Review the results of the build
 
 - `server` crashes after saving/restarting due to changes...
+
   - make sure package.json is `"nodemon":"2.0.7"` If it any newer version and have ^ it will have trouble restarting.
   - Shutdown the server and webui and run `npm run dev` and `npm run serve` to allow nodemon to get the changes if it wasn't the proper version.
+
+- Bootstrap/MDB doesn't work
+  - If it uses `data` like `data-toggle` you'll need to add `bs` to it. Like this: `data-bs-toggle` or `data-bs-dismiss="modal"` or ` data-bs-success`

@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- only show this nav header when user is logged in -->
-    <nav-header-logged-in></nav-header-logged-in>
-    <!-- TO DO: show different nav header for a user not logged in -->
-    <img src="@/assets/LogoBL.png" alt="Banner" width="500" height="200" />
+    <nav-header></nav-header>
   </div>
 </template>
 
@@ -15,8 +12,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  background: #00ffff;
+  color: #000000;
+  background: #e6e6e6;
 }
 
 #nav {
@@ -34,19 +31,17 @@
 </style>
 
 <script>
-// @ is an alias to /src
-// import Login from "@/components/Login.vue";
-// v-if="(this.$route.path).slice()"
-import NavHeaderLoggedIn from '@/components/NavHeaderLoggedIn.vue';
+import NavHeader from '@/components/NavHeader.vue';
 export default {
   data() {
-    return {
-      showLoginModal: false, // don't need anymore
-    };
+    return {};
   },
   name: 'Home',
   components: {
-    NavHeaderLoggedIn,
+    NavHeader,
   },
+  computed: {},
+  mounted() {},
+  methods: {},
 };
 </script>

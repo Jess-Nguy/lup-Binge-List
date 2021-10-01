@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-
+import LoginToken from '../views/LoginToken.vue';
+import Admin from '../views/Admin.vue';
 const routes = [
   {
     path: '/',
@@ -35,6 +36,41 @@ const routes = [
     // this generates a separate chunk (browse.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "browse" */ '../views/Forum.vue'),
+  },
+  {
+    path: '/login/token/:token',
+    name: 'login-token',
+    component: LoginToken,
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Admin,
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: () => import('../views/Account.vue'),
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../views/Settings.vue'),
+  },
+  {
+    path: '/accountList',
+    name: 'Account List',
+    component: () => import('../views/AccountList.vue'),
+  },
+  {
+    path: '/favourite',
+    name: 'Favourite',
+    component: () => import('../views/Favourite.vue'),
+  },
+  {
+    path: '/social',
+    name: 'Social',
+    component: () => import('../views/Social.vue'),
   },
 ];
 
