@@ -118,12 +118,6 @@ export default {
   name: 'Nav Header',
   computed: {
     getLoginURL() {
-      // if (window.location.hostname === 'localhost') {
-      //   return 'https://localhost:8000/auth/google';
-      // } else {
-      //   // Need to change this to call the api port version.
-      //   return 'https://bingelist.herokuapp.com/auth/google';
-      // }
       if (process.env.NODE_ENV === 'production') {
         return 'https://bingelist.herokuapp.com/auth/google';
       } else {

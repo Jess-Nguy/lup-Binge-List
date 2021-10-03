@@ -26,9 +26,9 @@ router.get(
 
 router.get("/google/callback", (req, res, next) => {
   passport.authenticate("google", async (err, user) => {
-    if (err) {
-      return next(err);
-    }
+    // if (err) {
+    //   return next(err);
+    // }
     try {
       const token = await create(user);
       res.redirect(`${process.env.CLIENT_REDIRECT}${token}`);
