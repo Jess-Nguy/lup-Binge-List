@@ -118,7 +118,11 @@ export default {
   name: 'Nav Header',
   computed: {
     getLoginURL() {
-      return 'https://bingelist.herokuapp.com/auth/google';
+      if (process.env.NODE_ENV === 'production') {
+        return 'https://bingelist.herokuapp.com/auth/google';
+      } else {
+        return 'http://localhost:8000/auth/google';
+      }
     },
     getUser() {
       return this.$store.getters.getUser;
