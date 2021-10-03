@@ -9,6 +9,7 @@
             <div class="form-outline">
               <label class="form-label" for="requestShowName">Name of show *</label>
               <input type="text" id="requestShowName" v-model="enteredShowName" class="form-control" />
+              <div>{{ v$ }}</div>
             </div>
           </div>
           <div class="col">
@@ -71,21 +72,30 @@
 </style>
 <script>
 import { mapActions } from 'vuex';
+import { required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
 export default {
   data() {
     return {
+      v$: useVuelidate(),
       enteredShowName: '',
-      enteredCountry: {},
-      countryOption: {},
-      countryOptions: [
-        { value: 1, text: 'Canada' },
-        { value: 2, text: 'USA' },
-      ],
+      enteredCountry: '',
       enteredDateAired: '',
       enteredGenre: '',
       enteredNumSeasons: 0,
       enteredNumEpisodes: 0,
       enteredNote: '',
+    };
+  },
+  validations() {
+    return {
+      enteredShowName: { required },
+      enteredCountry: { required },
+      enteredDateAired: { required },
+      enteredGenre: { required },
+      enteredNumSeasons: { required },
+      enteredNumEpisodes: { required },
+      enteredNote: { required },
     };
   },
   name: 'Forum',
@@ -104,6 +114,7 @@ export default {
   methods: {
     ...mapActions(['login']),
     submitRequestShow() {
+      this.v$.$validate();
       console.log('enteredShowName: ', this.enteredShowName);
       console.log('enteredCountry: ', this.enteredCountry);
       console.log('enteredDateAired: ', this.enteredDateAired);
