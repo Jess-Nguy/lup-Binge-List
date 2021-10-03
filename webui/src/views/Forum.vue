@@ -2,76 +2,59 @@
   <div class="forum">
     <h1>Request show</h1>
     <div class="card">
-      <form>
+      <form @submit.prevent="submitRequestShow">
         <!-- 2 column grid layout with text inputs for the first and last names -->
         <div class="row mb-4">
           <div class="col">
             <div class="form-outline">
-              <label class="form-label" for="form6Example1">Name of show *</label>
-              <input type="text" id="form6Example1" class="form-control" />
+              <label class="form-label" for="requestShowName">Name of show *</label>
+              <input type="text" id="requestShowName" v-model="enteredShowName" class="form-control" />
             </div>
           </div>
           <div class="col">
             <!-- Country -->
-            <label class="form-label" for="form6Example2">Country of origin *</label>
-            <div class="form-outline btn-group">
-              <button
-                id="form6Example2"
-                type="button"
-                class="btn btn-light dropdown-toggle"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Country
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-              </ul>
-            </div>
+            <label class="form-label" for="requestShowCountry">Country of origin *</label>
+            <select
+              v-model="enteredCountry"
+              id="requestShowCountry"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <option>Canada</option>
+            </select>
           </div>
         </div>
 
         <!-- Date aired input -->
         <div class="form-outline mb-4">
-          <input type="date" id="form6Example3" class="form-control" />
-          <label class="form-label" for="form6Example3">Date aired *</label>
+          <label class="form-label" for="requestShowDateAired">Date aired *</label>
+          <input type="date" v-model="enteredDateAired" id="requestShowDateAired" class="form-control" />
         </div>
 
         <!-- Genre input -->
         <div class="form-outline mb-4">
-          <label class="form-label" for="form6Example4">Genre *</label>
-          <div class="form-outline btn-group">
-            <button
-              id="form6Example2"
-              type="button"
-              class="btn btn-light dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Genre
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-            </ul>
-          </div>
+          <label class="form-label" for="requestShowGenre">Genre *</label>
+          <select v-model="enteredGenre" id="requestShowGenre" class="form-select" aria-label="Default select example">
+            <option value="1">Comedy</option>
+          </select>
         </div>
 
         <!-- Number of seasons input -->
         <div class="form-outline mb-4">
-          <input type="number" id="form6Example5" class="form-control" />
-          <label class="form-label" for="form6Example5"># of seasons (Optional)</label>
+          <label class="form-label" for="requestShowNumSeasons"># of seasons (Optional)</label>
+          <input type="number" v-model="enteredNumSeasons" id="requestShowNumSeasons" class="form-control" />
         </div>
 
-        <!-- Number input -->
+        <!-- Number of episodes input -->
         <div class="form-outline mb-4">
-          <input type="number" id="form6Example6" class="form-control" />
-          <label class="form-label" for="form6Example6">Total # of episodes (Optional) </label>
+          <label class="form-label" for="requestShowNumEpisodes">Total # of episodes (Optional) </label>
+          <input type="number" v-model="enteredNumEpisodes" id="requestShowNumEpisodes" class="form-control" />
         </div>
 
         <!-- Addition Link input (Note) -->
         <div class="form-outline mb-4">
-          <textarea class="form-control" id="form6Example7" rows="4"></textarea>
-          <label class="form-label" for="form6Example7">Any link to show info/Notes (Optional)</label>
+          <label class="form-label" for="requestShowNotes">Any link to show info/Notes (Optional)</label>
+          <textarea class="form-control" v-model="enteredNote" id="requestShowNotes" rows="4"></textarea>
         </div>
 
         <!-- Submit button -->
@@ -90,7 +73,20 @@
 import { mapActions } from 'vuex';
 export default {
   data() {
-    return {};
+    return {
+      enteredShowName: '',
+      enteredCountry: {},
+      countryOption: {},
+      countryOptions: [
+        { value: 1, text: 'Canada' },
+        { value: 2, text: 'USA' },
+      ],
+      enteredDateAired: '',
+      enteredGenre: '',
+      enteredNumSeasons: 0,
+      enteredNumEpisodes: 0,
+      enteredNote: '',
+    };
   },
   name: 'Forum',
   computed: {},
@@ -107,6 +103,15 @@ export default {
   },
   methods: {
     ...mapActions(['login']),
+    submitRequestShow() {
+      console.log('enteredShowName: ', this.enteredShowName);
+      console.log('enteredCountry: ', this.enteredCountry);
+      console.log('enteredDateAired: ', this.enteredDateAired);
+      console.log('enteredGenre: ', this.enteredGenre);
+      console.log('enteredNumSeasons: ', this.enteredNumSeasons);
+      console.log('enteredNumEpisodes: ', this.enteredNumEpisodes);
+      console.log('enteredNote: ', this.enteredNote);
+    },
   },
 };
 </script>
