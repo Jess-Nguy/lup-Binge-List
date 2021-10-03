@@ -125,7 +125,7 @@ export default {
       //   return 'https://bingelist.herokuapp.com/auth/google';
       // }
       if (process.env.NODE_ENV === 'production') {
-        return 'http://bingelist.herokuapp.com/auth/google';
+        return 'https://bingelist.herokuapp.com/auth/google';
       } else {
         return 'http://localhost:8000/auth/google';
       }
