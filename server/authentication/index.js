@@ -27,7 +27,8 @@ router.get(
 router.get("/google/callback", (req, res, next) => {
   passport.authenticate("google", async (err, user) => {
     if (err) {
-      return next("AUTH CALLBACK - ", err);
+      console.log("AUTH CALLBACK - ", err);
+      return next(err);
     }
     try {
       const token = await create(user);
