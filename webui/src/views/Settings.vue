@@ -59,7 +59,7 @@ export default {
       this.user = user;
     });
 
-    const localToken = localStorage.getItem('user-token');
+    const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
     } else {

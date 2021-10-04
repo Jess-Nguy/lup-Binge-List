@@ -21,6 +21,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.0-1",
     "@popperjs/core": "^2.9.3",
     "@vue/cli-plugin-e2e-cypress": "^4.5.13",
+    "@vuelidate/core": "^2.0.0-alpha.26",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "chromedriver": "^93.0.1",

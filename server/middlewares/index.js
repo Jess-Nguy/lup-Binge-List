@@ -7,9 +7,8 @@ async function checkAuthHeaderSetUser(req, res, next) {
     try {
       const user = await verify(token);
       req.user = user;
-      console.log(user);
     } catch (error) {
-      console.error(error);
+      console.error("index.js Middleware: checkAuthHeaderSetUser - ", error);
     }
   }
   next();
@@ -40,7 +39,7 @@ async function checkAuthHeaderSetUser(req, res, next) {
 // }
 
 function notFound(req, res, next) {
-  const error = new Error("Not Found - " + req.originalUrl);
+  const error = new Error("(index.js Middleware) Not Found - " + req.originalUrl);
   res.status(404);
   next(error);
 }

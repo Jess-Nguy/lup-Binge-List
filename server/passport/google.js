@@ -10,7 +10,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
     },
-    async (accessToken, refreshToke, profile, cb) => {
+    async (accessToken, refreshToken, profile, cb) => {
       const registerRole = "User";
       const email = profile.emails[0].value;
       let user = await users.findByEmail(email);

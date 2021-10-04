@@ -9,7 +9,7 @@
             <div class="form-outline">
               <label class="form-label" for="requestShowName">Name of show *</label>
               <input type="text" id="requestShowName" v-model="enteredShowName" class="form-control" />
-              <div>{{ v$ }}</div>
+              <div v-if="v$.enteredShowName.$error">Show field is required</div>
             </div>
           </div>
           <div class="col">
@@ -36,7 +36,7 @@
         <div class="form-outline mb-4">
           <label class="form-label" for="requestShowGenre">Genre *</label>
           <select v-model="enteredGenre" id="requestShowGenre" class="form-select" aria-label="Default select example">
-            <option value="1">Comedy</option>
+            <option value="Comedy">Comedy</option>
           </select>
         </div>
 
@@ -74,6 +74,7 @@
 import { mapActions } from 'vuex';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
+import DataService from '../../service/dataService';
 export default {
   data() {
     return {
@@ -93,15 +94,16 @@ export default {
       enteredCountry: { required },
       enteredDateAired: { required },
       enteredGenre: { required },
-      enteredNumSeasons: { required },
-      enteredNumEpisodes: { required },
-      enteredNote: { required },
     };
   },
   name: 'Forum',
-  computed: {},
+  computed: {
+    getUser() {
+      return this.$store.getters.getUser;
+    },
+  },
   mounted() {
-    const localToken = localStorage.getItem('user-token');
+    const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
     } else {
@@ -113,8 +115,25 @@ export default {
   },
   methods: {
     ...mapActions(['login']),
-    submitRequestShow() {
+    async submitRequestShow() {
       this.v$.$validate();
+      if (!this.v$.$error) {
+        alert('Form successfully submitted');
+        const data = {
+          requested_by: this.getUser.id_user,
+          show_title: this.enteredShowName,
+          country: this.enteredCountry,
+          release_date: this.enteredDateAired,
+          genre: this.enteredGenre,
+          seasons: this.enteredNumSeasons,
+          number_episodes: this.enteredNumEpisodes,
+          note: this.enteredNote,
+        };
+        const result = await DataService.postRequestShow(data);
+        console.log('RESULT: ', result);
+      } else {
+        alert('Form failed validation');
+      }
       console.log('enteredShowName: ', this.enteredShowName);
       console.log('enteredCountry: ', this.enteredCountry);
       console.log('enteredDateAired: ', this.enteredDateAired);

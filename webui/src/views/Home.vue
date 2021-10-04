@@ -38,7 +38,7 @@ export default {
       console.log('USER: ', user);
       this.user = user;
     });
-    localStorage.getItem('user-token');
+    localStorage.getItem('userToken');
   },
   methods: {
     ...mapActions(['login']),
