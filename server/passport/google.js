@@ -11,7 +11,6 @@ passport.use(
       callbackURL: "/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, cb) => {
-      const registerRole = "User";
       const email = profile.emails[0].value;
       let user = await users.findByEmail(email);
       const googleUser = {
@@ -20,7 +19,6 @@ passport.use(
         google_id: profile.id,
         time_zone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         profile_image: profile.photos[0].value,
-        role: registerRole,
       };
 
       if (user.rowCount > 0) {

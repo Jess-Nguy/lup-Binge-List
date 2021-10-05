@@ -17,10 +17,10 @@ app.use(checkAuthHeaderSetUser);
 app.use("/auth", auth);
 
 // app.use(checkAuthHeaderSetUserUnAuthorized);
-app.use("/requestShow", require("./routes/showRequest/postShowRequest"));
-app.use("/requestShow", require("./routes/showRequest/getShowRequest"));
 
-// app.use("/register", require("./routes/users/postUser"));
+app.use("/requestShow", require("./routes/showRequest/deleteShowRequest"));
+app.use("/requestShow", require("./routes/showRequest/getShowRequest"));
+app.use("/requestShow", require("./routes/showRequest/postShowRequest"));
 
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 
@@ -29,8 +29,8 @@ app.get(/.*/, function (req, res) {
   res.sendFile(path.join(__dirname, "../webui/dist/index.html"));
 });
 
-// app.use(notFound);
-// app.use(errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 module.exports = app;

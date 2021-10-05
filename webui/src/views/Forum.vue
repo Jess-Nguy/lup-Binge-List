@@ -9,7 +9,7 @@
             <div class="form-outline">
               <label class="form-label" for="requestShowName">Name of show *</label>
               <input type="text" id="requestShowName" v-model="enteredShowName" class="form-control" />
-              <div v-if="v$.enteredShowName.$error">Show field is required</div>
+              <div class="requiredFields" v-if="v$.enteredShowName.$error">Show field is required</div>
             </div>
           </div>
           <div class="col">
@@ -23,6 +23,7 @@
             >
               <option>Canada</option>
             </select>
+            <div class="requiredFields" v-if="v$.enteredCountry.$error">Country field is required</div>
           </div>
         </div>
 
@@ -30,6 +31,7 @@
         <div class="form-outline mb-4">
           <label class="form-label" for="requestShowDateAired">Date aired *</label>
           <input type="date" v-model="enteredDateAired" id="requestShowDateAired" class="form-control" />
+          <div class="requiredFields" v-if="v$.enteredDateAired.$error">Date aired field is required</div>
         </div>
 
         <!-- Genre input -->
@@ -38,6 +40,7 @@
           <select v-model="enteredGenre" id="requestShowGenre" class="form-select" aria-label="Default select example">
             <option value="Comedy">Comedy</option>
           </select>
+          <div class="requiredFields" v-if="v$.enteredGenre.$error">Genre field is required</div>
         </div>
 
         <!-- Number of seasons input -->
@@ -68,6 +71,10 @@
 .form-outline,
 .form-label {
   color: black;
+}
+
+.requiredFields {
+  color: red;
 }
 </style>
 <script>

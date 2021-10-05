@@ -30,13 +30,13 @@ async function checkAuthHeaderSetUser(req, res, next) {
 //   next(new Error("Un-Authorized"));
 // }
 
-// function isAdmin(req, res, next) {
-//   if (req.user && req.user.role_id === 3) {
-//     return next();
-//   }
-//   res.status(401);
-//   next(new Error("Un-Authorized"));
-// }
+function isAdmin(req, res, next) {
+  if (req.user && req.user.role_id === 1) {
+    return next();
+  }
+  res.status(401);
+  next(new Error("Un-Authorized"));
+}
 
 function notFound(req, res, next) {
   const error = new Error("(index.js Middleware) Not Found - " + req.originalUrl);

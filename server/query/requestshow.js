@@ -19,29 +19,26 @@ const requestId = Joi.object().keys({
 });
 
 module.exports = {
-  fetchall() {
-    const results = db.query(`SELECT * FROM show_request`);
-    console.log("is it empty? ", results);
-    return results;
+  async fetchall() {
+    const results = await db.query(`SELECT * FROM show_request`);
+    return results.rows;
   },
-  fetchUnprocessed() {
-    const results = db.query(`SELECT * FROM show_request WHERE processed_by IS NULL`);
-    console.log("is it empty? ", results.rows);
-    console.log("RESULTS? ", results);
-    return results;
+  async fetchUnprocessed() {
+    const results = await db.query(`SELECT * FROM show_request WHERE processed_by IS NULL`);
+    return results.rows;
   },
-  delete(id) {
+  async delete(id) {
     const result = requestId.validate(id);
     if (result !== null) {
-      return db.query(`DELETE from show_request where request_id = '${id.request_id}' RETURNING *`);
+      return await db.query(`DELETE from show_request where request_id = '${id.request_id}' RETURNING *`);
     } else {
       return Promise.reject(result.error);
     }
   },
-  insert(showRequest) {
+  async insert(showRequest) {
     const result = schema.validate(showRequest);
     if (result !== null) {
-      return db.query(
+      return await db.query(
         `INSERT INTO show_request (
             requested_by, 
             show_title, 
