@@ -116,7 +116,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/kBanner.6c4eb444.png"
   },
   {
-    "revision": "3403d07599c749d877f5a4bee98503d8",
+    "revision": "bb274714e6ef18f82b9a5de35081eef3",
     "url": "/index.html"
   },
   {
@@ -154,5 +154,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "752e21959ff1c806b6daf2a641912135",
     "url": "/manifest.json"
+  },
+  {
+    "revision": "dc7693214a23ff94c6fd03d924da6792",
+    "url": "/play.png"
   }
 ]);
