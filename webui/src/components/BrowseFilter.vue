@@ -19,79 +19,51 @@
   </div>
   <!-- Country -->
   <div class="btn-group">
-    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Country
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
+    <label class="form-label" for="browseFilterCountry">Country</label>
+    <select v-model="enteredCountry" id="browseFilterCountry" class="form-select" aria-label="Default select example">
+      <option value="">-</option>
+      <option value="Canada">Canada</option>
+    </select>
   </div>
   <!-- Genres -->
   <div class="btn-group">
-    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Genres
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
+    <label class="form-label" for="browseFilterGenre">Genre</label>
+    <select v-model="enteredGenre" id="browseFilterGenre" class="form-select" aria-label="Default select example">
+      <option value="">-</option>
+      <option value="Comedy">Comedy</option>
+    </select>
   </div>
   <!-- Airing status -->
   <div class="btn-group">
-    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Airing Status
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
+    <label class="form-label" for="browseFilterAirStatus">Airing Status</label>
+    <select
+      v-model="enteredAirStatus"
+      id="browseFilterAirStatus"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="">-</option>
+      <option>On going</option>
+    </select>
   </div>
   <!-- Year start range -->
   <div class="btn-group">
-    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      Start
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
+    <label class="form-label" for="browseFilterYearRange">Year</label>
+    <select
+      v-model="enteredYearStart"
+      id="browseFilterYearRange"
+      class="form-select"
+      aria-label="Default select example"
+    >
+      <option value="">-</option>
+      <option>2000</option>
+    </select>
     <p>to</p>
-  </div>
-  <!-- Year end range -->
-  <div class="btn-group">
-    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-      End
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
+    <!-- Year end range -->
+    <select v-model="enteredYearEnd" id="browseFilterYearRange" class="form-select" aria-label="Default select example">
+      <option value="">-</option>
+      <option>2020</option>
+    </select>
   </div>
   <!-- show filter picks -->
   <div class="card">
@@ -105,3 +77,35 @@
     <a><i class="fas fa-sort-alpha-down"></i></a>
   </div>
 </template>
+<script>
+import { mapActions } from 'vuex';
+export default {
+  data() {
+    return {
+      enteredCountry: '',
+      enteredGenre: '',
+      enteredAirStatus: '',
+      enteredYearStart: '',
+      enteredYearEnd: '',
+    };
+  },
+  name: 'BrowserFilter',
+  computed: {},
+  mounted() {
+    const localToken = localStorage.getItem('userToken');
+    if (!localToken) {
+      this.$router.push('/');
+    } else {
+      if (!this.getUser) {
+        this.login(localToken);
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['login']),
+    submitRequestShow() {
+      console.log('enteredCountry: ', this.enteredCountry);
+    },
+  },
+};
+</script>

@@ -11,34 +11,33 @@ const schema = Joi.object().keys({
   profile_image: Joi.string().uri({
     scheme: [/https/],
   }),
-  role: Joi.string(),
 });
 
 module.exports = {
-  fetchById(id) {
-    const userResponse = db.query(`SELECT * FROM users WHERE id_user = '${id}'`);
-    return userResponse;
+  async fetchById(id) {
+    const userResponse = await db.query(`SELECT * FROM users WHERE id_user = '${id}'`);
+    return userResponse.rows;
   },
-  findByEmail(email) {
-    const userResponse = db.query(`SELECT * FROM users WHERE email = '${email}'`);
-    return userResponse;
+  async findByEmail(email) {
+    const userResponse = await db.query(`SELECT * FROM users WHERE email = '${email}'`);
+    return userResponse.rows;
   },
-  update(id, user) {
+  async update(id, user) {
     const result = schema.validate(user);
 
     if (result !== null) {
-      return db.query(
+      return await db.query(
         `UPDATE users SET username='${user.username}', email='${user.email}', profile_image='${user.profile_image}' WHERE google_id = '${user.google_id}' RETURNING *`
       );
     } else {
       return Promise.reject(result.error);
     }
   },
-  insert(user) {
+  async insert(user) {
     const result = schema.validate(user);
     if (result !== null) {
-      return db.query(
-        `INSERT INTO users (username, email, google_id, time_zone, profile_image, role) VALUES ('${user.username}','${user.email}','${user.google_id}','${user.time_zone}','${user.profile_image}','${user.role}') RETURNING *`
+      return await db.query(
+        `INSERT INTO users (username, email, google_id, time_zone, profile_image) VALUES ('${user.username}','${user.email}','${user.google_id}','${user.time_zone}','${user.profile_image}') RETURNING *`
       );
     } else {
       return Promise.reject(result.error);

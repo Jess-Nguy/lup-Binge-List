@@ -7,9 +7,8 @@ async function checkAuthHeaderSetUser(req, res, next) {
     try {
       const user = await verify(token);
       req.user = user;
-      console.log(user);
     } catch (error) {
-      console.error(error);
+      console.error("index.js Middleware: checkAuthHeaderSetUser - ", error);
     }
   }
   next();
@@ -31,16 +30,16 @@ async function checkAuthHeaderSetUser(req, res, next) {
 //   next(new Error("Un-Authorized"));
 // }
 
-// function isAdmin(req, res, next) {
-//   if (req.user && req.user.role_id === 3) {
-//     return next();
-//   }
-//   res.status(401);
-//   next(new Error("Un-Authorized"));
-// }
+function isAdmin(req, res, next) {
+  if (req.user && req.user.role_id === 1) {
+    return next();
+  }
+  res.status(401);
+  next(new Error("Un-Authorized"));
+}
 
 function notFound(req, res, next) {
-  const error = new Error("Not Found - " + req.originalUrl);
+  const error = new Error("(index.js Middleware) Not Found - " + req.originalUrl);
   res.status(404);
   next(error);
 }

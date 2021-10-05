@@ -14,7 +14,7 @@ export default {
     console.log('REACHED!');
     const { token } = this.$route.params;
     if (token) {
-      localStorage.setItem('user-token', token);
+      localStorage.setItem('userToken', token);
       this.login(token);
       this.$router.push('/home');
     } else {

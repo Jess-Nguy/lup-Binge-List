@@ -9,9 +9,12 @@ create table if not exists users (
 	google_id text not null,
 	time_zone text not null,
 	profile_image text,
-	role text not null,
+	role_id integer DEFAULT 2 not null,
 	created_at timestamp(6) with time zone DEFAULT Now(),
-	updated_at timestamp(6) with time zone null
+	updated_at timestamp(6) with time zone null,
+    CONSTRAINT fk_role_id
+        FOREIGN KEY(role_id)
+        REFERENCES roles(role_id);
 );
 
 INSERT INTO users (
