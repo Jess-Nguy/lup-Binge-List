@@ -1,6 +1,13 @@
 <template>
   <div class="browse">
     <h1>This is a browse page</h1>
+    <div v-if="role === 'Admin'">
+      <button type="button" class="btn btn-success">Add +</button>
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Launch demo modal
+      </button>
+    </div>
     <browse-filter />
     <browse-show />
     <!-- Show cards -->
@@ -34,12 +41,17 @@ import BrowseShow from '../components/BrowseShow.vue';
 export default {
   components: { BrowseFilter, BrowseShow },
   data() {
-    return {};
+    return {
+      role: 'User',
+    };
   },
   name: 'Browse',
   computed: {
     getUser() {
       return this.$store.getters.getUser;
+    },
+    getRole() {
+      return this.$store.getters.getRole;
     },
   },
   mounted() {
@@ -52,6 +64,14 @@ export default {
       }
       console.log('Browse mount');
     }
+    // this.$store.subscribe((setRole, role) => {
+    //   console.log('TYPE: ', setRole.type);
+    //   console.log('PAYLOAD: ', setRole.payload);
+    //   console.log('ROLE Browser: ', role);
+    //   this.role = role.payload;
+    // });
+    console.log('BROWSE GET ROLE: ', this.getRole);
+    this.role = this.getRole;
   },
   methods: {
     ...mapActions(['login']),

@@ -41,15 +41,15 @@ class DataService {
       return false;
     }
   }
-  // async isAdmin() {
-  //   try {
-  //     const response = await http.dataApi.get('/auth/isAdmin');
-  //     return response.json();
-  //   } catch (e) {
-  //     console.error('Failed to get admin - ', e);
-  //     return false;
-  //   }
-  // }
+  async isAdmin(user) {
+    try {
+      const response = await http.dataApi.get('/auth/isAdmin', user);
+      return response.data.isAdmin;
+    } catch (e) {
+      console.error('Failed to get admin - ', e);
+      return false;
+    }
+  }
 }
 
 export default new DataService();

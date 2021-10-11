@@ -15,12 +15,12 @@ const schema = Joi.object().keys({
 
 module.exports = {
   async fetchById(id) {
-    const userResponse = await db.query(`SELECT * FROM users WHERE id_user = '${id}'`);
-    return userResponse.rows;
+    const userResponse = await db.query(`SELECT * FROM users WHERE google_id = '${id}'`);
+    return userResponse;
   },
   async findByEmail(email) {
     const userResponse = await db.query(`SELECT * FROM users WHERE email = '${email}'`);
-    return userResponse.rows;
+    return userResponse;
   },
   async update(id, user) {
     const result = schema.validate(user);

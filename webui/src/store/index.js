@@ -19,25 +19,30 @@ export default createStore({
     },
   },
   actions: {
-    login({ commit }, token) {
+    async login({ commit }, token) {
       commit('setToken', token);
       if (token !== '') {
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const user = JSON.parse(window.atob(base64));
+        const isAdmin = await DataService.isAdmin(user);
+        if (isAdmin) {
+          commit('setRole', 'Admin');
+        } else {
+          commit('setRole', 'User');
+        }
         commit('setUser', user);
       } else {
         commit('setUser', null);
       }
     },
-    isAdmin({ commit }) {
-      const role = DataService.isAdmin();
-      commit('setRole', role);
-    },
   },
   getters: {
     getUser(state) {
       return state.user;
+    },
+    getRole(state) {
+      return state.role;
     },
   },
   modules: {},

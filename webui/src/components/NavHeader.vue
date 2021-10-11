@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark primary-color">
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <!-- Navbar brand -->
       <router-link to="/" class="navbar-brand">
         <img src="@/assets/img/LogoBL.png" alt="BingeList" width="100" height="40"
@@ -100,8 +100,13 @@ nav li {
 nav li:hover,
 nav li.router-link-active,
 nav li.router-link-exact-active {
-  background-color: rgb(0, 94, 255);
+  background-color: rgb(58, 130, 255);
+
   cursor: pointer;
+}
+.navbar {
+  background-color: #0168b7;
+  // navbar-dark primary-color
 }
 </style>
 
@@ -112,7 +117,7 @@ export default {
   data() {
     return {
       user: {},
-      isUser: false,
+      role: 'User',
     };
   },
   name: 'Nav Header',
@@ -127,14 +132,27 @@ export default {
     getUser() {
       return this.$store.getters.getUser;
     },
+    getRole() {
+      return this.$store.getters.getRole;
+    },
   },
   mounted() {
     this.user = this.getUser;
+    this.role = this.getRole;
+
+    console.log('GET ROLE: ', this.getRole);
+    console.log('NAV mount - ROLE: ', this.role);
     this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
+      // console.log(setUser.type);
+      // console.log(setUser.payload);
       console.log('USER: ', user);
       this.user = user;
+    });
+    this.$store.subscribe((role) => {
+      // console.log('TYPE: ', setRole.type);
+      // console.log('PAYLOAD: ', setRole.payload);
+      console.log('NAV store - ROLE: ', role);
+      this.role = role;
     });
   },
   methods: {
