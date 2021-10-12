@@ -2,11 +2,7 @@
   <div class="browse">
     <h1>This is a browse page</h1>
     <div v-if="role === 'Admin'">
-      <button type="button" class="btn btn-success">Add +</button>
-      <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Launch demo modal
-      </button>
+      <add-show></add-show>
     </div>
     <browse-filter />
     <browse-show />
@@ -36,10 +32,11 @@
 </style>
 <script>
 import { mapActions } from 'vuex';
+import AddShow from '../components/AddShow.vue';
 import BrowseFilter from '../components/BrowseFilter.vue';
 import BrowseShow from '../components/BrowseShow.vue';
 export default {
-  components: { BrowseFilter, BrowseShow },
+  components: { BrowseFilter, BrowseShow, AddShow },
   data() {
     return {
       role: 'User',
