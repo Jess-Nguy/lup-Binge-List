@@ -4,7 +4,7 @@ const router = express.Router();
 const Joi = require("joi");
 
 const schema = Joi.object().keys({
-  title: Joi.string().required(),
+  title: Joi.array().items(Joi.string()).required(),
   native_title: Joi.string(),
   romanization: Joi.string(),
   release_date: Joi.date().raw(),
@@ -12,6 +12,9 @@ const schema = Joi.object().keys({
   country: Joi.string(),
   genre: Joi.string().required(),
   company: Joi.string(),
+  relations1: Joi.string().guid({ version: "uuidv4" }),
+  relations2: Joi.string().guid({ version: "uuidv4" }),
+  relations3: Joi.string().guid({ version: "uuidv4" }),
   main_character: Joi.string().guid({ version: "uuidv4" }),
   side_character1: Joi.string().guid({ version: "uuidv4" }),
   side_character2: Joi.string().guid({ version: "uuidv4" }),
@@ -19,9 +22,6 @@ const schema = Joi.object().keys({
   main_character_actor: Joi.string().guid({ version: "uuidv4" }),
   side_character_actor1: Joi.string().guid({ version: "uuidv4" }),
   side_character_actor2: Joi.string().guid({ version: "uuidv4" }),
-  main_character_image: Joi.string(),
-  side_character_image1: Joi.string(),
-  side_character_image2: Joi.string(),
   seasons: Joi.number(),
   episodes: Joi.number(),
   synopsis: Joi.string(),
@@ -71,6 +71,9 @@ module.exports = {
             side_character1,
             side_character2,
             show_image,
+            relations1,
+            relations2,
+            relations3,
             main_character_actor,
             side_character_actor1,
             side_character_actor2,
@@ -92,6 +95,9 @@ module.exports = {
             '${show.country}',
             '${show.genre}',
             '${show.company}',
+            '${show.relations1}',
+            '${show.relations2}',
+            '${show.relations3}',
             '${show.main_character}',
             '${show.side_character1}',
             '${show.side_character2}',
@@ -99,9 +105,6 @@ module.exports = {
             '${show.main_character_actor}',
             '${show.side_character_actor1}',
             '${show.side_character_actor2}',
-            '${show.main_character_image}',
-            '${show.side_character_image1}',
-            '${show.side_character_image2}',
             '${show.seasons}',
             '${show.episodes}',
             '${show.synopsis}',
@@ -112,7 +115,8 @@ module.exports = {
       return Promise.reject(result.error);
     }
   },
-  async update(id, show) {
+  async update(show) {
+    const id = show.id;
     const idResult = showId.validate(id);
     const result = schema.validate(show);
 
@@ -127,6 +131,9 @@ module.exports = {
         country='${show.country}',
         genre='${show.genre}',
         company='${show.company}',
+        relation1='${show.relations1}',
+        relation2='${show.relations2}',
+        relation3='${show.relations3}',
         main_character='${show.main_character}',
         side_character1='${show.side_character1}',
         side_character2='${show.side_character2}',
@@ -134,9 +141,6 @@ module.exports = {
         main_character_actor='${show.main_character_actor}',
         side_character_actor1='${show.side_character_actor1}',
         side_character_actor2='${show.side_character_actor2}',
-        main_character_image='${show.main_character_image}',
-        side_character_image1='${show.side_character_image1}',
-        side_character_image2='${show.side_character_image2}',
         seasons='${show.seasons}',
         episodes='${show.episodes}',
         synopsis='${show.synopsis}',

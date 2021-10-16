@@ -125,7 +125,7 @@ export default {
     async submitRequestShow() {
       this.v$.$validate();
       if (!this.v$.$error) {
-        alert('Form successfully submitted');
+        alert('SUCCESSFULLY SUBMITTED FORM!');
         const data = {
           requested_by: this.getUser.id_user,
           show_title: this.enteredShowName,

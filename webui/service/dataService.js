@@ -21,6 +21,16 @@ class DataService {
       return false;
     }
   }
+  async postShow(data) {
+    try {
+      console.log('DATA postShow dataApi: ', data);
+      const response = await http.dataApi.post('/show', data);
+      return response;
+    } catch (e) {
+      console.error('Failed to CREATE show - ', e);
+      return false;
+    }
+  }
   // Not in use yet.
   async getRequestShowByUnprocessed() {
     try {

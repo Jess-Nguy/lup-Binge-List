@@ -18,9 +18,14 @@ app.use("/auth", auth);
 
 // app.use(checkAuthHeaderSetUserUnAuthorized);
 
+//  REQUEST SHOWS
 app.use("/requestShow", require("./routes/showRequest/deleteShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/getShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/postShowRequest"));
+
+// SHOWS
+app.use("/show", require("./routes/show/postShow"));
+// app.use("/show", require("./routes/show/putShow"));
 
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 

@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addShowModal">Add +</button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addShowModal">
+      Add Show +
+    </button>
     <!-- Modal -->
     <div
       class="modal top fade"
@@ -23,7 +25,7 @@
             <div class="modal-body">
               <div class="card-body">
                 <label for="show-image-link">Show image:</label>
-                <input type="url" id="show-image-link" />
+                <input type="url" id="show-image-link" v-model="enteredShowImage" />
                 <img
                   src="https://cdn.onlinewebfonts.com/svg/img_98811.png"
                   alt="profile image"
@@ -209,57 +211,6 @@
                   />
                 </div>
               </div>
-              <!-- row 8 -->
-              <div class="row mb-3">
-                <!-- MC Actor/Actress image -->
-                <div class="col">
-                  <label class="form-label" for="addShowMCActorActress">MC Actor/Actress Image (Optional)</label>
-                  <input
-                    type="text"
-                    v-model="enteredMCActorActressImage"
-                    id="addShowMCActorActress"
-                    class="form-control"
-                  />
-                  <img
-                    src="https://cdn.onlinewebfonts.com/svg/img_98811.png"
-                    alt="profile image"
-                    width="100"
-                    height="100"
-                  />
-                </div>
-                <!-- SC Actor/Actress 1 image -->
-                <div class="col">
-                  <label class="form-label" for="addShowSCActorActress1">SC Actor/Actress 1 Image (Optional)</label>
-                  <input
-                    type="text"
-                    v-model="enteredSCActorActress1Image"
-                    id="addShowSCActorActress1"
-                    class="form-control"
-                  />
-                  <img
-                    src="https://cdn.onlinewebfonts.com/svg/img_98811.png"
-                    alt="profile image"
-                    width="100"
-                    height="100"
-                  />
-                </div>
-                <!-- SC Actor/Actress 2 image -->
-                <div class="col">
-                  <label class="form-label" for="addShowSCActorActress2">SC Actor/Actress 2 Image (Optional)</label>
-                  <input
-                    type="text"
-                    v-model="enteredSCActorActress2Image"
-                    id="addShowSCActorActress2"
-                    class="form-control"
-                  />
-                  <img
-                    src="https://cdn.onlinewebfonts.com/svg/img_98811.png"
-                    alt="profile image"
-                    width="100"
-                    height="100"
-                  />
-                </div>
-              </div>
               <!-- Synopsis -->
               <div class="form-outline mb-4">
                 <label class="form-label" for="addShowSynopsis">Synopsis *</label>
@@ -290,18 +241,16 @@ export default {
   data() {
     return {
       v$: useVuelidate(),
+      enteredShowImage: '',
       enteredShowName: '',
-      enteredCountry: '',
-      enteredDateAired: '',
-      enteredDateCompleted: '',
-      enteredGenre: '',
-      enteredNumSeasons: 0,
-      enteredNumEpisodes: 0,
-      enteredSynopsis: '',
-      enteredCompany: '',
+      enteredTitleSynonyms: '',
       enteredNativeTitle: '',
       enteredRomanization: '',
-      enteredTitleSynonyms: '',
+      enteredDateAired: '',
+      enteredDateCompleted: '',
+      enteredCountry: '',
+      enteredGenre: '',
+      enteredCompany: '',
       enteredRelation1: '',
       enteredRelation2: '',
       enteredRelation3: '',
@@ -311,9 +260,9 @@ export default {
       enteredMCActorActress: '',
       enteredSCActorActress1: '',
       enteredSCActorActress2: '',
-      enteredMCActorActressImage: '',
-      enteredSCActorActress1Image: '',
-      enteredSCActorActress2Image: '',
+      enteredNumSeasons: 0,
+      enteredNumEpisodes: 0,
+      enteredSynopsis: '',
     };
   },
   validations() {
@@ -329,6 +278,35 @@ export default {
   methods: {
     async submitAddShow() {
       this.v$.$validate();
+      if (!this.v$.$error) {
+        alert('SUCCESSFULLY CREATED SHOW!');
+        const titles = [this.enteredShowName, this.enteredTitleSynonyms];
+        const data = {
+          show_image: this.enteredShowImage,
+          title: titles,
+          native_title: this.enteredNativeTitle,
+          romanization: this.enteredRomanization,
+          release_date: this.enteredDateAired,
+          completed_date: this.enteredDateCompleted,
+          country: this.enteredCountry,
+          genre: this.enteredGenre,
+          company: this.enteredCompany,
+          main_character: this.enteredMainCharacter,
+          side_character1: this.enteredSideCharacter1,
+          side_character2: this.enteredSideCharacter2,
+          main_character_actor: this.enteredMCActorActress,
+          side_character_actor1: this.enteredSCActorActress1,
+          side_character_actor2: this.enteredSCActorActress2,
+          seasons: this.enteredNumSeasons,
+          episodes: this.enteredNumEpisodes,
+          synopsis: this.enteredSynopsis,
+        };
+        console.log('DATA: ', data);
+        // const result = await DataService.postShow(data);
+        // console.log(result);
+      } else {
+        alert('Show creation failed in validation');
+      }
     },
   },
 };
