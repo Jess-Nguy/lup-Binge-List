@@ -20,13 +20,11 @@ const schema = Joi.object().keys({
   side_character2: Joi.string().guid({ version: "uuidv4" }),
   show_image: Joi.string(),
   main_character_actor: Joi.string().guid({ version: "uuidv4" }),
-  side_character_actor1: Joi.string().guid({ version: "uuidv4" }),
-  side_character_actor2: Joi.string().guid({ version: "uuidv4" }),
+  side_character1_actor: Joi.string().guid({ version: "uuidv4" }),
+  side_character2_actor: Joi.string().guid({ version: "uuidv4" }),
   seasons: Joi.number(),
   episodes: Joi.number(),
   synopsis: Joi.string(),
-  added_at: Joi.date().raw(),
-  updated_at: Joi.date().raw(),
 });
 
 const showId = Joi.object().keys({
@@ -35,13 +33,24 @@ const showId = Joi.object().keys({
 
 module.exports = {
   async fetchall() {
+    // not in use.
     const results = await db.query(`SELECT * FROM shows`);
     return results.rows;
   },
-  //   async fetchById() {
-  //     const results = await db.query(`SELECT * FROM show_request WHERE processed_by IS NULL`);
-  //     return results.rows;
-  //   },
+  async fetchShowDropdown() {
+    const results = await db.query(`select id_show, title[1], title as title_synonyms from shows`);
+    return results.rows;
+  },
+  async fetchById(idArray) {
+    //  not in use.
+    let id = idArray.length === 0 ? "" : "'" + idArray.join("','") + "'";
+    const results = await db.query(`SELECT * FROM shows  WHERE id_show in (id)`);
+    return results;
+  },
+  async fetchDisplayShows() {
+    const results = await db.query(`SELECT * FROM display_shows`);
+    return results;
+  },
   //   async fetchFilterSearch() {
   //     const results = await db.query(`SELECT * FROM show_request WHERE processed_by IS NULL`);
   //     return results.rows;
@@ -57,8 +66,11 @@ module.exports = {
   async insert(show) {
     const result = schema.validate(show);
     if (result !== null) {
-      return await db.query(
-        `INSERT INTO shows (
+      console.log("DB QUERY POST");
+      let titles = show.title;
+      titles = titles.length === 0 ? "" : "'" + titles.join("','") + "'";
+
+      const insertQuery = `INSERT INTO shows (
             title,
             native_title,
             romanization,
@@ -71,23 +83,14 @@ module.exports = {
             side_character1,
             side_character2,
             show_image,
-            relations1,
-            relations2,
-            relations3,
             main_character_actor,
-            side_character_actor1,
-            side_character_actor2,
-            main_character_image,
-            side_character_image1,
-            side_character_image2,
+            side_character1_actor,
+            side_character2_actor,
             seasons,
             episodes,
-            synopsis,
-            comments,
-            added_at,
-            updated_at,
+            synopsis
             ) VALUES (
-            '${show.title}',
+            ARRAY [${titles}],
             '${show.native_title}',
             '${show.romanization}',
             '${show.release_date}',
@@ -95,22 +98,19 @@ module.exports = {
             '${show.country}',
             '${show.genre}',
             '${show.company}',
-            '${show.relations1}',
-            '${show.relations2}',
-            '${show.relations3}',
             '${show.main_character}',
             '${show.side_character1}',
             '${show.side_character2}',
             '${show.show_image}',
             '${show.main_character_actor}',
-            '${show.side_character_actor1}',
-            '${show.side_character_actor2}',
+            '${show.side_character1_actor}',
+            '${show.side_character2_actor}',
             '${show.seasons}',
             '${show.episodes}',
-            '${show.synopsis}',
-            '${show.added_at}',
-            '${show.updated_at}) RETURNING *`
-      );
+            '${show.synopsis}') RETURNING id_show`;
+      const id = await db.query(insertQuery);
+      console.log("id_show: ", id.rows);
+      return id.rows;
     } else {
       return Promise.reject(result.error);
     }
@@ -146,7 +146,7 @@ module.exports = {
         synopsis='${show.synopsis}',
         added_at='${show.added_at}',
         updated_at='${show.updated_at}',
-        WHERE id_show = '${id}' RETURNING *`
+        WHERE id_show = '${id}' RETURNING id_show`
       );
     } else {
       return Promise.reject(result.error);

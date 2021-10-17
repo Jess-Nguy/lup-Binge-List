@@ -31,6 +31,56 @@ class DataService {
       return false;
     }
   }
+  async postShowRelation(data) {
+    try {
+      console.log('DATA postShowRelation dataApi: ', data);
+      const response = await http.dataApi.post('/showRelation', data);
+      return response;
+    } catch (e) {
+      console.error('Failed to CREATE show relation - ', e);
+      return false;
+    }
+  }
+  async getCharactersDropdown() {
+    try {
+      const response = await http.dataApi.get('/character/dropdown');
+      console.log(response.data.rows);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET character - ', e);
+      return false;
+    }
+  }
+  async getActorDropdown() {
+    try {
+      const response = await http.dataApi.get('/actor/dropdown');
+      console.log(response.data.rows);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET actor - ', e);
+      return false;
+    }
+  }
+  async getShowDropdown() {
+    try {
+      console.log('DATA getShowDropdown dataApi: ');
+      const response = await http.dataApi.get('/show/dropdown');
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET show dropdown - ', e);
+      return false;
+    }
+  }
+  async getShowDisplay() {
+    try {
+      console.log('DATA getShowDisplay dataApi: ');
+      const response = await http.dataApi.get('/show/display');
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET show display- ', e);
+      return false;
+    }
+  }
   // Not in use yet.
   async getRequestShowByUnprocessed() {
     try {

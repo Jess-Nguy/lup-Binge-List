@@ -25,7 +25,18 @@ app.use("/requestShow", require("./routes/showRequest/postShowRequest"));
 
 // SHOWS
 app.use("/show", require("./routes/show/postShow"));
+app.use("/show/dropdown", require("./routes/show/fetchShowDropdown"));
+app.use("/show/display", require("./routes/show/fetchDisplayShows"));
 // app.use("/show", require("./routes/show/putShow"));
+
+// Show Relations
+app.use("/showRelation", require("./routes/showRelation/postShowRelation"));
+
+// Actor
+app.use("/actor/dropdown", require("./routes/actor/fetchActorsDropdown"));
+
+// Character
+app.use("/character/dropdown", require("./routes/character/fetchCharactersDropdown"));
 
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 

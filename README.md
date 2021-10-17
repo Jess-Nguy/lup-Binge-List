@@ -151,6 +151,10 @@ Adding Code Actions on Save
 }
 ```
 
+## Search Autocomplete
+
+https://www.digitalocean.com/community/tutorials/vuejs-vue-autocomplete-component
+
 ## Cypress E2E
 
 https://docs.cypress.io/guides/getting-started/testing-your-app#Step-1-Start-your-server

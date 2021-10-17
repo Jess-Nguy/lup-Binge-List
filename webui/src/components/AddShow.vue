@@ -131,38 +131,29 @@
                 <!-- Relations 1 -->
                 <div class="col">
                   <label class="form-label" for="addShowRelations1">Relations 1 (Optional)</label>
-                  <select
-                    v-model="enteredRelation1"
-                    id="addShowRelations1"
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option value="Friends">Friends</option>
-                  </select>
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="shows"
+                    :elementField="'Relation 1'"
+                  ></search-autocomplete>
                 </div>
                 <!-- Relations 2 -->
                 <div class="col">
                   <label class="form-label" for="addShowRelations2">Relations 2 (Optional)</label>
-                  <select
-                    v-model="enteredRelation2"
-                    id="addShowRelations2"
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option value="Brooklyn 99">Brooklyn 99</option>
-                  </select>
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="shows"
+                    :elementField="'Relation 2'"
+                  ></search-autocomplete>
                 </div>
                 <!-- Relations 3 -->
                 <div class="col">
                   <label class="form-label" for="addShowRelations3">Relations 3 (Optional)</label>
-                  <select
-                    v-model="enteredRelation3"
-                    id="addShowRelations3"
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option value="New Girl">New Girl</option>
-                  </select>
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="shows"
+                    :elementField="'Relation 3'"
+                  ></search-autocomplete>
                 </div>
               </div>
               <!-- row 6 -->
@@ -170,17 +161,29 @@
                 <!-- Main Character -->
                 <div class="col">
                   <label class="form-label" for="addShowMainCharacter">Main Character (Optional)</label>
-                  <input type="text" v-model="enteredMainCharacter" id="addShowMainCharacter" class="form-control" />
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="characters"
+                    :elementField="'Main character'"
+                  ></search-autocomplete>
                 </div>
                 <!-- Side Character 1 -->
                 <div class="col">
                   <label class="form-label" for="addShowSideCharacter1">Side Character 1 (Optional)</label>
-                  <input type="text" v-model="enteredSideCharacter1" id="addShowSideCharacter1" class="form-control" />
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="characters"
+                    :elementField="'Side character 1'"
+                  ></search-autocomplete>
                 </div>
                 <!-- Side Character 2 -->
                 <div class="col">
                   <label class="form-label" for="addShowSideCharacter2">Side Character 2 (Optional)</label>
-                  <input type="text" v-model="enteredSideCharacter2" id="addShowSideCharacter2" class="form-control" />
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="characters"
+                    :elementField="'Side character 2'"
+                  ></search-autocomplete>
                 </div>
               </div>
               <!-- row 7 -->
@@ -188,27 +191,29 @@
                 <!-- MC Actor/Actress -->
                 <div class="col">
                   <label class="form-label" for="addShowMCActorActress">MC Actor/Actress (Optional)</label>
-                  <input type="text" v-model="enteredMCActorActress" id="addShowMCActorActress" class="form-control" />
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="actors"
+                    :elementField="'Main Actor'"
+                  ></search-autocomplete>
                 </div>
                 <!-- SC Actor/Actress 1 -->
                 <div class="col">
                   <label class="form-label" for="addShowSCActorActress1">SC Actor/Actress 1 (Optional)</label>
-                  <input
-                    type="text"
-                    v-model="enteredSCActorActress1"
-                    id="addShowSCActorActress1"
-                    class="form-control"
-                  />
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="actors"
+                    :elementField="'Side actor 1'"
+                  ></search-autocomplete>
                 </div>
                 <!-- SC Actor/Actress 2 -->
                 <div class="col">
                   <label class="form-label" for="addShowSCActorActress2">SC Actor/Actress 2 (Optional)</label>
-                  <input
-                    type="text"
-                    v-model="enteredSCActorActress2"
-                    id="addShowSCActorActress2"
-                    class="form-control"
-                  />
+                  <search-autocomplete
+                    @input-autocomplete-set="getSelectedItem"
+                    :items="actors"
+                    :elementField="'Side actor 2'"
+                  ></search-autocomplete>
                 </div>
               </div>
               <!-- Synopsis -->
@@ -236,7 +241,8 @@
 <script>
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
-// import DataService from '../../service/dataService';
+import SearchAutocomplete from '@/components/SearchAutocomplete.vue';
+import DataService from '../../service/dataService';
 export default {
   data() {
     return {
@@ -254,15 +260,21 @@ export default {
       enteredRelation1: '',
       enteredRelation2: '',
       enteredRelation3: '',
-      enteredMainCharacter: '',
-      enteredSideCharacter1: '',
-      enteredSideCharacter2: '',
-      enteredMCActorActress: '',
-      enteredSCActorActress1: '',
-      enteredSCActorActress2: '',
+      enteredMainCharacter: '00000000-0000-0000-0000-000000000000',
+      enteredSideCharacter1: '00000000-0000-0000-0000-000000000000',
+      enteredSideCharacter2: '00000000-0000-0000-0000-000000000000',
+      enteredMCActorActress: '00000000-0000-0000-0000-000000000000',
+      enteredSCActorActress1: '00000000-0000-0000-0000-000000000000',
+      enteredSCActorActress2: '00000000-0000-0000-0000-000000000000',
       enteredNumSeasons: 0,
       enteredNumEpisodes: 0,
       enteredSynopsis: '',
+      actors: [],
+      characters: [
+        { id: 1, value: 'Jess Nguyen' },
+        { id: 2, value: 'Rosa Dias' },
+      ],
+      shows: [],
     };
   },
   validations() {
@@ -274,15 +286,20 @@ export default {
       enteredSynopsis: { required },
     };
   },
+  components: {
+    SearchAutocomplete,
+  },
   name: 'AddShowComponent',
+  async mounted() {
+    await this.loadModal();
+  },
   methods: {
     async submitAddShow() {
       this.v$.$validate();
       if (!this.v$.$error) {
         alert('SUCCESSFULLY CREATED SHOW!');
         const titles = [this.enteredShowName, this.enteredTitleSynonyms];
-        const data = {
-          show_image: this.enteredShowImage,
+        const showData = {
           title: titles,
           native_title: this.enteredNativeTitle,
           romanization: this.enteredRomanization,
@@ -294,19 +311,108 @@ export default {
           main_character: this.enteredMainCharacter,
           side_character1: this.enteredSideCharacter1,
           side_character2: this.enteredSideCharacter2,
+          show_image: this.enteredShowImage,
           main_character_actor: this.enteredMCActorActress,
-          side_character_actor1: this.enteredSCActorActress1,
-          side_character_actor2: this.enteredSCActorActress2,
+          side_character1_actor: this.enteredSCActorActress1,
+          side_character2_actor: this.enteredSCActorActress2,
           seasons: this.enteredNumSeasons,
           episodes: this.enteredNumEpisodes,
           synopsis: this.enteredSynopsis,
         };
-        console.log('DATA: ', data);
-        // const result = await DataService.postShow(data);
-        // console.log(result);
+
+        console.log('SHOW DATA: ', showData);
+        const resultShow = await DataService.postShow(showData);
+        console.log('result: ', resultShow.data);
+        console.log('result id: ', resultShow.data[0].id_show);
+
+        // Relations
+        if (this.enteredRelation1) {
+          const relationData1 = {
+            type: 'Similar',
+            show_id1: resultShow.data[0].id_show,
+            show_id2: this.enteredRelation1,
+          };
+          console.log('RELATION DATA: ', relationData1);
+          await DataService.postShowRelation(relationData1);
+        }
+        if (this.enteredRelation2) {
+          const relationData2 = {
+            type: 'Similar',
+            show_id1: resultShow.data[0].id_show,
+            show_id2: this.enteredRelation2,
+          };
+          await DataService.postShowRelation(relationData2);
+        }
+        if (this.enteredRelation3) {
+          const relationData2 = {
+            type: 'Similar',
+            show_id1: resultShow.data[0].id_show,
+            show_id2: this.enteredRelation3,
+          };
+          await DataService.postShowRelation(relationData2);
+        }
       } else {
         alert('Show creation failed in validation');
       }
+    },
+    getSelectedItem(result, element) {
+      switch (element) {
+        case 'Main Actor':
+          this.enteredMCActorActress = result.id;
+          break;
+        case 'Main character':
+          this.enteredMainCharacter = result.id;
+          break;
+        case 'Side character 1':
+          this.enteredSideCharacter1 = result.id;
+          break;
+        case 'Side character 2':
+          this.enteredSideCharacter2 = result.id;
+          break;
+        case 'Side actor 1':
+          this.enteredSCActorActress1 = result.id;
+          break;
+        case 'Side actor 2':
+          this.enteredSCActorActress2 = result.id;
+          break;
+        case 'Relation 1':
+          this.enteredRelation1 = result.id;
+          break;
+        case 'Relation 2':
+          this.enteredRelation2 = result.id;
+          break;
+        case 'Relation 3':
+          this.enteredRelation3 = result.id;
+          break;
+      }
+    },
+    async loadModal() {
+      await this.retrieveCharactersDropdown();
+      await this.retrieveActorDropdown();
+      await this.retrieveShowDropdown();
+    },
+    async retrieveActorDropdown() {
+      const resultActor = await DataService.getActorDropdown();
+      this.actors = resultActor.map((item) => ({
+        id: item.id_actor,
+        value: item.full_name,
+      }));
+    },
+    async retrieveCharactersDropdown() {
+      const resultCharacter = await DataService.getCharactersDropdown();
+      // TO DO: Display character image.
+      this.characters = resultCharacter.map((item) => ({
+        id: item.id_character,
+        value: item.full_name,
+        image: item.character_image,
+      }));
+    },
+    async retrieveShowDropdown() {
+      const resultShow = await DataService.getShowDropdown();
+      this.shows = resultShow.map((item) => ({
+        id: item.id_show,
+        value: item.title,
+      }));
     },
   },
 };
