@@ -5,7 +5,7 @@
       <add-show></add-show>
     </div>
     <browse-filter />
-    <browse-show />
+    <browse-show :isAdmin="isAdmin" />
     <!-- Show cards -->
   </div>
 </template>
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       role: 'User',
+      isAdmin: false,
     };
   },
   name: 'Browse',
@@ -69,6 +70,9 @@ export default {
     // });
     console.log('BROWSE GET ROLE: ', this.getRole);
     this.role = this.getRole;
+    if (this.role === 'Admin') {
+      this.isAdmin = true;
+    }
   },
   methods: {
     ...mapActions(['login']),

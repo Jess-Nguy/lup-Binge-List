@@ -11,6 +11,15 @@ class DataService {
       return false;
     }
   }
+  async updateShow(data) {
+    try {
+      const response = await http.dataApi.put('/show', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update show - ', e);
+      return false;
+    }
+  }
   async postRequestShow(data) {
     try {
       console.log('DATA postRequestShow dataApi: ', data);
@@ -75,7 +84,17 @@ class DataService {
     try {
       console.log('DATA getShowDisplay dataApi: ');
       const response = await http.dataApi.get('/show/display');
-      return response.data;
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET show display- ', e);
+      return false;
+    }
+  }
+  async getShowById() {
+    try {
+      console.log('DATA getShowById dataApi: ');
+      const response = await http.dataApi.get('/show/id');
+      return response.data.rows;
     } catch (e) {
       console.error('Failed to GET show display- ', e);
       return false;

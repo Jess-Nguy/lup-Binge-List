@@ -1,9 +1,9 @@
 <template>
   <div>
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addShowModal">
-      Add Show +
-    </button>
+    <!-- Link trigger modal -->
+    <a v-on:click="loadModal" data-bs-toggle="modal" data-bs-target="#editShowModal">
+      <i class="fas fa-edit"></i>
+    </a>
     <!-- Modal -->
     <div
       class="modal top fade"
@@ -14,7 +14,7 @@
       data-bs-backdrop="true"
       data-bs-keyboard="true"
     >
-      <form @submit.prevent="submitAddShow">
+      <form @submit.prevent="submitEditShow">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
@@ -233,22 +233,26 @@
     </div>
   </div>
 </template>
-<style scoped>
-.requiredFields {
-  color: red;
-}
-</style>
 <script>
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import SearchAutocomplete from '@/components/SearchAutocomplete.vue';
 import DataService from '../../service/dataService';
+
 export default {
+  name: 'EditShowComponent',
+  props: {
+    show_id: {
+      type: String,
+      required: true,
+      default: '',
+    },
+  },
   data() {
     return {
       v$: useVuelidate(),
       enteredShowImage: '',
-      enteredShowName: '',
+      enteredShowName: 'TEST',
       enteredTitleSynonyms: '',
       enteredNativeTitle: '',
       enteredRomanization: '',
@@ -275,6 +279,7 @@ export default {
         { id: 2, value: 'Rosa Dias' },
       ],
       shows: [],
+      selectedShow: {},
     };
   },
   validations() {
@@ -289,15 +294,12 @@ export default {
   components: {
     SearchAutocomplete,
   },
-  name: 'AddShowComponent',
-  async mounted() {
-    await this.loadModal();
-  },
+  async mounted() {},
   methods: {
     async submitAddShow() {
       this.v$.$validate();
       if (!this.v$.$error) {
-        alert('SUCCESSFULLY CREATED SHOW!');
+        alert('SUCCESSFULLY UPDATED SHOW!');
         const titles = [this.enteredShowName, this.enteredTitleSynonyms];
         // TO DO: completed_date errors if not set because of postgresql type
         const showData = {
@@ -388,9 +390,15 @@ export default {
       }
     },
     async loadModal() {
+      await this.retrieveSelectedShow();
       await this.retrieveCharactersDropdown();
       await this.retrieveActorDropdown();
       await this.retrieveShowDropdown();
+    },
+    async retrieveSelectedShow() {
+      console.log('SELECTED SHOW ID: ', this.show_id);
+      this.selectedShow = await DataService.getShowById(this.show_id);
+      console.log('SELECTED SHOW: ', this.selectedShow);
     },
     async retrieveActorDropdown() {
       const resultActor = await DataService.getActorDropdown();
@@ -418,3 +426,4 @@ export default {
   },
 };
 </script>
+<style scoped></style>

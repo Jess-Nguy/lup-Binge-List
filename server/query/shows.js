@@ -43,8 +43,8 @@ module.exports = {
   },
   async fetchById(idArray) {
     //  not in use.
-    let id = idArray.length === 0 ? "" : "'" + idArray.join("','") + "'";
-    const results = await db.query(`SELECT * FROM shows  WHERE id_show in (id)`);
+    // let id = idArray.length === 0 ? "" : "'" + idArray.join("','") + "'";
+    const results = await db.query(`SELECT * FROM shows  WHERE id_show = '${id}'`);
     return results;
   },
   async fetchDisplayShows() {
@@ -117,8 +117,8 @@ module.exports = {
   },
   async update(show) {
     const id = show.id;
-    const idResult = showId.validate(id);
-    const result = schema.validate(show);
+    // const idResult = showId.validate(id);
+    // const result = schema.validate(show);
 
     if (result !== null) {
       return await db.query(
@@ -131,9 +131,6 @@ module.exports = {
         country='${show.country}',
         genre='${show.genre}',
         company='${show.company}',
-        relation1='${show.relations1}',
-        relation2='${show.relations2}',
-        relation3='${show.relations3}',
         main_character='${show.main_character}',
         side_character1='${show.side_character1}',
         side_character2='${show.side_character2}',
@@ -144,8 +141,7 @@ module.exports = {
         seasons='${show.seasons}',
         episodes='${show.episodes}',
         synopsis='${show.synopsis}',
-        added_at='${show.added_at}',
-        updated_at='${show.updated_at}',
+        updated_at=now(),
         WHERE id_show = '${id}' RETURNING id_show`
       );
     } else {
