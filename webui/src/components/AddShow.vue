@@ -1,7 +1,13 @@
 <template>
   <div>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addShowModal">
+    <button
+      type="button"
+      v-on:click="loadModal"
+      class="btn btn-success"
+      data-bs-toggle="modal"
+      data-bs-target="#addShowModal"
+    >
       Add Show +
     </button>
     <!-- Modal -->
@@ -60,9 +66,8 @@
               <div class="row mb-3">
                 <!-- Date aired input -->
                 <div class="col">
-                  <label class="form-label" for="addShowDateAired">Date aired *</label>
+                  <label class="form-label" for="addShowDateAired">Date aired (Optional)</label>
                   <input type="date" v-model="enteredDateAired" id="addShowDateAired" class="form-control" />
-                  <div class="requiredFields" v-if="v$.enteredDateAired.$error">Date aired field is required</div>
                 </div>
                 <!-- Date completed input -->
                 <div class="col">
@@ -281,7 +286,6 @@ export default {
     return {
       enteredShowName: { required },
       enteredCountry: { required },
-      enteredDateAired: { required },
       enteredGenre: { required },
       enteredSynopsis: { required },
     };
@@ -290,9 +294,7 @@ export default {
     SearchAutocomplete,
   },
   name: 'AddShowComponent',
-  async mounted() {
-    await this.loadModal();
-  },
+  async mounted() {},
   methods: {
     async submitAddShow() {
       this.v$.$validate();

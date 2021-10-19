@@ -90,13 +90,13 @@ class DataService {
       return false;
     }
   }
-  async getShowById() {
+  async getShowById(id) {
     try {
-      console.log('DATA getShowById dataApi: ');
-      const response = await http.dataApi.get('/show/id');
+      console.log('DATA getShowById dataApi: ', id);
+      const response = await http.dataApi.get(`/show/?id=${id}`);
       return response.data.rows;
     } catch (e) {
-      console.error('Failed to GET show display- ', e);
+      console.error('Failed to GET show by Id - ', e);
       return false;
     }
   }

@@ -4,9 +4,7 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const body = req.body;
-    console.log("ID SHOW BODY: ", body);
-    const response = await shows.fetchById(body.id);
+    const response = await shows.fetchById(req.query.id);
     res.json(response);
   } catch (error) {
     console.log("GET shows: ", error);

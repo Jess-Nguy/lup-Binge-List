@@ -7,9 +7,9 @@
     <!-- Modal -->
     <div
       class="modal top fade"
-      id="addShowModal"
+      id="editShowModal"
       tabindex="-1"
-      aria-labelledby="addShowModalLabel"
+      aria-labelledby="editShowModalLabel"
       aria-hidden="true"
       data-bs-backdrop="true"
       data-bs-keyboard="true"
@@ -18,7 +18,7 @@
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="addShowModalLabel">Adding Show</h5>
+              <h5 class="modal-title" id="editShowModalLabel">Editing Show</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <!-- BODY -->
@@ -37,17 +37,17 @@
               <div class="row mb-3">
                 <div class="col">
                   <div class="form-outline">
-                    <label class="form-label" for="addShowName">Name of show *</label>
-                    <input type="text" id="addShowName" v-model="enteredShowName" class="form-control" />
+                    <label class="form-label" for="editShowName">Name of show *</label>
+                    <input type="text" id="editShowName" v-model="enteredShowName" class="form-control" />
                     <div class="requiredFields" v-if="v$.enteredShowName.$error">Show field is required</div>
                   </div>
                 </div>
                 <div class="col">
                   <!-- Country -->
-                  <label class="form-label" for="addShowCountry">Country of origin *</label>
+                  <label class="form-label" for="editShowCountry">Country of origin *</label>
                   <select
                     v-model="enteredCountry"
-                    id="addShowCountry"
+                    id="editShowCountry"
                     class="form-select"
                     aria-label="Default select example"
                   >
@@ -60,14 +60,13 @@
               <div class="row mb-3">
                 <!-- Date aired input -->
                 <div class="col">
-                  <label class="form-label" for="addShowDateAired">Date aired *</label>
-                  <input type="date" v-model="enteredDateAired" id="addShowDateAired" class="form-control" />
-                  <div class="requiredFields" v-if="v$.enteredDateAired.$error">Date aired field is required</div>
+                  <label class="form-label" for="editShowDateAired">Date aired (Optional)</label>
+                  <input type="date" v-model="enteredDateAired" id="editShowDateAired" class="form-control" />
                 </div>
                 <!-- Date completed input -->
                 <div class="col">
-                  <label class="form-label" for="addShowDateCompleted">Date Completed (Optional)</label>
-                  <input type="date" v-model="enteredDateCompleted" id="addShowDateCompleted" class="form-control" />
+                  <label class="form-label" for="editShowDateCompleted">Date Completed (Optional)</label>
+                  <input type="date" v-model="enteredDateCompleted" id="editShowDateCompleted" class="form-control" />
                 </div>
               </div>
 
@@ -75,20 +74,20 @@
               <div class="row mb-3">
                 <!-- Title synonyms -->
                 <div class="col">
-                  <label class="form-label" for="addShowTitleSynonyms">Title Synonyms (Optional)</label>
-                  <input type="text" id="addShowTitleSynonyms" v-model="enteredTitleSynonyms" class="form-control" />
+                  <label class="form-label" for="editShowTitleSynonyms">Title Synonyms (Optional)</label>
+                  <input type="text" id="editShowTitleSynonyms" v-model="enteredTitleSynonyms" class="form-control" />
                 </div>
 
                 <!-- Native title input -->
                 <div class="col">
-                  <label class="form-label" for="addShowNativeTitle">Native Title (Optional)</label>
-                  <input type="text" v-model="enteredNativeTitle" id="addShowNativeTitle" class="form-control" />
+                  <label class="form-label" for="editShowNativeTitle">Native Title (Optional)</label>
+                  <input type="text" v-model="enteredNativeTitle" id="editShowNativeTitle" class="form-control" />
                 </div>
 
                 <!-- Romanization -->
                 <div class="col">
-                  <label class="form-label" for="addShowRomanization">Romanization (Optional) </label>
-                  <input type="text" v-model="enteredRomanization" id="addShowRomanization" class="form-control" />
+                  <label class="form-label" for="editShowRomanization">Romanization (Optional) </label>
+                  <input type="text" v-model="enteredRomanization" id="editShowRomanization" class="form-control" />
                 </div>
               </div>
               <!-- row 4 -->
@@ -96,16 +95,16 @@
                 <!-- Company -->
                 <div class="col">
                   <div class="form-outline">
-                    <label class="form-label" for="addShowCompany">Company (Optional)</label>
-                    <input type="text" id="addShowCompany" v-model="enteredCompany" class="form-control" />
+                    <label class="form-label" for="editShowCompany">Company (Optional)</label>
+                    <input type="text" id="editShowCompany" v-model="enteredCompany" class="form-control" />
                   </div>
                 </div>
                 <!-- Genre input -->
                 <div class="col">
-                  <label class="form-label" for="addShowGenre">Genre *</label>
+                  <label class="form-label" for="editShowGenre">Genre *</label>
                   <select
                     v-model="enteredGenre"
-                    id="addShowGenre"
+                    id="editShowGenre"
                     class="form-select"
                     aria-label="Default select example"
                   >
@@ -116,21 +115,21 @@
 
                 <!-- Number of seasons input -->
                 <div class="col">
-                  <label class="form-label" for="addShowNumSeasons"># of seasons (Optional)</label>
-                  <input type="number" v-model="enteredNumSeasons" id="addShowNumSeasons" class="form-control" />
+                  <label class="form-label" for="editShowNumSeasons"># of seasons (Optional)</label>
+                  <input type="number" v-model="enteredNumSeasons" id="editShowNumSeasons" class="form-control" />
                 </div>
 
                 <!-- Number of episodes input -->
                 <div class="col">
-                  <label class="form-label" for="addShowNumEpisodes">Total # of episodes (Optional) </label>
-                  <input type="number" v-model="enteredNumEpisodes" id="addShowNumEpisodes" class="form-control" />
+                  <label class="form-label" for="editShowNumEpisodes">Total # of episodes (Optional) </label>
+                  <input type="number" v-model="enteredNumEpisodes" id="editShowNumEpisodes" class="form-control" />
                 </div>
               </div>
               <!-- row 5 -->
               <div class="row mb-3">
                 <!-- Relations 1 -->
                 <div class="col">
-                  <label class="form-label" for="addShowRelations1">Relations 1 (Optional)</label>
+                  <label class="form-label" for="editShowRelations1">Relations 1 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="shows"
@@ -139,7 +138,7 @@
                 </div>
                 <!-- Relations 2 -->
                 <div class="col">
-                  <label class="form-label" for="addShowRelations2">Relations 2 (Optional)</label>
+                  <label class="form-label" for="editShowRelations2">Relations 2 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="shows"
@@ -148,7 +147,7 @@
                 </div>
                 <!-- Relations 3 -->
                 <div class="col">
-                  <label class="form-label" for="addShowRelations3">Relations 3 (Optional)</label>
+                  <label class="form-label" for="editShowRelations3">Relations 3 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="shows"
@@ -160,7 +159,7 @@
               <div class="row mb-3">
                 <!-- Main Character -->
                 <div class="col">
-                  <label class="form-label" for="addShowMainCharacter">Main Character (Optional)</label>
+                  <label class="form-label" for="editShowMainCharacter">Main Character (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="characters"
@@ -169,7 +168,7 @@
                 </div>
                 <!-- Side Character 1 -->
                 <div class="col">
-                  <label class="form-label" for="addShowSideCharacter1">Side Character 1 (Optional)</label>
+                  <label class="form-label" for="editShowSideCharacter1">Side Character 1 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="characters"
@@ -178,7 +177,7 @@
                 </div>
                 <!-- Side Character 2 -->
                 <div class="col">
-                  <label class="form-label" for="addShowSideCharacter2">Side Character 2 (Optional)</label>
+                  <label class="form-label" for="editShowSideCharacter2">Side Character 2 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="characters"
@@ -190,7 +189,7 @@
               <div class="row mb-3">
                 <!-- MC Actor/Actress -->
                 <div class="col">
-                  <label class="form-label" for="addShowMCActorActress">MC Actor/Actress (Optional)</label>
+                  <label class="form-label" for="editShowMCActorActress">MC Actor/Actress (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="actors"
@@ -199,7 +198,7 @@
                 </div>
                 <!-- SC Actor/Actress 1 -->
                 <div class="col">
-                  <label class="form-label" for="addShowSCActorActress1">SC Actor/Actress 1 (Optional)</label>
+                  <label class="form-label" for="editShowSCActorActress1">SC Actor/Actress 1 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="actors"
@@ -208,7 +207,7 @@
                 </div>
                 <!-- SC Actor/Actress 2 -->
                 <div class="col">
-                  <label class="form-label" for="addShowSCActorActress2">SC Actor/Actress 2 (Optional)</label>
+                  <label class="form-label" for="editShowSCActorActress2">SC Actor/Actress 2 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="actors"
@@ -218,8 +217,8 @@
               </div>
               <!-- Synopsis -->
               <div class="form-outline mb-4">
-                <label class="form-label" for="addShowSynopsis">Synopsis *</label>
-                <textarea class="form-control" v-model="enteredSynopsis" id="addShowSynopsis" rows="4"></textarea>
+                <label class="form-label" for="editShowSynopsis">Synopsis *</label>
+                <textarea class="form-control" v-model="enteredSynopsis" id="editShowSynopsis" rows="4"></textarea>
                 <div class="requiredFields" v-if="v$.enteredSynopsis.$error">Synopsis field is required</div>
               </div>
             </div>
@@ -252,7 +251,7 @@ export default {
     return {
       v$: useVuelidate(),
       enteredShowImage: '',
-      enteredShowName: 'TEST',
+      enteredShowName: '',
       enteredTitleSynonyms: '',
       enteredNativeTitle: '',
       enteredRomanization: '',
@@ -286,7 +285,6 @@ export default {
     return {
       enteredShowName: { required },
       enteredCountry: { required },
-      enteredDateAired: { required },
       enteredGenre: { required },
       enteredSynopsis: { required },
     };
@@ -396,9 +394,32 @@ export default {
       await this.retrieveShowDropdown();
     },
     async retrieveSelectedShow() {
-      console.log('SELECTED SHOW ID: ', this.show_id);
       this.selectedShow = await DataService.getShowById(this.show_id);
       console.log('SELECTED SHOW: ', this.selectedShow);
+    },
+    setSelectedShowModal() {
+      this.enteredShowImage = this.selectedShow[0].show_image;
+      this.enteredShowName = this.selectedShow[0].title[0];
+      this.enteredTitleSynonyms = this.selectedShow[0].title[1];
+      this.enteredNativeTitle = this.selectedShow[0].native_title;
+      this.enteredRomanization = this.selectedShow[0].romanization;
+      this.enteredDateAired = this.selectedShow[0].release_date;
+      this.enteredDateCompleted = this.selectedShow[0].completed_date;
+      this.enteredCountry = this.selectedShow[0].country;
+      this.enteredGenre = this.selectedShow[0].genre;
+      this.enteredCompany = this.selectedShow[0].company;
+      // this.enteredRelation1 =  ;
+      // this.enteredRelation2 =  ;
+      // this.enteredRelation3 =  ;
+      this.enteredMainCharacter = this.selectedShow[0].main_character_id;
+      this.enteredSideCharacter1 = this.selectedShow[0].side_character1_id;
+      this.enteredSideCharacter2 = this.selectedShow[0].side_character2_id;
+      // this.enteredMCActorActress = this.selectedShow[0]. ;
+      // this.enteredSCActorActress1 = this.selectedShow[0]. ;
+      // this.enteredSCActorActress2 = this.selectedShow[0]. ;
+      // this.enteredNumSeasons = this.selectedShow[0]. ;
+      // this.enteredNumEpisodes = this.selectedShow[0].;
+      // this.enteredSynopsis = this.selectedShow[0]. ;
     },
     async retrieveActorDropdown() {
       const resultActor = await DataService.getActorDropdown();
@@ -426,4 +447,8 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.requiredFields {
+  color: red;
+}
+</style>

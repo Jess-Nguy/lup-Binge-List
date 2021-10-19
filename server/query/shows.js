@@ -41,10 +41,11 @@ module.exports = {
     const results = await db.query(`select id_show, title[1], title as title_synonyms from shows`);
     return results.rows;
   },
-  async fetchById(idArray) {
+  async fetchById(id) {
     //  not in use.
     // let id = idArray.length === 0 ? "" : "'" + idArray.join("','") + "'";
-    const results = await db.query(`SELECT * FROM shows  WHERE id_show = '${id}'`);
+    console.log("FETCH BY ID: ", id);
+    const results = await db.query(`SELECT * FROM display_shows WHERE id_show = '${id}'`);
     return results;
   },
   async fetchDisplayShows() {
