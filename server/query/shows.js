@@ -120,6 +120,22 @@ module.exports = {
       return Promise.reject(result.error);
     }
   },
+  async showBrowseFilter(browseFilter) {
+    let nullFilter = { country: null, genre: null, airingStatus: null, yearStart: null, yearEnd: null, searchText: null };
+    for (const [key, value] of Object.entries(browseFilter)) {
+      if (value !== "") {
+        nullFilter[key] = "'" + value + "'";
+      }
+    }
+
+    const filterQuery = `select * from display_shows where (${nullFilter.country} is null or country = ${nullFilter.country}) and
+      (${nullFilter.genre} is null or genre = ${nullFilter.genre}) and
+      (${nullFilter.airingStatus} is null or airing_status = ${nullFilter.airingStatus}) and
+      (${nullFilter.yearStart} is null or release_year >= ${nullFilter.yearStart}) and
+      (${nullFilter.yearEnd} is null or release_year <= ${nullFilter.yearEnd}) and
+      (${nullFilter.searchText} is null or title::text ilike ${nullFilter.searchText})`;
+    return await db.query(filterQuery);
+  },
   async update(show) {
     const id = show.id;
     // const idResult = showId.validate(id);

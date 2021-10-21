@@ -12,8 +12,8 @@
       tabindex="-1"
       aria-labelledby="editShowModalLabel"
       aria-hidden="true"
-      data-bs-backdrop="true"
-      data-bs-keyboard="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
     >
       <form @submit.prevent="submitEditShow">
         <div class="modal-dialog modal-xl">
@@ -55,7 +55,7 @@
                     class="form-select"
                     aria-label="Default select example"
                   >
-                    <option>Canada</option>
+                    <option v-for="(country, i) in listOfCountries" :key="i">{{ country }}</option>
                   </select>
                   <div class="requiredFields" v-if="v$.enteredCountry.$error">Country field is required</div>
                 </div>
@@ -112,7 +112,7 @@
                     class="form-select"
                     aria-label="Default select example"
                   >
-                    <option value="Comedy">Comedy</option>
+                    <option v-for="(genre, i) in listOfGenres" :key="i">{{ genre }}</option>
                   </select>
                   <div class="requiredFields" v-if="v$.enteredGenre.$error">Genre field is required</div>
                 </div>
@@ -137,6 +137,7 @@
                   <label class="form-label" for="editShowMainCharacter">Main Character (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
+                    :preSelectedItem="enteredMainCharacter"
                     :items="characters"
                     :elementField="'Main character'"
                   ></search-autocomplete>
@@ -147,6 +148,7 @@
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="characters"
+                    :preSelectedItem="enteredSideCharacter1"
                     :elementField="'Side character 1'"
                   ></search-autocomplete>
                 </div>
@@ -155,6 +157,7 @@
                   <label class="form-label" for="editShowSideCharacter2">Side Character 2 (Optional)</label>
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
+                    :preSelectedItem="enteredSideCharacter2"
                     :items="characters"
                     :elementField="'Side character 2'"
                   ></search-autocomplete>
@@ -168,6 +171,7 @@
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="actors"
+                    :preSelectedItem="enteredMCActorActress"
                     :elementField="'Main Actor'"
                   ></search-autocomplete>
                 </div>
@@ -177,6 +181,7 @@
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="actors"
+                    :preSelectedItem="enteredSCActorActress1"
                     :elementField="'Side actor 1'"
                   ></search-autocomplete>
                 </div>
@@ -186,6 +191,7 @@
                   <search-autocomplete
                     @input-autocomplete-set="getSelectedItem"
                     :items="actors"
+                    :preSelectedItem="enteredSCActorActress2"
                     :elementField="'Side actor 2'"
                   ></search-autocomplete>
                 </div>
@@ -198,7 +204,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button @click="closeModal" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+              <button @click="deleteShow" type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
               <button type="submit" class="btn btn-success">Update</button>
             </div>
           </div>
@@ -250,6 +256,8 @@ export default {
       characters: [{ id: '00000000-0000-0000-0000-000000000000', value: 'Not Assigned', image: '' }],
       shows: [],
       selectedShow: {},
+      listOfCountries: [],
+      listOfGenres: [],
     };
   },
   validations() {
@@ -263,7 +271,18 @@ export default {
   components: {
     SearchAutocomplete,
   },
-  async mounted() {},
+  computed: {
+    getCountries() {
+      return this.$store.getters.getCountries;
+    },
+    getGenres() {
+      return this.$store.getters.getGenres;
+    },
+  },
+  mounted() {
+    this.listOfCountries = this.getCountries;
+    this.listOfGenres = this.getGenres;
+  },
   methods: {
     async submitAddShow() {
       this.v$.$validate();
@@ -276,6 +295,7 @@ export default {
         titleSynonyms = titleSynonyms.replace(/'/g, "''");
         const titles = [title, titleSynonyms];
         // TO DO: completed_date errors if not set because of postgresql type
+        // TO DO: If user empty's character or actor name set to not assigned.
         const showData = {
           title: titles,
           native_title: this.enteredNativeTitle,
@@ -378,6 +398,9 @@ export default {
     },
     closeModal() {
       this.opened = false;
+    },
+    deleteShow() {
+      console.log('DELETE ME ', this.show_id);
     },
   },
 };

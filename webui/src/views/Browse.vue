@@ -4,8 +4,8 @@
     <div v-if="isAdmin">
       <add-show></add-show>
     </div>
-    <browse-filter />
-    <browse-show :isAdmin="isAdmin" />
+    <browse-filter @browser-filter-change="setQuery" />
+    <browse-show :isAdmin="isAdmin" :showsArr="shows" />
     <!-- Show cards -->
   </div>
 </template>
@@ -35,12 +35,22 @@ import { mapActions } from 'vuex';
 import AddShow from '../components/AddShow.vue';
 import BrowseFilter from '../components/BrowseFilter.vue';
 import BrowseShow from '../components/BrowseShow.vue';
+import DataService from '../../service/dataService';
 export default {
   components: { BrowseFilter, BrowseShow, AddShow },
   data() {
     return {
       role: 'User',
       isAdmin: false,
+      shows: [],
+      query: {
+        country: '',
+        genre: '',
+        airingStatus: '',
+        yearStart: '',
+        yearEnd: '',
+        searchText: '',
+      },
     };
   },
   name: 'Browse',
@@ -52,7 +62,7 @@ export default {
       return this.$store.getters.getRole;
     },
   },
-  mounted() {
+  async mounted() {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
@@ -75,9 +85,26 @@ export default {
     if (this.role === 'Admin') {
       this.isAdmin = true;
     }
+    await this.getShows();
+  },
+  watch: {
+    query: {
+      deep: true,
+      async handler() {
+        await this.getShows();
+      },
+    },
   },
   methods: {
     ...mapActions(['login']),
+    async getShows() {
+      console.log('REACHED GET SHOWS ', this.query);
+      this.shows = await DataService.getShowBrowseFilter(this.query);
+      console.log('SHOWS!!!!!! ', this.shows);
+    },
+    setQuery(newQuery) {
+      this.query = newQuery;
+    },
   },
 };
 </script>

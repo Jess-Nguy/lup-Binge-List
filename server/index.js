@@ -28,6 +28,7 @@ app.use("/show", require("./routes/show/postShow"));
 app.use("/show/dropdown", require("./routes/show/fetchShowDropdown"));
 app.use("/show/display", require("./routes/show/fetchDisplayShows"));
 app.use("/show", require("./routes/show/fetchById"));
+app.use("/show/filter", require("./routes/show/showBrowseFilter"));
 app.use("/show", require("./routes/show/putShow"));
 
 // Actor

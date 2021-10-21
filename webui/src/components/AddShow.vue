@@ -18,8 +18,8 @@
       tabindex="-1"
       aria-labelledby="addShowModalLabel"
       aria-hidden="true"
-      data-bs-backdrop="true"
-      data-bs-keyboard="true"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
     >
       <form @submit.prevent="submitAddShow">
         <div class="modal-dialog modal-xl">
@@ -61,7 +61,7 @@
                     class="form-select"
                     aria-label="Default select example"
                   >
-                    <option>Canada</option>
+                    <option v-for="(country, i) in listOfCountries" :key="i">{{ country }}</option>
                   </select>
                   <div class="requiredFields" v-if="v$.enteredCountry.$error">Country field is required</div>
                 </div>
@@ -118,7 +118,7 @@
                     class="form-select"
                     aria-label="Default select example"
                   >
-                    <option value="Comedy">Comedy</option>
+                    <option v-for="(genre, i) in listOfGenres" :key="i">{{ genre }}</option>
                   </select>
                   <div class="requiredFields" v-if="v$.enteredGenre.$error">Genre field is required</div>
                 </div>
@@ -250,6 +250,8 @@ export default {
       actors: [{ id: '00000000-0000-0000-0000-000000000000', value: 'Not Assigned' }],
       characters: [{ id: '00000000-0000-0000-0000-000000000000', value: 'Not Assigned', image: '' }],
       shows: [],
+      listOfCountries: [],
+      listOfGenres: [],
     };
   },
   validations() {
@@ -263,8 +265,19 @@ export default {
   components: {
     SearchAutocomplete,
   },
+  computed: {
+    getCountries() {
+      return this.$store.getters.getCountries;
+    },
+    getGenres() {
+      return this.$store.getters.getGenres;
+    },
+  },
   name: 'AddShowComponent',
-  async mounted() {},
+  mounted() {
+    this.listOfCountries = this.getCountries;
+    this.listOfGenres = this.getGenres;
+  },
   methods: {
     async submitAddShow() {
       this.v$.$validate();

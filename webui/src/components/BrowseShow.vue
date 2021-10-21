@@ -1,5 +1,5 @@
 <template>
-  <div id="showCards" class="card" v-for="show in shows" :key="show.id_show">
+  <div id="showCards" class="card" v-for="show in showsFilter" :key="show.id_show">
     <div class="row g-0">
       <div class="col-md-4">
         <img id="showCardsImage" :src="show.show_image" :alt="show.title[0]" class="img-fluid" />
@@ -25,19 +25,9 @@
               </div>
             </div>
             <!-- Finished tag -->
-            <div
-              class="card text-center border border-danger shadow-0 col"
-              id="filter-selection-cards"
-              v-if="show.completed_date !== null"
-            >
+            <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
               <div class="card-body">
-                <h5 class="card-title">Finished</h5>
-              </div>
-            </div>
-            <!-- Unfinished tag -->
-            <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards" v-else>
-              <div class="card-body">
-                <h5 class="card-title">Unfinished</h5>
+                <h5 class="card-title">{{ show.airing_status }}</h5>
               </div>
             </div>
             <!-- Year released tag -->
@@ -74,14 +64,31 @@ export default {
       required: true,
       default: false,
     },
+    showsArr: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
   },
   components: {
     EditShow,
   },
   data() {
     return {
-      shows: [],
+      showsFilter: [],
+      query: {
+        country: '',
+        genre: '',
+        airingStatus: '',
+        yearStart: '',
+        yearEnd: '',
+      },
     };
+  },
+  watch: {
+    showsArr: function (value) {
+      this.showsFilter = value;
+    },
   },
   async mounted() {
     await this.getShows();
@@ -89,7 +96,7 @@ export default {
   },
   methods: {
     async getShows() {
-      this.shows = await DataService.getShowDisplay();
+      this.shows = await DataService.getShowBrowseFilter(this.query);
     },
   },
 };

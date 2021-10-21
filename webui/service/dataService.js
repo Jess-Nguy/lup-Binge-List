@@ -70,6 +70,7 @@ class DataService {
       return false;
     }
   }
+  // Might not need anymore? was in browseshow.vue but using filter now.
   async getShowDisplay() {
     try {
       console.log('DATA getShowDisplay dataApi: ');
@@ -87,6 +88,17 @@ class DataService {
       return response.data.rows;
     } catch (e) {
       console.error('Failed to GET show by Id - ', e);
+      return false;
+    }
+  }
+  async getShowBrowseFilter(browserFilter) {
+    try {
+      const response = await http.dataApi.get(
+        `/show/filter/?country=${browserFilter.country}&genre=${browserFilter.genre}&airingStatus=${browserFilter.airingStatus}&yearStart=${browserFilter.yearStart}&yearEnd=${browserFilter.yearEnd}&searchText=${browserFilter.searchText}`
+      );
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET show browse filter - ', e);
       return false;
     }
   }
