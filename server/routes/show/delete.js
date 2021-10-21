@@ -2,7 +2,7 @@ const shows = require("../../query/shows");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
     console.log("DELETE AT ", req.query.id);
     const response = await shows.delete(req.query.id);

@@ -206,7 +206,7 @@
               <button @click="deleteShow" type="button" class="btn btn-danger mr-auto" data-bs-dismiss="modal">
                 Delete
               </button>
-              <button type="submit" class="btn btn-success">Update</button>
+              <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Update</button>
             </div>
           </div>
         </div>
