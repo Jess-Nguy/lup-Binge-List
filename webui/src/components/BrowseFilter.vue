@@ -7,6 +7,7 @@
       placeholder="Search"
       aria-label="Search"
       aria-describedby="search-addon"
+      v-model="query.searchText"
     />
     <span class="input-group-text border-0" id="search-addon">
       <i class="fas fa-search"></i>

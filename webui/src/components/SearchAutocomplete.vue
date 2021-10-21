@@ -76,10 +76,7 @@ export default {
     if (this.selectedItem) {
       this.searchValue = this.selectedItem[0].value;
     }
-    console.log('searchValue ITEM: ', this.searchValue);
-    // console.log('preSelectedItem ITEM: ', this.preSelectedItem);
-    console.log('SELECTED ITEM: ', this.selectedItem);
-    console.log('ITEMS: ', this.items);
+    console.log('LIST: ', this.items);
   },
   unmounted() {
     document.removeEventListener('click', this.handleClickOutside);

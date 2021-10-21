@@ -1,12 +1,12 @@
 <template>
   <div>
     <!-- Link trigger modal -->
-    <a v-on:click="loadModal" data-bs-toggle="modal" data-bs-target="#editShowModal">
+    <a @click="loadModal" data-bs-toggle="modal" data-bs-target="#editShowModal">
       <i class="fas fa-edit"></i>
     </a>
     <!-- Modal -->
     <div
-      v-if="opened"
+      v-if="isOpen"
       class="modal top fade"
       id="editShowModal"
       tabindex="-1"
@@ -35,7 +35,6 @@
                 <input type="url" id="show-image-link" v-model="enteredShowImage" />
                 <img v-if="enteredShowImage !== ''" :src="enteredShowImage" alt="show image" width="100" height="100" />
                 <img v-else :src="defaultImage" alt="default image" width="100" height="100" />
-                <button id="save-image-button" type="button" class="btn btn-success">Save Image</button>
               </div>
               <!-- row 1 -->
               <div class="row mb-3">
@@ -204,7 +203,9 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button @click="deleteShow" type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+              <button @click="deleteShow" type="button" class="btn btn-danger mr-auto" data-bs-dismiss="modal">
+                Delete
+              </button>
               <button type="submit" class="btn btn-success">Update</button>
             </div>
           </div>
@@ -231,7 +232,7 @@ export default {
   data() {
     return {
       v$: useVuelidate(),
-      opened: false,
+      isOpen: false,
       defaultImage: 'https://cdn.onlinewebfonts.com/svg/img_98811.png',
       enteredShowImage: '',
       enteredShowName: '',
@@ -284,7 +285,7 @@ export default {
     this.listOfGenres = this.getGenres;
   },
   methods: {
-    async submitAddShow() {
+    async submitEditShow() {
       this.v$.$validate();
       if (!this.v$.$error) {
         alert('SUCCESSFULLY UPDATED SHOW!');
@@ -294,9 +295,12 @@ export default {
         let titleSynonyms = this.enteredTitleSynonyms;
         titleSynonyms = titleSynonyms.replace(/'/g, "''");
         const titles = [title, titleSynonyms];
+        let synopsis = this.enteredSynopsis;
+        synopsis = synopsis.replace(/'/g, "''");
         // TO DO: completed_date errors if not set because of postgresql type
         // TO DO: If user empty's character or actor name set to not assigned.
         const showData = {
+          id: this.show_id,
           title: titles,
           native_title: this.enteredNativeTitle,
           romanization: this.enteredRomanization,
@@ -314,11 +318,11 @@ export default {
           side_character2_actor: this.enteredSCActorActress2,
           seasons: this.enteredNumSeasons,
           episodes: this.enteredNumEpisodes,
-          synopsis: this.enteredSynopsis,
+          synopsis: synopsis,
         };
 
         console.log('SHOW DATA: ', showData);
-        const resultShow = await DataService.postShow(showData);
+        const resultShow = await DataService.updateShow(showData);
         console.log('result: ', resultShow.data);
         console.log('result id: ', resultShow.data[0].id_show);
       } else {
@@ -353,7 +357,7 @@ export default {
       await this.retrieveActorDropdown();
       await this.setSelectedShowModal();
       this.enteredShowName = this.selectedShow[0].title[0];
-      this.opened = true;
+      this.isOpen = true;
     },
     async retrieveSelectedShow() {
       this.selectedShow = await DataService.getShowById(this.show_id);
@@ -365,8 +369,8 @@ export default {
       this.enteredTitleSynonyms = this.selectedShow[0].title[1];
       this.enteredNativeTitle = this.selectedShow[0].native_title;
       this.enteredRomanization = this.selectedShow[0].romanization;
-      this.enteredDateAired = this.selectedShow[0].release_date;
-      this.enteredDateCompleted = this.selectedShow[0].completed_date;
+      this.enteredDateAired = new Date(this.selectedShow[0].release_date);
+      this.enteredDateCompleted = new Date(this.selectedShow[0].completed_date);
       this.enteredCountry = this.selectedShow[0].country;
       this.enteredGenre = this.selectedShow[0].genre;
       this.enteredCompany = this.selectedShow[0].company;
@@ -379,6 +383,15 @@ export default {
       this.enteredNumSeasons = this.selectedShow[0].seasons;
       this.enteredNumEpisodes = this.selectedShow[0].episodes;
       this.enteredSynopsis = this.selectedShow[0].synopsis;
+
+      // Date convert for calendar
+      var day = ('0' + this.enteredDateAired.getDate()).slice(-2);
+      var month = ('0' + (this.enteredDateAired.getMonth() + 1)).slice(-2);
+      this.enteredDateAired = this.enteredDateAired.getFullYear() + '-' + month + '-' + day;
+
+      day = ('0' + this.enteredDateCompleted.getDate()).slice(-2);
+      month = ('0' + (this.enteredDateCompleted.getMonth() + 1)).slice(-2);
+      this.enteredDateCompleted = this.enteredDateCompleted.getFullYear() + '-' + month + '-' + day;
     },
     async retrieveActorDropdown() {
       const resultActor = await DataService.getActorDropdown();
@@ -397,10 +410,11 @@ export default {
       }));
     },
     closeModal() {
-      this.opened = false;
+      this.isOpen = false;
     },
-    deleteShow() {
+    async deleteShow() {
       console.log('DELETE ME ', this.show_id);
+      await DataService.deleteShow(this.show_id);
     },
   },
 };

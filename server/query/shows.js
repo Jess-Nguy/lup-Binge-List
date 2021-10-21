@@ -59,7 +59,7 @@ module.exports = {
   async delete(id) {
     const result = showId.validate(id);
     if (result !== null) {
-      return await db.query(`DELETE from shows where id_show = '${id.id_show}' RETURNING *`);
+      return await db.query(`DELETE from shows where id_show = '${id}'`);
     } else {
       return Promise.reject(result.error);
     }
@@ -70,11 +70,33 @@ module.exports = {
       console.log("DB QUERY POST");
       let titles = show.title;
       titles = titles.length === 0 ? "" : "'" + titles.join("','") + "'";
-      // let synopsis = show.synopsis;
-      // synopsis = synopsis.replace(/'/g, "''");
-      console.log("titles: ", titles);
-      // console.log("SYNP: ", synopsis);
-      console.log("SYNP: ", show.synopsis);
+      let nullShow = {
+        title: `ARRAY [${titles}]`,
+        native_title: null,
+        romanization: null,
+        release_date: null,
+        completed_date: null,
+        country: null,
+        genre: null,
+        company: null,
+        main_character: "00000000-0000-0000-0000-000000000000",
+        side_character1: "00000000-0000-0000-0000-000000000000",
+        side_character2: "00000000-0000-0000-0000-000000000000",
+        show_image: null,
+        main_character_actor: "00000000-0000-0000-0000-000000000000",
+        side_character1_actor: "00000000-0000-0000-0000-000000000000",
+        side_character2_actor: "00000000-0000-0000-0000-000000000000",
+        seasons: 0,
+        episodes: 0,
+      };
+      for (const [key, value] of Object.entries(show)) {
+        if (key !== "title") {
+          if (value !== "") {
+            nullShow[key] = "'" + value + "'";
+          }
+        }
+      }
+
       const insertQuery = `INSERT INTO shows (
             title,
             native_title,
@@ -96,23 +118,24 @@ module.exports = {
             synopsis
             ) VALUES (
             ARRAY [${titles}],
-            '${show.native_title}',
-            '${show.romanization}',
-            '${show.release_date}',
-            '${show.completed_date}',
+            ${nullShow.native_title},
+            ${nullShow.romanization},
+            ${nullShow.release_date},
+            ${nullShow.completed_date},
             '${show.country}',
             '${show.genre}',
-            '${show.company}',
-            '${show.main_character}',
-            '${show.side_character1}',
-            '${show.side_character2}',
-            '${show.show_image}',
-            '${show.main_character_actor}',
-            '${show.side_character1_actor}',
-            '${show.side_character2_actor}',
-            '${show.seasons}',
-            '${show.episodes}',
-            '${show.synopsis}') RETURNING id_show`;
+            ${nullShow.company},
+            ${nullShow.main_character},
+            ${nullShow.side_character1},
+            ${nullShow.side_character2},
+            ${nullShow.show_image},
+            ${nullShow.main_character_actor},
+            ${nullShow.side_character1_actor},
+            ${nullShow.side_character2_actor},
+            ${nullShow.seasons},
+            ${nullShow.episodes},
+            ${nullShow.synopsis}) RETURNING id_show`;
+      console.log("QUERY: ", insertQuery);
       const id = await db.query(insertQuery);
       console.log("id_show: ", id.rows);
       return id.rows;
@@ -124,7 +147,11 @@ module.exports = {
     let nullFilter = { country: null, genre: null, airingStatus: null, yearStart: null, yearEnd: null, searchText: null };
     for (const [key, value] of Object.entries(browseFilter)) {
       if (value !== "") {
-        nullFilter[key] = "'" + value + "'";
+        if (key == "searchText") {
+          nullFilter[key] = "'%" + value + "%'";
+        } else {
+          nullFilter[key] = "'" + value + "'";
+        }
       }
     }
 
@@ -134,37 +161,68 @@ module.exports = {
       (${nullFilter.yearStart} is null or release_year >= ${nullFilter.yearStart}) and
       (${nullFilter.yearEnd} is null or release_year <= ${nullFilter.yearEnd}) and
       (${nullFilter.searchText} is null or title::text ilike ${nullFilter.searchText})`;
+
     return await db.query(filterQuery);
   },
   async update(show) {
     const id = show.id;
     // const idResult = showId.validate(id);
     // const result = schema.validate(show);
-
+    console.log("SHOW QUERY: ", show);
     // if (result !== null) {
-    return await db.query(
-      `UPDATE show SET 
-        title='${show.title}', 
-        native_title='${show.native_title}', 
-        romanization='${show.romanization}',
-        release_date='${show.release_date}',
-        completed_date='${show.completed_date}',
+    let titles = show.title;
+    titles = titles.length === 0 ? "" : "'" + titles.join("','") + "'";
+
+    let nullShow = {
+      title: `ARRAY [${titles}]`,
+      native_title: null,
+      romanization: null,
+      release_date: null,
+      completed_date: null,
+      country: null,
+      genre: null,
+      company: null,
+      main_character: "00000000-0000-0000-0000-000000000000",
+      side_character1: "00000000-0000-0000-0000-000000000000",
+      side_character2: "00000000-0000-0000-0000-000000000000",
+      show_image: null,
+      main_character_actor: "00000000-0000-0000-0000-000000000000",
+      side_character1_actor: "00000000-0000-0000-0000-000000000000",
+      side_character2_actor: "00000000-0000-0000-0000-000000000000",
+      seasons: 0,
+      episodes: 0,
+    };
+    for (const [key, value] of Object.entries(show)) {
+      if (key !== "title") {
+        if (value !== "") {
+          nullShow[key] = "'" + value + "'";
+        }
+      }
+    }
+
+    const updateQuery = `UPDATE shows SET 
+        title=ARRAY [${titles}], 
+        native_title=${nullShow.native_title},
+        romanization=${nullShow.romanization},
+        release_date=${nullShow.release_date},
+        completed_date=${nullShow.completed_date},
         country='${show.country}',
         genre='${show.genre}',
-        company='${show.company}',
-        main_character='${show.main_character}',
-        side_character1='${show.side_character1}',
-        side_character2='${show.side_character2}',
-        show_image='${show.show_image}',
-        main_character_actor='${show.main_character_actor}',
-        side_character_actor1='${show.side_character_actor1}',
-        side_character_actor2='${show.side_character_actor2}',
-        seasons='${show.seasons}',
-        episodes='${show.episodes}',
-        synopsis='${show.synopsis}',
-        updated_at=now(),
-        WHERE id_show = '${id}' RETURNING id_show`
-    );
+        company=${nullShow.company},
+        main_character=${nullShow.main_character},
+        side_character1=${nullShow.side_character1},
+        side_character2=${nullShow.side_character2},
+        show_image=${nullShow.show_image},
+        main_character_actor=${nullShow.main_character_actor},
+        side_character1_actor=${nullShow.side_character1_actor},
+        side_character2_actor=${nullShow.side_character2_actor},
+        seasons=${nullShow.seasons},
+        episodes=${nullShow.episodes},
+        synopsis=${nullShow.synopsis},
+        updated_at=now()
+        WHERE id_show = '${id}' RETURNING *`;
+    console.log("UPDATE ", updateQuery);
+    return await db.query(updateQuery);
     // } else {
     //   return Promise.reject(result.error);
     // }

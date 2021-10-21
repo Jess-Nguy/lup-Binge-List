@@ -9,7 +9,7 @@ router.put("/", async (req, res) => {
     const response = await show.update(body);
     res.json(response);
   } catch (error) {
-    console.log("POST Show: ", error);
+    console.log("PUT Show: ", error);
   }
 });
 

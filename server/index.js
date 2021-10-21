@@ -25,6 +25,7 @@ app.use("/requestShow", require("./routes/showRequest/postShowRequest"));
 
 // SHOWS
 app.use("/show", require("./routes/show/postShow"));
+app.use("/show/delete", require("./routes/show/delete"));
 app.use("/show/dropdown", require("./routes/show/fetchShowDropdown"));
 app.use("/show/display", require("./routes/show/fetchDisplayShows"));
 app.use("/show", require("./routes/show/fetchById"));

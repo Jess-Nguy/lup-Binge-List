@@ -103,25 +103,34 @@ class DataService {
     }
   }
   // Not in use yet.
-  async getRequestShowByUnprocessed() {
+  // async getRequestShowByUnprocessed() {
+  //   try {
+  //     const response = await http.dataApi.get('/requestShow');
+  //     return response.data;
+  //   } catch (e) {
+  //     console.error('Failed to GET show request - ', e);
+  //     return false;
+  //   }
+  // }
+  async deleteShow(id) {
     try {
-      const response = await http.dataApi.get('/requestShow');
-      return response.data;
+      const response = await http.dataApi.delete(`/show/delete/?id=${id}`);
+      return response;
     } catch (e) {
-      console.error('Failed to GET show request - ', e);
+      console.error('Failed to DELETE show - ', e);
       return false;
     }
   }
   // Not in use yet.
-  async deleteRequestShow(id) {
-    try {
-      const response = await http.dataApi.delete('/requestShow', id);
-      return response.data;
-    } catch (e) {
-      console.error('Failed to DELETE show request - ', e);
-      return false;
-    }
-  }
+  // async deleteRequestShow(id) {
+  //   try {
+  //     const response = await http.dataApi.delete('/requestShow', id);
+  //     return response.data;
+  //   } catch (e) {
+  //     console.error('Failed to DELETE show request - ', e);
+  //     return false;
+  //   }
+  // }
   async isAdmin(user) {
     try {
       const response = await http.dataApi.get('/auth/isAdmin', user);

@@ -33,7 +33,7 @@
             <!-- Year released tag -->
             <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
               <div class="card-body">
-                <h5 class="card-title">{{ show.release_year }}</h5>
+                <h5 class="card-title" v-if="show.release_year">{{ show.release_year }}</h5>
               </div>
             </div>
           </div>

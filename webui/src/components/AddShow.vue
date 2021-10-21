@@ -3,7 +3,7 @@
     <!-- Button trigger modal -->
     <button
       type="button"
-      v-on:click="loadModal"
+      @click="loadModal"
       class="btn btn-success"
       data-bs-toggle="modal"
       data-bs-target="#addShowModal"
@@ -12,7 +12,7 @@
     </button>
     <!-- Modal -->
     <div
-      v-if="opened"
+      v-if="isOpen"
       class="modal top fade"
       id="addShowModal"
       tabindex="-1"
@@ -41,7 +41,6 @@
                 <input type="url" id="show-image-link" v-model="enteredShowImage" />
                 <img v-if="enteredShowImage !== ''" :src="enteredShowImage" alt="show image" width="100" height="100" />
                 <img v-else :src="defaultImage" alt="default image" width="100" height="100" />
-                <button id="save-image-button" type="button" class="btn btn-success">Save Image</button>
               </div>
               <!-- row 1 -->
               <div class="row mb-3">
@@ -204,7 +203,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" @click="closeModal" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Add</button>
+              <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Add</button>
             </div>
           </div>
         </div>
@@ -226,7 +225,7 @@ export default {
   data() {
     return {
       v$: useVuelidate(),
-      opened: false,
+      isOpen: false,
       defaultImage: 'https://cdn.onlinewebfonts.com/svg/img_98811.png',
       enteredShowImage: '',
       enteredShowName: '',
@@ -317,6 +316,7 @@ export default {
         const resultShow = await DataService.postShow(showData);
         console.log('result: ', resultShow.data);
         console.log('result id: ', resultShow.data[0].id_show);
+        this.$emit('submitted-show');
       } else {
         alert('Show creation failed in validation');
       }
@@ -344,9 +344,9 @@ export default {
       }
     },
     async loadModal() {
+      this.isOpen = true;
       await this.retrieveCharactersDropdown();
       await this.retrieveActorDropdown();
-      this.opened = true;
     },
     async retrieveActorDropdown() {
       const resultActor = await DataService.getActorDropdown();
@@ -365,7 +365,7 @@ export default {
       }));
     },
     closeModal() {
-      this.opened = false;
+      this.isOpen = false;
     },
   },
 };

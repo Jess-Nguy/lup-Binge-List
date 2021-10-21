@@ -2,7 +2,7 @@
   <div class="browse">
     <h1>This is a browse page</h1>
     <div v-if="isAdmin">
-      <add-show></add-show>
+      <add-show @submitted-show="getShows"></add-show>
     </div>
     <browse-filter @browser-filter-change="setQuery" />
     <browse-show :isAdmin="isAdmin" :showsArr="shows" />
