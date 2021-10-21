@@ -70,7 +70,11 @@ module.exports = {
       console.log("DB QUERY POST");
       let titles = show.title;
       titles = titles.length === 0 ? "" : "'" + titles.join("','") + "'";
-
+      // let synopsis = show.synopsis;
+      // synopsis = synopsis.replace(/'/g, "''");
+      console.log("titles: ", titles);
+      // console.log("SYNP: ", synopsis);
+      console.log("SYNP: ", show.synopsis);
       const insertQuery = `INSERT INTO shows (
             title,
             native_title,
@@ -121,9 +125,9 @@ module.exports = {
     // const idResult = showId.validate(id);
     // const result = schema.validate(show);
 
-    if (result !== null) {
-      return await db.query(
-        `UPDATE show SET 
+    // if (result !== null) {
+    return await db.query(
+      `UPDATE show SET 
         title='${show.title}', 
         native_title='${show.native_title}', 
         romanization='${show.romanization}',
@@ -144,9 +148,9 @@ module.exports = {
         synopsis='${show.synopsis}',
         updated_at=now(),
         WHERE id_show = '${id}' RETURNING id_show`
-      );
-    } else {
-      return Promise.reject(result.error);
-    }
+    );
+    // } else {
+    //   return Promise.reject(result.error);
+    // }
   },
 };

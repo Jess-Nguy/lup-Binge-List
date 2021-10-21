@@ -1,7 +1,7 @@
 <template>
   <div class="browse">
     <h1>This is a browse page</h1>
-    <div v-if="role === 'Admin'">
+    <div v-if="isAdmin">
       <add-show></add-show>
     </div>
     <browse-filter />
@@ -57,17 +57,19 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     } else {
+      console.log('GET USER: ', this.getUser);
       if (!this.getUser) {
+        console.log('INSIDE');
         this.login(localToken);
       }
       console.log('Browse mount');
     }
-    // this.$store.subscribe((setRole, role) => {
-    //   console.log('TYPE: ', setRole.type);
-    //   console.log('PAYLOAD: ', setRole.payload);
-    //   console.log('ROLE Browser: ', role);
-    //   this.role = role.payload;
-    // });
+    this.$store.subscribe((setRole, role) => {
+      console.log('TYPE: ', setRole.type);
+      console.log('PAYLOAD: ', setRole.payload);
+      console.log('ROLE Browser: ', role);
+      this.role = role.payload;
+    });
     console.log('BROWSE GET ROLE: ', this.getRole);
     this.role = this.getRole;
     if (this.role === 'Admin') {

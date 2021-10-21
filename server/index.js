@@ -30,9 +30,6 @@ app.use("/show/display", require("./routes/show/fetchDisplayShows"));
 app.use("/show", require("./routes/show/fetchById"));
 app.use("/show", require("./routes/show/putShow"));
 
-// Show Relations
-app.use("/showRelation", require("./routes/showRelation/postShowRelation"));
-
 // Actor
 app.use("/actor/dropdown", require("./routes/actor/fetchActorsDropdown"));
 

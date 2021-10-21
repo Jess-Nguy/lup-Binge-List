@@ -40,16 +40,6 @@ class DataService {
       return false;
     }
   }
-  async postShowRelation(data) {
-    try {
-      console.log('DATA postShowRelation dataApi: ', data);
-      const response = await http.dataApi.post('/showRelation', data);
-      return response;
-    } catch (e) {
-      console.error('Failed to CREATE show relation - ', e);
-      return false;
-    }
-  }
   async getCharactersDropdown() {
     try {
       const response = await http.dataApi.get('/character/dropdown');

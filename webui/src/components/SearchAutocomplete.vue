@@ -14,7 +14,7 @@
       <li
         v-else
         v-for="(result, i) in results"
-        :key="i"
+        :key="result.id"
         @click="setResult(result)"
         class="autocomplete-result"
         :class="{ 'is-active': i === arrowCounter }"
@@ -44,6 +44,11 @@ export default {
       required: true,
       default: '1',
     },
+    preSelectedItem: {
+      type: String,
+      required: false,
+      default: () => '00000000-0000-0000-0000-000000000000',
+    },
   },
   data() {
     return {
@@ -65,6 +70,16 @@ export default {
   },
   mounted() {
     document.addEventListener('click', this.handleClickOutside);
+    this.selectedItem = this.items.filter((item) => {
+      return item.id === this.preSelectedItem;
+    });
+    if (this.selectedItem) {
+      this.searchValue = this.selectedItem[0].value;
+    }
+    console.log('searchValue ITEM: ', this.searchValue);
+    // console.log('preSelectedItem ITEM: ', this.preSelectedItem);
+    console.log('SELECTED ITEM: ', this.selectedItem);
+    console.log('ITEMS: ', this.items);
   },
   unmounted() {
     document.removeEventListener('click', this.handleClickOutside);

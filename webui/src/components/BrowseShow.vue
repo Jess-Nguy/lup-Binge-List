@@ -52,7 +52,7 @@
       <div class="col-1">
         <div class="card-footer">
           <div v-if="isAdmin">
-            <edit-show :show_id="show.id_show"></edit-show>
+            <edit-show :show_id="show.id_show" :show_name="show.title[0]"></edit-show>
           </div>
           <div v-else>
             <a><i class="fas fa-play"></i></a><br />

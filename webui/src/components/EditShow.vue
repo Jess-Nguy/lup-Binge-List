@@ -6,6 +6,7 @@
     </a>
     <!-- Modal -->
     <div
+      v-if="opened"
       class="modal top fade"
       id="editShowModal"
       tabindex="-1"
@@ -19,19 +20,22 @@
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="editShowModalLabel">Editing Show</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button
+                @click="closeModal"
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
             <!-- BODY -->
             <div class="modal-body">
               <div class="card-body">
                 <label for="show-image-link">Show image:</label>
                 <input type="url" id="show-image-link" v-model="enteredShowImage" />
-                <img
-                  src="https://cdn.onlinewebfonts.com/svg/img_98811.png"
-                  alt="profile image"
-                  width="100"
-                  height="100"
-                />
+                <img v-if="enteredShowImage !== ''" :src="enteredShowImage" alt="show image" width="100" height="100" />
+                <img v-else :src="defaultImage" alt="default image" width="100" height="100" />
+                <button id="save-image-button" type="button" class="btn btn-success">Save Image</button>
               </div>
               <!-- row 1 -->
               <div class="row mb-3">
@@ -125,36 +129,7 @@
                   <input type="number" v-model="enteredNumEpisodes" id="editShowNumEpisodes" class="form-control" />
                 </div>
               </div>
-              <!-- row 5 -->
-              <div class="row mb-3">
-                <!-- Relations 1 -->
-                <div class="col">
-                  <label class="form-label" for="editShowRelations1">Relations 1 (Optional)</label>
-                  <search-autocomplete
-                    @input-autocomplete-set="getSelectedItem"
-                    :items="shows"
-                    :elementField="'Relation 1'"
-                  ></search-autocomplete>
-                </div>
-                <!-- Relations 2 -->
-                <div class="col">
-                  <label class="form-label" for="editShowRelations2">Relations 2 (Optional)</label>
-                  <search-autocomplete
-                    @input-autocomplete-set="getSelectedItem"
-                    :items="shows"
-                    :elementField="'Relation 2'"
-                  ></search-autocomplete>
-                </div>
-                <!-- Relations 3 -->
-                <div class="col">
-                  <label class="form-label" for="editShowRelations3">Relations 3 (Optional)</label>
-                  <search-autocomplete
-                    @input-autocomplete-set="getSelectedItem"
-                    :items="shows"
-                    :elementField="'Relation 3'"
-                  ></search-autocomplete>
-                </div>
-              </div>
+
               <!-- row 6 -->
               <div class="row mb-3">
                 <!-- Main Character -->
@@ -223,8 +198,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-success">Add</button>
+              <button @click="closeModal" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-success">Update</button>
             </div>
           </div>
         </div>
@@ -250,6 +225,8 @@ export default {
   data() {
     return {
       v$: useVuelidate(),
+      opened: false,
+      defaultImage: 'https://cdn.onlinewebfonts.com/svg/img_98811.png',
       enteredShowImage: '',
       enteredShowName: '',
       enteredTitleSynonyms: '',
@@ -260,9 +237,6 @@ export default {
       enteredCountry: '',
       enteredGenre: '',
       enteredCompany: '',
-      enteredRelation1: '',
-      enteredRelation2: '',
-      enteredRelation3: '',
       enteredMainCharacter: '00000000-0000-0000-0000-000000000000',
       enteredSideCharacter1: '00000000-0000-0000-0000-000000000000',
       enteredSideCharacter2: '00000000-0000-0000-0000-000000000000',
@@ -272,11 +246,8 @@ export default {
       enteredNumSeasons: 0,
       enteredNumEpisodes: 0,
       enteredSynopsis: '',
-      actors: [],
-      characters: [
-        { id: 1, value: 'Jess Nguyen' },
-        { id: 2, value: 'Rosa Dias' },
-      ],
+      actors: [{ id: '00000000-0000-0000-0000-000000000000', value: 'Not Assigned' }],
+      characters: [{ id: '00000000-0000-0000-0000-000000000000', value: 'Not Assigned', image: '' }],
       shows: [],
       selectedShow: {},
     };
@@ -298,7 +269,12 @@ export default {
       this.v$.$validate();
       if (!this.v$.$error) {
         alert('SUCCESSFULLY UPDATED SHOW!');
-        const titles = [this.enteredShowName, this.enteredTitleSynonyms];
+
+        let title = this.enteredShowName;
+        title = title.replace(/'/g, "''");
+        let titleSynonyms = this.enteredTitleSynonyms;
+        titleSynonyms = titleSynonyms.replace(/'/g, "''");
+        const titles = [title, titleSynonyms];
         // TO DO: completed_date errors if not set because of postgresql type
         const showData = {
           title: titles,
@@ -325,33 +301,6 @@ export default {
         const resultShow = await DataService.postShow(showData);
         console.log('result: ', resultShow.data);
         console.log('result id: ', resultShow.data[0].id_show);
-
-        // Relations
-        if (this.enteredRelation1) {
-          const relationData1 = {
-            type: 'Similar',
-            show_id1: resultShow.data[0].id_show,
-            show_id2: this.enteredRelation1,
-          };
-          console.log('RELATION DATA: ', relationData1);
-          await DataService.postShowRelation(relationData1);
-        }
-        if (this.enteredRelation2) {
-          const relationData2 = {
-            type: 'Similar',
-            show_id1: resultShow.data[0].id_show,
-            show_id2: this.enteredRelation2,
-          };
-          await DataService.postShowRelation(relationData2);
-        }
-        if (this.enteredRelation3) {
-          const relationData2 = {
-            type: 'Similar',
-            show_id1: resultShow.data[0].id_show,
-            show_id2: this.enteredRelation3,
-          };
-          await DataService.postShowRelation(relationData2);
-        }
       } else {
         alert('Show creation failed in validation');
       }
@@ -376,22 +325,15 @@ export default {
         case 'Side actor 2':
           this.enteredSCActorActress2 = result.id;
           break;
-        case 'Relation 1':
-          this.enteredRelation1 = result.id;
-          break;
-        case 'Relation 2':
-          this.enteredRelation2 = result.id;
-          break;
-        case 'Relation 3':
-          this.enteredRelation3 = result.id;
-          break;
       }
     },
     async loadModal() {
       await this.retrieveSelectedShow();
       await this.retrieveCharactersDropdown();
       await this.retrieveActorDropdown();
-      await this.retrieveShowDropdown();
+      await this.setSelectedShowModal();
+      this.enteredShowName = this.selectedShow[0].title[0];
+      this.opened = true;
     },
     async retrieveSelectedShow() {
       this.selectedShow = await DataService.getShowById(this.show_id);
@@ -408,18 +350,15 @@ export default {
       this.enteredCountry = this.selectedShow[0].country;
       this.enteredGenre = this.selectedShow[0].genre;
       this.enteredCompany = this.selectedShow[0].company;
-      // this.enteredRelation1 =  ;
-      // this.enteredRelation2 =  ;
-      // this.enteredRelation3 =  ;
       this.enteredMainCharacter = this.selectedShow[0].main_character_id;
       this.enteredSideCharacter1 = this.selectedShow[0].side_character1_id;
       this.enteredSideCharacter2 = this.selectedShow[0].side_character2_id;
-      // this.enteredMCActorActress = this.selectedShow[0]. ;
-      // this.enteredSCActorActress1 = this.selectedShow[0]. ;
-      // this.enteredSCActorActress2 = this.selectedShow[0]. ;
-      // this.enteredNumSeasons = this.selectedShow[0]. ;
-      // this.enteredNumEpisodes = this.selectedShow[0].;
-      // this.enteredSynopsis = this.selectedShow[0]. ;
+      this.enteredMCActorActress = this.selectedShow[0].main_actor_id;
+      this.enteredSCActorActress1 = this.selectedShow[0].side_actor1_id;
+      this.enteredSCActorActress2 = this.selectedShow[0].side_actor2_id;
+      this.enteredNumSeasons = this.selectedShow[0].seasons;
+      this.enteredNumEpisodes = this.selectedShow[0].episodes;
+      this.enteredSynopsis = this.selectedShow[0].synopsis;
     },
     async retrieveActorDropdown() {
       const resultActor = await DataService.getActorDropdown();
@@ -437,12 +376,8 @@ export default {
         image: item.character_image,
       }));
     },
-    async retrieveShowDropdown() {
-      const resultShow = await DataService.getShowDropdown();
-      this.shows = resultShow.map((item) => ({
-        id: item.id_show,
-        value: item.title,
-      }));
+    closeModal() {
+      this.opened = false;
     },
   },
 };
