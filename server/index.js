@@ -18,9 +18,25 @@ app.use("/auth", auth);
 
 // app.use(checkAuthHeaderSetUserUnAuthorized);
 
+//  REQUEST SHOWS
 app.use("/requestShow", require("./routes/showRequest/deleteShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/getShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/postShowRequest"));
+
+// SHOWS
+app.use("/show", require("./routes/show/postShow"));
+app.use("/show/delete", require("./routes/show/delete"));
+app.use("/show/dropdown", require("./routes/show/fetchShowDropdown"));
+app.use("/show/display", require("./routes/show/fetchDisplayShows"));
+app.use("/show", require("./routes/show/fetchById"));
+app.use("/show/filter", require("./routes/show/showBrowseFilter"));
+app.use("/show", require("./routes/show/putShow"));
+
+// Actor
+app.use("/actor/dropdown", require("./routes/actor/fetchActorsDropdown"));
+
+// Character
+app.use("/character/dropdown", require("./routes/character/fetchCharactersDropdown"));
 
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 

@@ -30,15 +30,23 @@ export default {
     getUser() {
       return this.$store.getters.getUser;
     },
+    getRole() {
+      return this.$store.getters.getRole;
+    },
   },
   mounted() {
     this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
+      // console.log(setUser.type);
+      // console.log(setUser.payload);
       console.log('USER: ', user);
       this.user = user;
     });
     localStorage.getItem('userToken');
+    this.$store.subscribe((setRole, role) => {
+      console.log('TYPE: ', setRole.type);
+      console.log('PAYLOAD: ', setRole.payload);
+      console.log('Home - ROLE: ', role);
+    });
   },
   methods: {
     ...mapActions(['login']),

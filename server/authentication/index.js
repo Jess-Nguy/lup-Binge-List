@@ -8,9 +8,13 @@ const router = express.Router();
 
 router.get("/isAdmin", async (req, res) => {
   if (req.user) {
-    if (req.user.role === "Admin") {
+    if (req.user.role_id === 1) {
       return res.json({
         isAdmin: true,
+      });
+    } else {
+      return res.json({
+        isAdmin: false,
       });
     }
   }
