@@ -11,13 +11,13 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="@/assets/img/Banner.png" alt="First slide" />
+          <img class="d-block w-100" :src="banners[0]" alt="First slide" />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="@/assets/img/kBanner.png" alt="Second slide" />
+          <img class="d-block w-100" :src="banners[1]" alt="Second slide" />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="@/assets/img/aBanner.png" alt="Third slide" />
+          <img class="d-block w-100" :src="banners[2]" alt="Third slide" />
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -34,12 +34,19 @@
 
 <script>
 import { mapActions } from 'vuex';
+import DataService from '../../service/dataService';
 
 export default {
   data() {
     return {
       welcomeMessage: '',
       profileUrl: '',
+      isAdmin: false,
+      banners: [
+        require('@/assets/img/Banner.png'),
+        require('@/assets/img/kBanner.png'),
+        require('@/assets/img/aBanner.png'),
+      ],
     };
   },
   name: 'Dashboard',
@@ -48,12 +55,22 @@ export default {
       return this.$store.getters.getUser;
     },
   },
-  mounted() {
+  async mounted() {
+    await this.getBanners();
     this.$store.subscribe((setUser, user) => {
       console.log(setUser.type);
       console.log(setUser.payload);
       console.log('USER: ', user);
       this.user = user;
+    });
+    this.$store.subscribe((setRole, role) => {
+      console.log('TYPE: ', setRole.type);
+      console.log('PAYLOAD: ', setRole.payload);
+      console.log('ROLE Browser: ', role);
+      this.role = role.payload;
+      if (this.role === 'Admin') {
+        this.isAdmin = true;
+      }
     });
 
     const localToken = localStorage.getItem('userToken');
@@ -62,14 +79,34 @@ export default {
     } else {
       if (!this.getUser) {
         this.login(localToken);
+        // this.username = this.getUser.username;
+        this.welcomeMessage = 'Welcome ' + this.getUser.username;
+        console.log('SETTING USERNAME: ', this.username);
+        this.profileUrl = this.getUser.profile_image;
+      } else {
+        // this.username = this.getUser.username;
+        this.welcomeMessage = 'Welcome ' + this.getUser.username;
+        this.profileUrl = this.getUser.profile_image;
+        console.log('SETTING USERNAME2: ', this.username);
       }
-      this.welcomeMessage = 'Welcome ' + this.getUser.username;
-      this.profileUrl = this.getUser.profile_image;
+      this.role = this.getRole;
+      if (this.role === 'Admin') {
+        this.isAdmin = true;
+      }
+
       console.log('Dashboard mount');
     }
   },
   methods: {
     ...mapActions(['login']),
+    async getBanners() {
+      const gotBanners = await DataService.getBanners();
+      if (gotBanners !== null) {
+        this.banners = gotBanners;
+      }
+
+      console.log('DASH BANNER: ', this.banners);
+    },
   },
 };
 </script>

@@ -18,6 +18,11 @@ app.use("/auth", auth);
 
 // app.use(checkAuthHeaderSetUserUnAuthorized);
 
+// USERS
+// BANNERS
+app.use("/banners", require("./routes/users/updateBanners"));
+app.use("/banners", require("./routes/users/fetchBanners"));
+
 //  REQUEST SHOWS
 app.use("/requestShow", require("./routes/showRequest/deleteShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/getShowRequest"));

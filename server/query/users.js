@@ -22,6 +22,19 @@ module.exports = {
     const userResponse = await db.query(`SELECT * FROM users WHERE email = '${email}'`);
     return userResponse;
   },
+  async fetchBanners() {
+    const banners = await db.query(`Select distinct banners from users`);
+    return banners;
+  },
+  async updateBanners(data) {
+    const checkUserRole = await db.query(`select role_id from users where id_user = '${data.id}'`);
+    if (checkUserRole.rows[0].role_id == 1) {
+      const adminUpdateBanners = await db.query(`update users set banners = array['${data.banners[0]}','${data.banners[1]}','${data.banners[2]}']`);
+      return adminUpdateBanners;
+    } else {
+      return Promise.reject("This users is not an Admin and cannot change banners.");
+    }
+  },
   async update(id, user) {
     const result = schema.validate(user);
 

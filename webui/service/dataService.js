@@ -20,6 +20,15 @@ class DataService {
       return false;
     }
   }
+  async updateBanners(data) {
+    try {
+      const response = await http.dataApi.put('/banners', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update banners - ', e);
+      return false;
+    }
+  }
   async postRequestShow(data) {
     try {
       console.log('DATA postRequestShow dataApi: ', data);
@@ -67,6 +76,16 @@ class DataService {
       return response.data;
     } catch (e) {
       console.error('Failed to GET show dropdown - ', e);
+      return false;
+    }
+  }
+  async getBanners() {
+    try {
+      const response = await http.dataApi.get('/banners');
+      console.log(response.data.rows[0].banners);
+      return response.data.rows[0].banners;
+    } catch (e) {
+      console.error('Failed to GET banners - ', e);
       return false;
     }
   }
