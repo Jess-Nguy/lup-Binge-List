@@ -1,6 +1,7 @@
 import http from '../service/api.factory';
 
 class DataService {
+  // UPDATE
   // Not in use yet.
   async updateUser(data) {
     try {
@@ -29,6 +30,16 @@ class DataService {
       return false;
     }
   }
+  async updateUserBingeList(data) {
+    try {
+      const response = await http.dataApi.put('/bingeList', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update bingeList - ', e);
+      return false;
+    }
+  }
+  // POST
   async postRequestShow(data) {
     try {
       console.log('DATA postRequestShow dataApi: ', data);
@@ -59,6 +70,7 @@ class DataService {
       return false;
     }
   }
+  // GET
   async getCharactersDropdown() {
     try {
       const response = await http.dataApi.get('/character/dropdown');
@@ -96,6 +108,16 @@ class DataService {
       return response.data.rows[0].banners;
     } catch (e) {
       console.error('Failed to GET banners - ', e);
+      return false;
+    }
+  }
+  async getCheckAdd(data) {
+    try {
+      const response = await http.dataApi.get(`/bingeList/checkAdd/?userId=${data.user_id}&showId=${data.show_id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET checkAdd - ', e);
       return false;
     }
   }
@@ -141,6 +163,7 @@ class DataService {
   //     return false;
   //   }
   // }
+  // DELETE
   async deleteShow(id) {
     try {
       const response = await http.dataApi.delete(`/show/delete/?id=${id}`);

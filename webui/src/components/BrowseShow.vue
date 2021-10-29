@@ -45,9 +45,9 @@
             <edit-show :show_id="show.id_show" :show_name="show.title[0]"></edit-show>
           </div>
           <div v-else>
-            <a @click="addAsWatching(show.id_show)"><i class="fas fa-play"></i></a><br />
-            <a @click="addAsCompleted(show.id_show)"><i class="fas fa-check"></i></a><br />
-            <a @click="addAsPlanned(show.id_show)"><i class="fas fa-calendar-alt"></i></a>
+            <a @click="addAsWatching(show)"><i class="fas fa-play"></i></a><br />
+            <a @click="addAsCompleted(show)"><i class="fas fa-check"></i></a><br />
+            <a @click="addAsPlanned(show)"><i class="fas fa-calendar-alt"></i></a>
           </div>
         </div>
       </div>
@@ -103,34 +103,100 @@ export default {
     async getShows() {
       this.shows = await DataService.getShowBrowseFilter(this.query);
     },
-    async addAsWatching(showId) {
+    async addAsWatching(show) {
       // Check if it already exists and if it does update the status instead.
-      console.log('ADD AS WATCHING. ', showId);
+      console.log('ADD AS WATCHING. ', show.id_show);
+      console.log('ADD AS WATCHING. ', show);
       console.log('loggedinuser: ', this.loggedInUser);
-      const data = {
+      const checkData = {
         user_id: this.loggedInUser.id_user,
-        status: 'watching',
-        show_id: showId,
+        show_id: show.id_show,
       };
-      await DataService.postBingeList(data);
+      const check = await DataService.getCheckAdd(checkData);
+      console.log('CHECK: ', check);
+      if (check === null) {
+        const data = {
+          user_id: this.loggedInUser.id_user,
+          status: 'watching',
+          show_id: show.id_show,
+          episode_progress: 0,
+          total_episodes: show.episodes,
+        };
+        await DataService.postBingeList(data);
+        alert('Added show to watch list');
+      } else if (check.status !== 'watching') {
+        // update
+        console.log('UPDATE SHOW. ', check);
+        const updateData = {
+          status: 'watching',
+          episode_progress: 0,
+          id_user_show: check.id_user_show,
+        };
+        await DataService.updateUserBingeList(updateData);
+        alert('Updated show to be in watch list');
+      }
     },
-    async addAsCompleted(showId) {
-      console.log('ADD AS COMPLETED. ', showId);
-      const data = {
+    async addAsCompleted(show) {
+      console.log('ADD AS COMPLETED. ', show);
+
+      const checkData = {
         user_id: this.loggedInUser.id_user,
-        status: 'completed',
-        show_id: showId,
+        show_id: show.id_show,
       };
-      await DataService.postBingeList(data);
+      const check = await DataService.getCheckAdd(checkData);
+      console.log('CHECK: ', check);
+      if (check === null) {
+        const data = {
+          user_id: this.loggedInUser.id_user,
+          status: 'completed',
+          show_id: show.id_show,
+          episode_progress: show.episodes,
+          total_episodes: show.episodes,
+        };
+        await DataService.postBingeList(data);
+        alert('Added show to completed list');
+      } else if (check.status !== 'completed') {
+        // update
+        console.log('UPDATE SHOW. ', check);
+        const updateData = {
+          status: 'completed',
+          episode_progress: show.episodes,
+          id_user_show: check.id_user_show,
+        };
+        await DataService.updateUserBingeList(updateData);
+        alert('Updated show to be completed list');
+      }
     },
-    async addAsPlanned(showId) {
-      console.log('ADD AS PLANNED. ', showId);
-      const data = {
+    async addAsPlanned(show) {
+      console.log('ADD AS PLANNED. ', show);
+
+      const checkData = {
         user_id: this.loggedInUser.id_user,
-        status: 'planned',
-        show_id: showId,
+        show_id: show.id_show,
       };
-      await DataService.postBingeList(data);
+      const check = await DataService.getCheckAdd(checkData);
+      console.log('CHECK: ', check);
+      if (check === null) {
+        const data = {
+          user_id: this.loggedInUser.id_user,
+          status: '',
+          show_id: show.id_show,
+          episode_progress: 0,
+          total_episodes: show.episodes,
+        };
+        await DataService.postBingeList(data);
+        alert('Added show to planned list');
+      } else if (check.status !== 'planned') {
+        // update
+        console.log('UPDATE SHOW. ', check);
+        const updateData = {
+          status: 'planned',
+          episode_progress: show.episodes,
+          id_user_show: check.id_user_show,
+        };
+        await DataService.updateUserBingeList(updateData);
+        alert('Updated show to be planned list');
+      }
     },
   },
 };
