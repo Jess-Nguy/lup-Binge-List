@@ -81,13 +81,13 @@ export default {
         this.login(localToken);
         // this.username = this.getUser.username;
         this.welcomeMessage = 'Welcome ' + this.getUser.username;
-        console.log('SETTING USERNAME: ', this.username);
+        this.user = this.getUser;
         this.profileUrl = this.getUser.profile_image;
       } else {
         // this.username = this.getUser.username;
         this.welcomeMessage = 'Welcome ' + this.getUser.username;
+        this.user = this.getUser;
         this.profileUrl = this.getUser.profile_image;
-        console.log('SETTING USERNAME2: ', this.username);
       }
       this.role = this.getRole;
       if (this.role === 'Admin') {

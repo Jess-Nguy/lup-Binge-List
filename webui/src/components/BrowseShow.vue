@@ -45,9 +45,9 @@
             <edit-show :show_id="show.id_show" :show_name="show.title[0]"></edit-show>
           </div>
           <div v-else>
-            <a><i class="fas fa-play"></i></a><br />
-            <a><i class="fas fa-check"></i></a><br />
-            <a><i class="fas fa-calendar-alt"></i></a>
+            <a @click="addAsWatching(show.id_show)"><i class="fas fa-play"></i></a><br />
+            <a @click="addAsCompleted(show.id_show)"><i class="fas fa-check"></i></a><br />
+            <a @click="addAsPlanned(show.id_show)"><i class="fas fa-calendar-alt"></i></a>
           </div>
         </div>
       </div>
@@ -68,6 +68,11 @@ export default {
       type: Array,
       required: false,
       default: () => [],
+    },
+    loggedInUser: {
+      type: Object,
+      required: true,
+      default: () => {},
     },
   },
   components: {
@@ -97,6 +102,35 @@ export default {
   methods: {
     async getShows() {
       this.shows = await DataService.getShowBrowseFilter(this.query);
+    },
+    async addAsWatching(showId) {
+      // Check if it already exists and if it does update the status instead.
+      console.log('ADD AS WATCHING. ', showId);
+      console.log('loggedinuser: ', this.loggedInUser);
+      const data = {
+        user_id: this.loggedInUser.id_user,
+        status: 'watching',
+        show_id: showId,
+      };
+      await DataService.postBingeList(data);
+    },
+    async addAsCompleted(showId) {
+      console.log('ADD AS COMPLETED. ', showId);
+      const data = {
+        user_id: this.loggedInUser.id_user,
+        status: 'completed',
+        show_id: showId,
+      };
+      await DataService.postBingeList(data);
+    },
+    async addAsPlanned(showId) {
+      console.log('ADD AS PLANNED. ', showId);
+      const data = {
+        user_id: this.loggedInUser.id_user,
+        status: 'planned',
+        show_id: showId,
+      };
+      await DataService.postBingeList(data);
     },
   },
 };

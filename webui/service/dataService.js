@@ -49,6 +49,16 @@ class DataService {
       return false;
     }
   }
+  async postBingeList(data) {
+    try {
+      console.log('DATA bingeList dataApi: ', data);
+      const response = await http.dataApi.post('/bingeList', data);
+      return response;
+    } catch (e) {
+      console.error('Failed to CREATE bingeList show - ', e);
+      return false;
+    }
+  }
   async getCharactersDropdown() {
     try {
       const response = await http.dataApi.get('/character/dropdown');

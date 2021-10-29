@@ -43,6 +43,9 @@ app.use("/actor/dropdown", require("./routes/actor/fetchActorsDropdown"));
 // Character
 app.use("/character/dropdown", require("./routes/character/fetchCharactersDropdown"));
 
+// User Binge Show
+app.use("/bingeList", require("./routes/bingeList/insert"));
+
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 
 // this * route is to serve project on different page routes except root `/`

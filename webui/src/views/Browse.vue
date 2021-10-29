@@ -5,7 +5,7 @@
       <add-show @submitted-show="getShows"></add-show>
     </div>
     <browse-filter @browser-filter-change="setQuery" />
-    <browse-show :isAdmin="isAdmin" :showsArr="shows" />
+    <browse-show :isAdmin="isAdmin" :showsArr="shows" :loggedInUser="user" />
     <!-- Show cards -->
   </div>
 </template>
@@ -51,6 +51,7 @@ export default {
         yearEnd: '',
         searchText: '',
       },
+      user: {},
     };
   },
   name: 'Browse',
@@ -71,6 +72,11 @@ export default {
       if (!this.getUser) {
         console.log('INSIDE');
         this.login(localToken);
+        this.user = this.getUser;
+        console.log('BROWSER USER1: ', this.user);
+      } else {
+        this.user = this.getUser;
+        console.log('BROWSER USER2: ', this.user);
       }
       console.log('Browse mount');
     }
