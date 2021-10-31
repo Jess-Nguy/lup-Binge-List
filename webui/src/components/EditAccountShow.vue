@@ -218,9 +218,7 @@ export default {
       this.$emit('update-account-show');
     },
     favouriteToggle() {
-      console.log('FAVOURITE BUTTON BEFORE: ', this.editForm.favourite);
       this.editForm.favourite = this.editForm.favourite ? false : true;
-      console.log('FAVOURITE BUTTON AFTER: ', this.editForm.favourite);
     },
   },
 };

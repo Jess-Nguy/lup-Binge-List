@@ -8,7 +8,7 @@
     </div>
     <div class="card-body">
       <h5 class="card-title">
-        <a>{{ showFav.title[0] }}</a>
+        <router-link :to="`/show/${showFav.show_id}`">{{ showFav.title[0] }}</router-link>
       </h5>
     </div>
   </div>

@@ -17,7 +17,9 @@
             <th scope="row">
               <img id="showImage" :src="show.show_image" :alt="show.title[0]" width="150" heigth="350" />
             </th>
-            <td>{{ show.title[0] }}</td>
+            <td>
+              <router-link :to="`/show/${show.show_id}`">{{ show.title[0] }}</router-link>
+            </td>
             <td>{{ show.score }}/10</td>
             <td>{{ show.episode_progress }}</td>
             <td>
