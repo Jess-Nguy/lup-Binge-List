@@ -50,7 +50,7 @@ module.exports = {
     const start_date = data.start_date == null ? data.start_date : "'" + data.start_date + "'";
     const end_date = data.end_date == null ? data.end_date : "'" + data.end_date + "'";
     const response = await db.query(
-      `update user_binge_show set favourite  = ${data.favourite}, status = '${data.status}', score  = '${data.score}', episode_progress = '${data.episode_progress}', start_date  = ${start_date}, end_date  = ${end_date}, rewatch  = '${data.rewatch}', note  = '${data.note}' where id_user_show = '${data.id_user_show}'`
+      `update user_binge_show set favourite = ${data.favourite}, status = '${data.status}', score  = '${data.score}', episode_progress = '${data.episode_progress}', start_date  = ${start_date}, end_date  = ${end_date}, rewatch  = '${data.rewatch}', note  = '${data.note}' where id_user_show = '${data.id_user_show}'`
     );
     return response;
   },

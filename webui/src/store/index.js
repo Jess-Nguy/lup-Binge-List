@@ -248,6 +248,11 @@ export default createStore({
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const user = JSON.parse(window.atob(base64));
+        localStorage.setItem('userId', user.id_user);
+        localStorage.setItem('userRoleId', user.role_id);
+        localStorage.setItem('profileImage', user.profile_image);
+        console.log('USER FROM STORE: ', user);
+
         const isAdmin = await DataService.isAdmin(user);
         if (isAdmin) {
           console.log('IS ADMIN LOGIN');
