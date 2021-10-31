@@ -40,6 +40,17 @@
               <h1>{{ title }}</h1>
               <h6 v-show="titleSynomyms">{{ titleSynomyms }}</h6>
             </div>
+            <div>
+              <!-- true/false css change? -->
+              <button
+                @click="favouriteToggle"
+                class="btn btn-danger"
+                :class="{ active: editForm.favourite }"
+                style="border-radius: 50%"
+              >
+                <i class="fas fa-heart"></i>
+              </button>
+            </div>
             <!-- Row 1 -->
             <div class="row mb-3">
               <div class="col">
@@ -205,6 +216,11 @@ export default {
       await DataService.deleteBingeList(this.selectedEdit.id_user_show);
       alert('DELETED SHOW OFF LIST');
       this.$emit('update-account-show');
+    },
+    favouriteToggle() {
+      console.log('FAVOURITE BUTTON BEFORE: ', this.editForm.favourite);
+      this.editForm.favourite = this.editForm.favourite ? false : true;
+      console.log('FAVOURITE BUTTON AFTER: ', this.editForm.favourite);
     },
   },
 };
