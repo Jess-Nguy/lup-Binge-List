@@ -10,6 +10,7 @@ export default createStore({
       1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016,
       2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
     ],
+    listStatus: ['watching', 'completed', 'paused', 'dropped', 'planned'],
     airingStatus: ['Airing', 'Finished', 'Not released', 'Not airing'],
     genres: [
       'Drama',
@@ -278,6 +279,9 @@ export default createStore({
     },
     getAiringStatus(state) {
       return state.airingStatus;
+    },
+    getListStatus(state) {
+      return state.listStatus;
     },
   },
   modules: {},

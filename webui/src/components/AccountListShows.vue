@@ -21,7 +21,7 @@
             <td>{{ show.score }}/10</td>
             <td>{{ show.episode_progress }}</td>
             <td>
-              <edit-account-show />
+              <edit-account-show :selectedEdit="show" />
             </td>
           </tr>
         </tbody>
