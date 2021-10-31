@@ -273,6 +273,12 @@ export default createStore({
     getGenres(state) {
       return state.genres;
     },
+    getYears(state) {
+      return state.years;
+    },
+    getAiringStatus(state) {
+      return state.airingStatus;
+    },
   },
   modules: {},
 });
