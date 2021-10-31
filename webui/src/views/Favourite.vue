@@ -2,7 +2,7 @@
   <div class="favourite">
     <h1>Favourite</h1>
     <account-nav />
-    <favourite-filter />
+    <side-filter />
     <div class="card border border-dark shadow-0">
       <div class="card-body">
         <favourite-list />
@@ -14,11 +14,11 @@
 <script>
 import { mapActions } from 'vuex';
 import AccountNav from '../components/AccountNav.vue';
-import FavouriteFilter from '../components/FavouriteFilter.vue';
+import SideFilter from '../components/SideFilter.vue';
 import FavouriteList from '../components/FavouriteList.vue';
 
 export default {
-  components: { AccountNav, FavouriteFilter, FavouriteList },
+  components: { AccountNav, SideFilter, FavouriteList },
   data() {
     return {};
   },

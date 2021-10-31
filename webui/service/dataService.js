@@ -153,6 +153,18 @@ class DataService {
       return false;
     }
   }
+  async getAccountList(data) {
+    try {
+      console.log('getAccountList: ', data);
+      const response = await http.dataApi.get(
+        `/bingeList/filter/?country=${data.country}&genre=${data.genre}&status=${data.status}&yearStart=${data.yearStart}&yearEnd=${data.yearEnd}&userId=${data.userId}`
+      );
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET account list - ', e);
+      return false;
+    }
+  }
   // Not in use yet.
   // async getRequestShowByUnprocessed() {
   //   try {

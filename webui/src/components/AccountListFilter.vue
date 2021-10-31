@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="btn-group-vertical">
-      <button type="button" class="btn btn-primary">All</button>
-      <button type="button" class="btn btn-primary">Watching</button>
-      <button type="button" class="btn btn-primary">Completed</button>
-      <button type="button" class="btn btn-primary">Paused</button>
-      <button type="button" class="btn btn-primary">Dropped</button>
-      <button type="button" class="btn btn-primary">Planning</button>
+      <button type="button" class="btn btn-primary" @click="statusChange('all')">All</button>
+      <button type="button" class="btn btn-primary" @click="statusChange('watching')">Watching</button>
+      <button type="button" class="btn btn-primary" @click="statusChange('completed')">Completed</button>
+      <button type="button" class="btn btn-primary" @click="statusChange('paused')">Paused</button>
+      <button type="button" class="btn btn-primary" @click="statusChange('dropped')">Dropped</button>
+      <button type="button" class="btn btn-primary" @click="statusChange('planned')">Planned</button>
     </div>
-    <favourite-filter />
   </div>
 </template>
 <style scoped>
@@ -17,8 +16,11 @@
 }
 </style>
 <script>
-import FavouriteFilter from './FavouriteFilter.vue';
 export default {
-  components: { FavouriteFilter },
+  methods: {
+    statusChange(status) {
+      this.$emit('status-change', status);
+    },
+  },
 };
 </script>
