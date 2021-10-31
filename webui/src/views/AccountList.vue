@@ -56,6 +56,7 @@ export default {
         yearStart: '',
         yearEnd: '',
         status: '',
+        favourite: false,
       },
       user: {},
       bingeList: [],

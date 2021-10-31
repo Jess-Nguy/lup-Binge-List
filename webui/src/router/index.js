@@ -65,7 +65,7 @@ const routes = [
   {
     path: '/favourite',
     name: 'Favourite',
-    component: () => import('../views/Favourite.vue'),
+    component: () => import('../views/FavouriteList.vue'),
   },
   {
     path: '/social',

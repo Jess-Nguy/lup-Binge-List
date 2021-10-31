@@ -69,8 +69,9 @@ module.exports = {
     (${nullFilter.genre} is null or genre = ${nullFilter.genre}) and 
     (${nullFilter.yearStart} is null or release_year >= ${nullFilter.yearStart}) and 
     (${nullFilter.yearEnd} is null or release_year <= ${nullFilter.yearStart}) and 
-    (${nullFilter.status} is null or status = ${nullFilter.status})
-    order by status DESC, title[1] ASC`);
+    (${nullFilter.status} is null or status = ${nullFilter.status}) and
+    (${data.favourite}::bool is false or favourite = true)
+    order by title[1] ASC`);
     return response;
   },
   async delete(id) {

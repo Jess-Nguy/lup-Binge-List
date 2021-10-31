@@ -157,7 +157,7 @@ class DataService {
     try {
       console.log('getAccountList: ', data);
       const response = await http.dataApi.get(
-        `/bingeList/filter/?country=${data.country}&genre=${data.genre}&status=${data.status}&yearStart=${data.yearStart}&yearEnd=${data.yearEnd}&userId=${data.userId}`
+        `/bingeList/filter/?country=${data.country}&genre=${data.genre}&status=${data.status}&yearStart=${data.yearStart}&yearEnd=${data.yearEnd}&userId=${data.userId}&favourite=${data.favourite}`
       );
       return response.data.rows;
     } catch (e) {
