@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import AccountNav from '../components/AccountNav.vue';
 import SideFilter from '../components/SideFilter.vue';
 import FavouriteShow from '../components/FavouriteShow.vue';
@@ -29,13 +28,19 @@ export default {
   data() {
     return {
       query: {
-        userId: '',
+        userId: localStorage.getItem('userId'),
         country: '',
         genre: '',
         yearStart: '',
         yearEnd: '',
         status: '',
         favourite: true,
+      },
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
       },
       favourites: [],
     };
@@ -49,44 +54,21 @@ export default {
       },
     },
   },
-  computed: {
-    getUser() {
-      return this.$store.getters.getUser;
-    },
-  },
+  computed: {},
   async mounted() {
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-        this.user = this.getUser;
-        this.query.userId = this.getUser.id_user;
-      } else {
-        this.user = this.getUser;
-        this.query.userId = this.getUser.id_user;
-      }
-      console.log('Favourite mount');
     }
+    console.log('Favourite mount');
     await this.loadTables();
   },
   methods: {
-    ...mapActions(['login']),
     async loadTables() {
       await this.getBingeList();
     },
     async getBingeList() {
-      console.log('QUERY: ', this.query);
       this.favourites = await DataService.getAccountList(this.query);
-      console.log('FAVOURITE: ', this.favourites);
     },
     updateQuerySideFilter(filter) {
       this.query.country = filter.country;

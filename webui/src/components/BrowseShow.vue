@@ -109,14 +109,14 @@ export default {
       console.log('ADD AS WATCHING. ', show);
       console.log('loggedinuser: ', this.loggedInUser);
       const checkData = {
-        user_id: this.loggedInUser.id_user,
+        user_id: this.loggedInUser.id,
         show_id: show.id_show,
       };
       const check = await DataService.getCheckAdd(checkData);
       console.log('CHECK: ', check);
       if (check === null) {
         const data = {
-          user_id: this.loggedInUser.id_user,
+          user_id: this.loggedInUser.id,
           status: 'watching',
           show_id: show.id_show,
           episode_progress: 0,
@@ -149,14 +149,14 @@ export default {
       console.log('ADD AS COMPLETED. ', show);
 
       const checkData = {
-        user_id: this.loggedInUser.id_user,
+        user_id: this.loggedInUser.id,
         show_id: show.id_show,
       };
       const check = await DataService.getCheckAdd(checkData);
       console.log('CHECK: ', check);
       if (check === null) {
         const data = {
-          user_id: this.loggedInUser.id_user,
+          user_id: this.loggedInUser.id,
           status: 'completed',
           show_id: show.id_show,
           episode_progress: show.episodes,
@@ -189,14 +189,14 @@ export default {
       console.log('ADD AS PLANNED. ', show);
 
       const checkData = {
-        user_id: this.loggedInUser.id_user,
+        user_id: this.loggedInUser.id,
         show_id: show.id_show,
       };
       const check = await DataService.getCheckAdd(checkData);
       console.log('CHECK: ', check);
       if (check === null) {
         const data = {
-          user_id: this.loggedInUser.id_user,
+          user_id: this.loggedInUser.id,
           status: 'planned',
           show_id: show.id_show,
           episode_progress: 0,

@@ -58,7 +58,6 @@ export default {
         status: '',
         favourite: false,
       },
-      user: {},
       bingeList: [],
       watchList: [],
       completedList: [],
@@ -73,32 +72,8 @@ export default {
       return this.$store.getters.getUser;
     },
   },
-  mounted() {
-    // this.$store.subscribe((setUser, user) => {
-    //   console.log(setUser.type);
-    //   console.log(setUser.payload);
-    //   console.log('USER: ', user);
-    //   this.user = user;
-    //   this.query.userId = this.user.id_user;
-    // });
-    // this.query.userId = localStorage.getItem('userId');
-    // console.log('local storage user id: ', this.query.userId);
-    // const localToken = localStorage.getItem('userToken');
-    // if (!localToken) {
-    //   this.$router.push('/');
-    // } else {
-    //   if (!this.getUser) {
-    //     this.login(localToken);
-    //     this.user = this.getUser;
-    //     this.query.userId = this.getUser.id_user;
-    //     console.log('AL1 - user id: ', this.query.userId);
-    //   } else {
-    //     this.user = this.getUser;
-    //     this.query.userId = this.getUser.id_user;
-    //     console.log('AL2 - user id: ', this.query.userId);
-    //   }
-    //   console.log('My List mount');
-    // }
+  async mounted() {
+    await this.loadTables();
   },
   watch: {
     query: {

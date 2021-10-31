@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <h1 v-if="welcomeMessage">{{ welcomeMessage }}</h1>
-    <img v-if="profileUrl" :src="profileUrl" alt="profile image" width="100" height="100" />
+    <img v-if="user.profileUrl" :src="user.profileUrl" alt="profile image" width="100" height="100" />
     <h3>Manage your shows with <img src="@/assets/img/LogoBL.png" alt="BingeList" width="100" height="40" /></h3>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <ol class="carousel-indicators">
@@ -33,20 +33,23 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import DataService from '../../service/dataService';
 
 export default {
   data() {
     return {
       welcomeMessage: '',
-      profileUrl: '',
-      isAdmin: false,
       banners: [
         require('@/assets/img/Banner.png'),
         require('@/assets/img/kBanner.png'),
         require('@/assets/img/aBanner.png'),
       ],
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
     };
   },
   name: 'Dashboard',
@@ -57,55 +60,23 @@ export default {
   },
   async mounted() {
     await this.getBanners();
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-    this.$store.subscribe((setRole, role) => {
-      console.log('TYPE: ', setRole.type);
-      console.log('PAYLOAD: ', setRole.payload);
-      console.log('ROLE Browser: ', role);
-      this.role = role.payload;
-      if (this.role === 'Admin') {
-        this.isAdmin = true;
-      }
-    });
-
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-        // this.username = this.getUser.username;
-        this.welcomeMessage = 'Welcome ' + this.getUser.username;
-        this.user = this.getUser;
-        this.profileUrl = this.getUser.profile_image;
-      } else {
-        // this.username = this.getUser.username;
-        this.welcomeMessage = 'Welcome ' + this.getUser.username;
-        this.user = this.getUser;
-        this.profileUrl = this.getUser.profile_image;
-      }
-      this.role = this.getRole;
-      if (this.role === 'Admin') {
-        this.isAdmin = true;
-      }
-
-      console.log('Dashboard mount');
     }
+
+    if (this.user.name !== null) {
+      this.welcomeMessage = 'Welcome ' + this.user.name;
+    }
+
+    console.log('Dashboard mount');
   },
   methods: {
-    ...mapActions(['login']),
     async getBanners() {
       const gotBanners = await DataService.getBanners();
       if (gotBanners !== null) {
         this.banners = gotBanners;
       }
-
-      console.log('DASH BANNER: ', this.banners);
     },
   },
 };

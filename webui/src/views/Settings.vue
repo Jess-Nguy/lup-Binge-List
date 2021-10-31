@@ -26,7 +26,7 @@
 
       <div class="card-body">
         <label for="account-username">Username: </label>
-        <input type="text" id="account-username" v-model="username" />
+        <input type="text" id="account-username" v-model="user.name" />
       </div>
       <div class="card-body">
         <label for="image-link">Time zone: </label>
@@ -51,75 +51,42 @@
 }
 </style>
 <script>
-import { mapActions } from 'vuex';
 import DataService from '../../service/dataService';
 
 export default {
   data() {
     return {
-      profileUrl: '',
       isAdmin: false,
-      role: 'User',
       banners: [
         require('@/assets/img/Banner.png'),
         require('@/assets/img/kBanner.png'),
         require('@/assets/img/aBanner.png'),
       ],
       username: '',
-      user: {},
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
     };
   },
   name: 'Settings',
-  computed: {
-    getUser() {
-      return this.$store.getters.getUser;
-    },
-    getRole() {
-      return this.$store.getters.getRole;
-    },
-  },
+  computed: {},
   async mounted() {
+    if (this.user.roleId == 1) {
+      console.log('REACHED inside if');
+      this.isAdmin = true;
+    }
     await this.getBanners();
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('SETTING USER: ');
-      this.username = user.username;
-    });
-    this.$store.subscribe((setRole, role) => {
-      console.log('TYPE: ', setRole.type);
-      console.log('PAYLOAD: ', setRole.payload);
-      console.log('ROLE Browser: ', role);
-      this.role = role.payload;
-      if (this.role === 'Admin') {
-        this.isAdmin = true;
-      }
-    });
 
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-        this.username = this.getUser.username;
-        this.user = this.getUser;
-        console.log('SETTING USERNAME: ', this.username);
-        this.profileUrl = this.getUser.profile_image;
-      } else {
-        this.username = this.getUser.username;
-        this.user = this.getUser;
-        console.log('SETTING user: ', this.user);
-      }
-      this.role = this.getRole;
-      if (this.role === 'Admin') {
-        this.isAdmin = true;
-      }
-      console.log('Settings mount');
     }
+    console.log('Settings mount');
   },
   methods: {
-    ...mapActions(['login']),
     async getBanners() {
       const gotBanners = await DataService.getBanners();
       if (gotBanners !== null) {
@@ -127,11 +94,13 @@ export default {
       }
     },
     async updateBanners() {
-      const data = {
-        banners: this.banners,
-        id: this.user.id_user,
-      };
-      await DataService.updateBanners(data);
+      if (this.isAdmin) {
+        const data = {
+          banners: this.banners,
+          id: this.user.id,
+        };
+        await DataService.updateBanners(data);
+      }
     },
   },
 };

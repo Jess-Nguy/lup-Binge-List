@@ -2,10 +2,10 @@
   <div class="account">
     <h1>My Account</h1>
     <account-nav />
-    <img :src="profileUrl" alt="profile image" width="100" height="100" />
+    <img :src="user.profileUrl" alt="profile image" width="100" height="100" />
     <div class="card">
       <div class="card-body">
-        <h5 class="card-title">{{ username }}</h5>
+        <h5 class="card-title">{{ user.name }}</h5>
       </div>
     </div>
     <h1>Activity List</h1>
@@ -22,8 +22,12 @@ import OverviewStats from '@/components/OverviewStats.vue';
 export default {
   data() {
     return {
-      username: '',
-      profileUrl: '',
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
     };
   },
   name: 'My Account',
@@ -32,31 +36,8 @@ export default {
     ActivityList,
     OverviewStats,
   },
-  computed: {
-    getUser() {
-      return this.$store.getters.getUser;
-    },
-  },
-  mounted() {
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-
-    const localToken = localStorage.getItem('userToken');
-    if (!localToken) {
-      this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-      console.log('My Account mount');
-      this.username = this.getUser.username;
-      this.profileUrl = this.getUser.profile_image;
-    }
-  },
+  computed: {},
+  mounted() {},
   methods: {
     ...mapActions(['login']),
   },

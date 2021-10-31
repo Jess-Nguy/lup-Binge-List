@@ -38,10 +38,16 @@
 <script>
 // import BarGraphStats from '@/components/BarGraphStats.vue';
 import TableStats from '@/components/TableStats.vue';
-import { mapActions } from 'vuex';
 export default {
   data() {
-    return {};
+    return {
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
+    };
   },
   name: 'Stats',
   components: {
@@ -53,15 +59,9 @@ export default {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-      console.log('Status mount');
     }
+    console.log('Status mount');
   },
-  methods: {
-    ...mapActions(['login']),
-  },
+  methods: {},
 };
 </script>

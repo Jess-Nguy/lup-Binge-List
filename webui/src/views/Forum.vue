@@ -21,7 +21,7 @@
               class="form-select"
               aria-label="Default select example"
             >
-              <option>Canada</option>
+              <option v-for="(country, i) in listOfCountries" :key="i">{{ country }}</option>
             </select>
             <div class="requiredFields" v-if="v$.enteredCountry.$error">Country field is required</div>
           </div>
@@ -38,7 +38,7 @@
         <div class="form-outline mb-4">
           <label class="form-label" for="requestShowGenre">Genre *</label>
           <select v-model="enteredGenre" id="requestShowGenre" class="form-select" aria-label="Default select example">
-            <option value="Comedy">Comedy</option>
+            <option v-for="(genre, i) in listOfGenres" :key="i">{{ genre }}</option>
           </select>
           <div class="requiredFields" v-if="v$.enteredGenre.$error">Genre field is required</div>
         </div>
@@ -78,7 +78,6 @@
 }
 </style>
 <script>
-import { mapActions } from 'vuex';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import DataService from '../../service/dataService';
@@ -93,6 +92,14 @@ export default {
       enteredNumSeasons: 0,
       enteredNumEpisodes: 0,
       enteredNote: '',
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
+      listOfCountries: [],
+      listOfGenres: [],
     };
   },
   validations() {
@@ -105,29 +112,29 @@ export default {
   },
   name: 'Forum',
   computed: {
-    getUser() {
-      return this.$store.getters.getUser;
+    getCountries() {
+      return this.$store.getters.getCountries;
+    },
+    getGenres() {
+      return this.$store.getters.getGenres;
     },
   },
   mounted() {
+    this.listOfCountries = this.getCountries;
+    this.listOfGenres = this.getGenres;
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-      console.log('Forum mount');
     }
+    console.log('Forum mount');
   },
   methods: {
-    ...mapActions(['login']),
     async submitRequestShow() {
       this.v$.$validate();
       if (!this.v$.$error) {
         alert('SUCCESSFULLY SUBMITTED FORM!');
         const data = {
-          requested_by: this.getUser.id_user,
+          requested_by: this.user.id,
           show_title: this.enteredShowName,
           country: this.enteredCountry,
           release_date: this.enteredDateAired,

@@ -116,8 +116,12 @@ import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      user: {},
-      role: 'User',
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
     };
   },
   name: 'Nav Header',
@@ -129,32 +133,8 @@ export default {
         return 'http://localhost:8000/auth/google';
       }
     },
-    getUser() {
-      return this.$store.getters.getUser;
-    },
-    getRole() {
-      return this.$store.getters.getRole;
-    },
   },
-  mounted() {
-    this.user = this.getUser;
-    this.role = this.getRole;
-
-    console.log('GET ROLE: ', this.getRole);
-    console.log('NAV mount - ROLE: ', this.role);
-    this.$store.subscribe((setUser, user) => {
-      // console.log(setUser.type);
-      // console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-    this.$store.subscribe((role) => {
-      // console.log('TYPE: ', setRole.type);
-      // console.log('PAYLOAD: ', setRole.payload);
-      console.log('NAV store - ROLE: ', role);
-      this.role = role;
-    });
-  },
+  mounted() {},
   methods: {
     ...mapActions(['login']),
     logoutUser() {

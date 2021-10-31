@@ -84,7 +84,6 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -144,18 +143,12 @@ export default {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
     }
     console.log('COUNTRIES: ', this.getCountries);
     this.listOfCountries = this.getCountries;
     this.listOfGenres = this.getGenres;
   },
-  methods: {
-    ...mapActions(['login']),
-  },
+  methods: {},
   watch: {
     query: {
       deep: true,

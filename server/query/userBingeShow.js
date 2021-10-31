@@ -66,7 +66,7 @@ module.exports = {
     }
     console.log("getListByUserFilter NULL FILTER: ", nullFilter);
     const response = await db.query(`select * from display_list_all 
-    where (${nullFilter.userId} = ${nullFilter.userId}) and
+    where (${nullFilter.userId} = user_id) and
     (${nullFilter.country} is null or country = ${nullFilter.country}) and 
     (${nullFilter.genre} is null or genre = ${nullFilter.genre}) and 
     (${nullFilter.yearStart} is null or release_year >= ${nullFilter.yearStart}) and 
