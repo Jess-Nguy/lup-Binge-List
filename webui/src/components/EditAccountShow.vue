@@ -96,7 +96,7 @@
               <textarea class="form-control" v-model="editForm.note" id="note" rows="4"></textarea>
             </div>
             <div class="modal-footer">
-              <button @click="deleteShow" type="button" class="btn btn-danger mr-auto" data-bs-dismiss="modal">
+              <button @click="deleteAccountShow" type="button" class="btn btn-danger mr-auto" data-bs-dismiss="modal">
                 Delete
               </button>
               <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Update</button>
@@ -108,6 +108,7 @@
   </div>
 </template>
 <script>
+import DataService from '../../service/dataService';
 export default {
   name: 'Edit Account Show',
   props: {
@@ -144,25 +145,66 @@ export default {
   },
   mounted() {},
   methods: {
-    async loadModal() {
+    loadModal() {
       this.listOfStatus = this.getListStatus;
       this.editForm.favourite = this.selectedEdit.favourite;
-      console.log('this.selectedEdit.status: ', this.selectedEdit.status);
+      console.log('this.selectedEdit: ', this.selectedEdit);
       this.editForm.status = this.selectedEdit.status;
-      console.log('this.editForm.status: ', this.editForm.status);
       this.editForm.score = this.selectedEdit.score;
-      this.editForm.startDate = this.selectedEdit.start_date;
-      this.editForm.endDate = this.selectedEdit.end_date;
+
       this.editForm.rewatch = this.selectedEdit.rewatch;
-      this.editForm.note = this.selectedEdit.note;
+      this.editForm.note = this.selectedEdit.note !== 'null' ? this.selectedEdit.note : '';
       this.editForm.episodeProgress = this.selectedEdit.episode_progress;
       this.showImage = this.selectedEdit.show_image;
       this.title = this.selectedEdit.title[0];
       this.titleSynomyms = this.selectedEdit.title[1];
+
+      // Date convert for calendar
+      var day;
+      var month;
+      if (this.selectedEdit.start_date !== null) {
+        const startDate = new Date(this.selectedEdit.start_date);
+
+        day = ('0' + startDate.getDate()).slice(-2);
+        month = ('0' + (startDate.getMonth() + 1)).slice(-2);
+        this.editForm.startDate = startDate.getFullYear() + '-' + month + '-' + day;
+      } else {
+        this.editForm.startDate = this.selectedEdit.start_date;
+      }
+
+      if (this.selectedEdit.end_date !== null) {
+        const endDate = new Date(this.selectedEdit.end_date);
+        day = ('0' + endDate.getDate()).slice(-2);
+        month = ('0' + (endDate.getMonth() + 1)).slice(-2);
+        this.editForm.endDate = endDate.getFullYear() + '-' + month + '-' + day;
+      } else {
+        this.editForm.endDate = this.selectedEdit.end_date;
+      }
+
       this.isOpen = true;
     },
     closeModal() {
       this.isOpen = false;
+    },
+    async submitEditAccountShow() {
+      const updateData = {
+        status: this.editForm.status,
+        episode_progress: this.editForm.episodeProgress,
+        id_user_show: this.selectedEdit.id_user_show,
+        score: this.editForm.score,
+        rewatch: this.editForm.rewatch,
+        favourite: this.editForm.favourite,
+        start_date: this.editForm.startDate,
+        end_date: this.editForm.endDate,
+        note: this.editForm.note,
+      };
+      await DataService.updateUserBingeList(updateData);
+      this.$emit('update-account-show');
+    },
+    async deleteAccountShow() {
+      await DataService.deleteBingeList(this.selectedEdit.id_user_show);
+      alert('DELETED SHOW OFF LIST');
+      this.$emit('update-account-show');
     },
   },
 };

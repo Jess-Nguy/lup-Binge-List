@@ -8,26 +8,31 @@
       v-show="query.status == 'watching' || query.status == ''"
       :tableName="'Watching'"
       :bingeStatusList="watchList"
+      @update-account-show="accountShowUpdated"
     />
     <account-list-shows
       v-show="query.status == 'completed' || query.status == ''"
       :tableName="'Completed'"
       :bingeStatusList="completedList"
+      @update-account-show="accountShowUpdated"
     />
     <account-list-shows
       v-show="query.status == 'paused' || query.status == ''"
       :tableName="'Paused'"
       :bingeStatusList="pausedList"
+      @update-account-show="accountShowUpdated"
     />
     <account-list-shows
       v-show="query.status == 'dropped' || query.status == ''"
       :tableName="'Dropped'"
       :bingeStatusList="droppedList"
+      @update-account-show="accountShowUpdated"
     />
     <account-list-shows
       v-show="query.status == 'planned' || query.status == ''"
       :tableName="'Planned'"
       :bingeStatusList="plannedList"
+      @update-account-show="accountShowUpdated"
     />
   </div>
 </template>
@@ -148,6 +153,9 @@ export default {
       this.query.genre = filter.genre;
       this.query.yearStart = filter.yearStart;
       this.query.yearEnd = filter.yearEnd;
+    },
+    async accountShowUpdated() {
+      await this.loadTables();
     },
   },
 };

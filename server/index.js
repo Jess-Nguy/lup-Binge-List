@@ -46,6 +46,7 @@ app.use("/character/dropdown", require("./routes/character/fetchCharactersDropdo
 // User Binge Show
 app.use("/bingeList", require("./routes/bingeList/insert"));
 app.use("/bingeList", require("./routes/bingeList/update"));
+app.use("/bingeList", require("./routes/bingeList/delete"));
 app.use("/bingeList/filter", require("./routes/bingeList/getListByUserFilter"));
 app.use("/bingeList/checkAdd", require("./routes/bingeList/isShowAlreadyAdded"));
 

@@ -185,6 +185,15 @@ class DataService {
       return false;
     }
   }
+  async deleteBingeList(id) {
+    try {
+      const response = await http.dataApi.delete(`/bingeList/?id=${id}`);
+      return response;
+    } catch (e) {
+      console.error('Failed to DELETE bingeList - ', e);
+      return false;
+    }
+  }
   // Not in use yet.
   // async deleteRequestShow(id) {
   //   try {

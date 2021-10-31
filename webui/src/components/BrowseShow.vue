@@ -121,6 +121,9 @@ export default {
           show_id: show.id_show,
           episode_progress: 0,
           total_episodes: show.episodes,
+          score: 0,
+          rewatch: 0,
+          favourite: false,
         };
         await DataService.postBingeList(data);
         alert('Added show to watch list');
@@ -131,6 +134,12 @@ export default {
           status: 'watching',
           episode_progress: 0,
           id_user_show: check.id_user_show,
+          score: check.score,
+          rewatch: check.rewatch,
+          favourite: check.favourite,
+          start_date: check.start_date,
+          end_date: check.end_date,
+          note: check.note,
         };
         await DataService.updateUserBingeList(updateData);
         alert('Updated show to be in watch list');
@@ -152,6 +161,9 @@ export default {
           show_id: show.id_show,
           episode_progress: show.episodes,
           total_episodes: show.episodes,
+          score: 0,
+          rewatch: 0,
+          favourite: false,
         };
         await DataService.postBingeList(data);
         alert('Added show to completed list');
@@ -162,6 +174,12 @@ export default {
           status: 'completed',
           episode_progress: show.episodes,
           id_user_show: check.id_user_show,
+          score: check.score,
+          rewatch: check.rewatch,
+          favourite: check.favourite,
+          start_date: check.start_date,
+          end_date: check.end_date,
+          note: check.note,
         };
         await DataService.updateUserBingeList(updateData);
         alert('Updated show to be completed list');
@@ -179,10 +197,13 @@ export default {
       if (check === null) {
         const data = {
           user_id: this.loggedInUser.id_user,
-          status: '',
+          status: 'planned',
           show_id: show.id_show,
           episode_progress: 0,
           total_episodes: show.episodes,
+          score: 0,
+          rewatch: 0,
+          favourite: false,
         };
         await DataService.postBingeList(data);
         alert('Added show to planned list');
@@ -193,6 +214,12 @@ export default {
           status: 'planned',
           episode_progress: show.episodes,
           id_user_show: check.id_user_show,
+          score: check.score,
+          rewatch: check.rewatch,
+          favourite: check.favourite,
+          start_date: check.start_date,
+          end_date: check.end_date,
+          note: check.note,
         };
         await DataService.updateUserBingeList(updateData);
         alert('Updated show to be planned list');

@@ -21,7 +21,7 @@
             <td>{{ show.score }}/10</td>
             <td>{{ show.episode_progress }}</td>
             <td>
-              <edit-account-show :selectedEdit="show" />
+              <edit-account-show :selectedEdit="show" @update-account-show="this.$emit('update-account-show')" />
             </td>
           </tr>
         </tbody>
