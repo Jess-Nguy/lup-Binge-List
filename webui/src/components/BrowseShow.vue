@@ -8,7 +8,9 @@
         <div class="card-body">
           <div class="row mb-3">
             <div class="col">
-              <h5 class="card-title">{{ show.title[0] }}</h5>
+              <h5 class="card-title">
+                <router-link :to="`/show/${show.id_show}`">{{ show.title[0] }}</router-link>
+              </h5>
             </div>
           </div>
           <div class="row mb-3">
@@ -105,9 +107,6 @@ export default {
     },
     async addAsWatching(show) {
       // Check if it already exists and if it does update the status instead.
-      console.log('ADD AS WATCHING. ', show.id_show);
-      console.log('ADD AS WATCHING. ', show);
-      console.log('loggedinuser: ', this.loggedInUser);
       const checkData = {
         user_id: this.loggedInUser.id,
         show_id: show.id_show,
@@ -129,7 +128,6 @@ export default {
         alert('Added show to watch list');
       } else if (check.status !== 'watching') {
         // update
-        console.log('UPDATE SHOW. ', check);
         const updateData = {
           status: 'watching',
           episode_progress: 0,
@@ -146,8 +144,6 @@ export default {
       }
     },
     async addAsCompleted(show) {
-      console.log('ADD AS COMPLETED. ', show);
-
       const checkData = {
         user_id: this.loggedInUser.id,
         show_id: show.id_show,
@@ -186,8 +182,6 @@ export default {
       }
     },
     async addAsPlanned(show) {
-      console.log('ADD AS PLANNED. ', show);
-
       const checkData = {
         user_id: this.loggedInUser.id,
         show_id: show.id_show,

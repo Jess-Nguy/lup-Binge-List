@@ -72,6 +72,10 @@ const routes = [
     name: 'Social',
     component: () => import('../views/Social.vue'),
   },
+  {
+    path: '/show/:id',
+    component: () => import('../views/Show.vue'),
+  },
 ];
 
 const router = createRouter({

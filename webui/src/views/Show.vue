@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>Show {{ show.id }}</div>
 </template>
 <script>
 export default {
@@ -11,7 +11,13 @@ export default {
         id: localStorage.getItem('userId'),
         roleId: localStorage.getItem('userRoleId'),
       },
+      show: {
+        id: '',
+      },
     };
+  },
+  created() {
+    this.show.id = this.$route.params.id;
   },
 };
 </script>
