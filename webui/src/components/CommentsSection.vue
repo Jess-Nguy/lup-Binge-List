@@ -15,10 +15,14 @@
                 <p>{{ comment.comment }}</p>
               </div>
               <div class="col-1">
-                <div v-if="comment.user_id == user.id">
-                  <a @click="deleteComment(comment)"><i class="fas fa-times" style="color: red"></i></a><br />
-                  <comment-edit :selectedComment="comment" @updated-comment-text="loadComments" />
-                </div>
+                <a v-if="comment.user_id == user.id || user.roleId == 1" @click="deleteComment(comment)"
+                  ><i class="fas fa-times" style="color: red"></i></a
+                ><br />
+                <comment-edit
+                  v-if="comment.user_id == user.id"
+                  :selectedComment="comment"
+                  @updated-comment-text="loadComments"
+                />
                 <a @click="flagComment(comment)"><i class="fas fa-flag" style="color: gold"></i></a>
               </div>
             </div>
@@ -79,6 +83,7 @@ export default {
     return {
       commentList: [],
       commentText: '',
+      flag: false,
       user: {
         name: localStorage.getItem('username'),
         profileUrl: localStorage.getItem('profileImage'),
@@ -121,7 +126,14 @@ export default {
       await this.loadComments();
     },
     async flagComment(comment) {
+      // flag may need to be changed to a number type so that it can count how many times that comment has been flagged
       console.log('flag: ', comment);
+      const data = {
+        comment: comment.comment,
+        flag: comment.flag,
+        id_comment: comment.id_comment,
+      };
+      await DataService.updateComment(data);
       await this.loadComments();
     },
   },
