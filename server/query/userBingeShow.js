@@ -35,6 +35,7 @@ module.exports = {
         ? {
             id_user_show: response.rows[0].id_user_show,
             status: response.rows[0].status,
+            episode_progress: response.rows[0].episode_progress,
             score: response.rows[0].score,
             rewatch: response.rows[0].rewatch,
             favourite: response.rows[0].favourite,

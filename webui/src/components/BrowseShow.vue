@@ -1,10 +1,10 @@
 <template>
   <div id="showCards" class="card" v-for="show in showsFilter" :key="show.id_show">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-3">
         <img id="showCardsImage" :src="show.show_image" :alt="show.title[0]" class="img-fluid" />
       </div>
-      <div class="col-6">
+      <div class="col-8">
         <div class="card-body">
           <div class="row mb-3">
             <div class="col">
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="col-1">
-        <div class="card-footer">
+        <div>
           <div v-if="isAdmin">
             <edit-show :show_id="show.id_show" :show_name="show.title[0]"></edit-show>
           </div>

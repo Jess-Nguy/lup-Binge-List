@@ -50,6 +50,12 @@ app.use("/bingeList", require("./routes/bingeList/delete"));
 app.use("/bingeList/filter", require("./routes/bingeList/getListByUserFilter"));
 app.use("/bingeList/checkAdd", require("./routes/bingeList/isShowAlreadyAdded"));
 
+// Comments
+app.use("/comment", require("./routes/comment/insert"));
+app.use("/comment", require("./routes/comment/delete"));
+app.use("/comment", require("./routes/comment/update"));
+app.use("/comment", require("./routes/comment/fetchById"));
+
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 
 // this * route is to serve project on different page routes except root `/`

@@ -39,6 +39,15 @@ class DataService {
       return false;
     }
   }
+  async updateComment(data) {
+    try {
+      const response = await http.dataApi.put('/comment', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update comment - ', e);
+      return false;
+    }
+  }
   // POST
   async postRequestShow(data) {
     try {
@@ -67,6 +76,16 @@ class DataService {
       return response;
     } catch (e) {
       console.error('Failed to CREATE bingeList show - ', e);
+      return false;
+    }
+  }
+  async postComment(data) {
+    try {
+      console.log('DATA comment dataApi: ', data);
+      const response = await http.dataApi.post('/comment', data);
+      return response;
+    } catch (e) {
+      console.error('Failed to CREATE comment show - ', e);
       return false;
     }
   }
@@ -118,6 +137,16 @@ class DataService {
       return response.data;
     } catch (e) {
       console.error('Failed to GET checkAdd - ', e);
+      return false;
+    }
+  }
+  async getCommentByShow(id) {
+    try {
+      const response = await http.dataApi.get(`/comment/?showId=${id}`);
+      console.log(response.data);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET comment - ', e);
       return false;
     }
   }
@@ -191,6 +220,15 @@ class DataService {
       return response;
     } catch (e) {
       console.error('Failed to DELETE bingeList - ', e);
+      return false;
+    }
+  }
+  async deleteComment(id) {
+    try {
+      const response = await http.dataApi.delete(`/comment/?idComment=${id}`);
+      return response;
+    } catch (e) {
+      console.error('Failed to DELETE comment - ', e);
       return false;
     }
   }
