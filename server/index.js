@@ -19,11 +19,14 @@ app.use("/auth", auth);
 // app.use(checkAuthHeaderSetUserUnAuthorized);
 
 // USERS
+app.use("/user/id", require("./routes/users/fetchById"));
+app.use("/user/id", require("./routes/users/updateByUserId"));
+
 // BANNERS
 app.use("/banners", require("./routes/users/updateBanners"));
 app.use("/banners", require("./routes/users/fetchBanners"));
 
-//  REQUEST SHOWS
+// REQUEST SHOWS
 app.use("/requestShow", require("./routes/showRequest/deleteShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/getShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/postShowRequest"));

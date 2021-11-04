@@ -23,25 +23,24 @@
           </form>
         </div>
       </div>
-
-      <div class="card-body">
-        <label for="account-username">Username: </label>
-        <input type="text" id="account-username" v-model="user.name" />
-      </div>
-      <div class="card-body">
-        <label for="image-link">Time zone: </label>
-        <div class="btn-group">
-          <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            Time zone
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">list of time zones</a></li>
-          </ul>
+      <form @submit.prevent="updateUserDetails">
+        <div class="card-body">
+          <label for="account-username">Username: </label>
+          <input type="text" id="account-username" v-model="username" />
         </div>
-      </div>
-      <div class="card-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
-      </div>
+        <div class="card-body">
+          <label for="image-link">Time zone: </label>
+          <div class="btn-group">
+            <select v-model="timezone" id="timezoneDropdown" class="form-select" aria-label="Default select example">
+              <option value="">-</option>
+              <option v-for="(tz, i) in timezones" :key="i">{{ tz }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -62,18 +61,26 @@ export default {
         require('@/assets/img/kBanner.png'),
         require('@/assets/img/aBanner.png'),
       ],
-      username: '',
+      username: localStorage.getItem('username'),
       user: {
         name: localStorage.getItem('username'),
         profileUrl: localStorage.getItem('profileImage'),
         id: localStorage.getItem('userId'),
         roleId: localStorage.getItem('userRoleId'),
       },
+      timezones: [],
+      timezone: '',
     };
   },
   name: 'Settings',
-  computed: {},
+  computed: {
+    getTimezone() {
+      return this.$store.getters.getTimezone;
+    },
+  },
   async mounted() {
+    this.timezones = this.getTimezone;
+
     if (this.user.roleId == 1) {
       console.log('REACHED inside if');
       this.isAdmin = true;
@@ -85,6 +92,7 @@ export default {
       this.$router.push('/');
     }
     console.log('Settings mount');
+    await this.getUserInfo();
   },
   methods: {
     async getBanners() {
@@ -101,6 +109,19 @@ export default {
         };
         await DataService.updateBanners(data);
       }
+    },
+    async updateUserDetails() {
+      localStorage.setItem('username', this.username);
+      const data = {
+        username: this.username,
+        timezone: this.timezone,
+        id_user: this.user.id,
+      };
+      await DataService.updateByUserId(data);
+    },
+    async getUserInfo() {
+      const result = await DataService.getUserById(this.user.id);
+      this.timezone = result[0].time_zone;
     },
   },
 };

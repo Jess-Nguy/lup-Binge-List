@@ -25,13 +25,13 @@ module.exports = {
     const result = schema.validate(data);
     if (result !== null) {
       return await db.query(
-        `INSERT INTO comments (user_id, show_id, profile_url, username, comment, flag) VALUES ('${data.user_id}', '${data.show_id}', '${data.profile_url}', '${data.username}', '${data.comment}', ${data.flag}) returning id_comment`
+        `INSERT INTO comments (user_id, show_id, profile_url, username, comment, flag) VALUES ('${data.user_id}', '${data.show_id}', '${data.profile_url}', '${data.username}', '${data.comment}', '${data.flag}') returning id_comment`
       );
     } else {
       return Promise.reject(result.error);
     }
   },
   async update(data) {
-    return await db.query(`UPDATE comments SET comment='${data.comment}', flag=${data.flag} WHERE id_comment='${data.id_comment}'`);
+    return await db.query(`UPDATE comments SET comment='${data.comment}', flag='${data.flag}' WHERE id_comment='${data.id_comment}'`);
   },
 };

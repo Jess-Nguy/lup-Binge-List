@@ -28,12 +28,8 @@
                 aria-label="Close"
               ></button>
             </div>
+
             <div v-if="isLoading">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-            <div v-else>
               <div class="modal-body">
                 <textarea type="text" id="editComment" v-model="editCommentText" class="form-control" />
               </div>
@@ -42,6 +38,11 @@
                   Close
                 </button>
                 <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
+              </div>
+            </div>
+            <div v-else>
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
               </div>
             </div>
           </div>
@@ -63,7 +64,7 @@ export default {
   data() {
     return {
       editCommentText: this.selectedComment.comment,
-      isLoading: true,
+      isLoading: false,
     };
   },
   methods: {
@@ -79,11 +80,11 @@ export default {
     },
     loadModal() {
       console.log('WAITING');
-      setTimeout(() => (this.isLoading = false), 1000);
+      setTimeout(() => (this.isLoading = true), 1000);
       console.log('LOADING: ', this.isLoading);
     },
     closeModal() {
-      this.isLoading = true;
+      this.isLoading = false;
     },
   },
 };

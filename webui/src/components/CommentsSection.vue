@@ -10,6 +10,7 @@
             <div class="row g-0">
               <div class="col-2">
                 <img id="userProfileImage" :src="comment.profile_url" :alt="comment.username" class="img-fluid" />
+                <h6>{{ comment.username }}</h6>
               </div>
               <div class="col-9">
                 <p>{{ comment.comment }}</p>
@@ -23,7 +24,9 @@
                   :selectedComment="comment"
                   @updated-comment-text="loadComments"
                 />
-                <a @click="flagComment(comment)"><i class="fas fa-flag" style="color: gold"></i></a>
+                <a v-if="comment.user_id != user.id" @click="flagComment(comment)"
+                  ><i class="fas fa-flag" style="color: gold"></i
+                ></a>
               </div>
             </div>
           </div>
@@ -83,7 +86,7 @@ export default {
     return {
       commentList: [],
       commentText: '',
-      flag: false,
+      flag: 0,
       user: {
         name: localStorage.getItem('username'),
         profileUrl: localStorage.getItem('profileImage'),
@@ -111,7 +114,7 @@ export default {
         profile_url: this.user.profileUrl,
         username: this.user.name,
         comment: this.commentText.replace(/'/g, "''"),
-        flag: false,
+        flag: 0,
       };
       await DataService.postComment(data);
       await this.loadComments();
@@ -130,11 +133,12 @@ export default {
       console.log('flag: ', comment);
       const data = {
         comment: comment.comment,
-        flag: comment.flag,
+        flag: comment.flag + 1,
         id_comment: comment.id_comment,
       };
-      await DataService.updateComment(data);
-      await this.loadComments();
+      console.log('DATA: ', data);
+      // await DataService.updateComment(data);
+      // await this.loadComments();
     },
   },
 };

@@ -198,6 +198,7 @@ export default {
       this.isOpen = false;
     },
     async submitEditAccountShow() {
+      // note should accept quotes
       const updateData = {
         status: this.editForm.status,
         episode_progress: this.editForm.episodeProgress,

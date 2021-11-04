@@ -2,10 +2,9 @@ import http from '../service/api.factory';
 
 class DataService {
   // UPDATE
-  // Not in use yet.
-  async updateUser(data) {
+  async updateByUserId(data) {
     try {
-      const response = await http.dataApi.put('/user', data);
+      const response = await http.dataApi.put('/user/id', data);
       return response.data;
     } catch (e) {
       console.error('Failed to update user - ', e);
@@ -90,6 +89,16 @@ class DataService {
     }
   }
   // GET
+  async getUserById(id) {
+    try {
+      console.log('getUserById: ', id);
+      const response = await http.dataApi.get(`/user/id/?id=${id}`);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET User by Id - ', e);
+      return false;
+    }
+  }
   async getCharactersDropdown() {
     try {
       const response = await http.dataApi.get('/character/dropdown');
@@ -194,6 +203,7 @@ class DataService {
       return false;
     }
   }
+
   // Not in use yet.
   // async getRequestShowByUnprocessed() {
   //   try {
