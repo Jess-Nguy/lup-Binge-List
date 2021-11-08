@@ -26,7 +26,7 @@ passport.use(
         if (user.rows[0].username !== googleUser.username) {
           googleUser.username = user.rows[0].username;
         }
-        user = await users.update(user.id, googleUser);
+        user = await users.updateByGoogleId(user.id, googleUser);
       } else {
         user = await users.insert(googleUser);
       }

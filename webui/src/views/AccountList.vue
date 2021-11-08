@@ -2,17 +2,38 @@
   <div class="accountList">
     <h1>My List</h1>
     <account-nav />
-    <account-list-filter />
-    <h3>Watching</h3>
-    <account-list-shows />
-    <h3>Completed</h3>
-    <account-list-shows />
-    <h3>Paused</h3>
-    <account-list-shows />
-    <h3>Dropped</h3>
-    <account-list-shows />
-    <h3>Planning</h3>
-    <account-list-shows />
+    <account-list-filter @status-change="updateQueryStatus" />
+    <side-filter @side-filter-change="updateQuerySideFilter" />
+    <account-list-shows
+      v-show="query.status == 'watching' || query.status == ''"
+      :tableName="'Watching'"
+      :bingeStatusList="watchList"
+      @update-account-show="accountShowUpdated"
+    />
+    <account-list-shows
+      v-show="query.status == 'completed' || query.status == ''"
+      :tableName="'Completed'"
+      :bingeStatusList="completedList"
+      @update-account-show="accountShowUpdated"
+    />
+    <account-list-shows
+      v-show="query.status == 'paused' || query.status == ''"
+      :tableName="'Paused'"
+      :bingeStatusList="pausedList"
+      @update-account-show="accountShowUpdated"
+    />
+    <account-list-shows
+      v-show="query.status == 'dropped' || query.status == ''"
+      :tableName="'Dropped'"
+      :bingeStatusList="droppedList"
+      @update-account-show="accountShowUpdated"
+    />
+    <account-list-shows
+      v-show="query.status == 'planned' || query.status == ''"
+      :tableName="'Planned'"
+      :bingeStatusList="plannedList"
+      @update-account-show="accountShowUpdated"
+    />
   </div>
 </template>
 
@@ -21,11 +42,29 @@ import { mapActions } from 'vuex';
 import AccountListFilter from '../components/AccountListFilter.vue';
 import AccountListShows from '../components/AccountListShows.vue';
 import AccountNav from '../components/AccountNav.vue';
+import SideFilter from '../components/SideFilter.vue';
+import DataService from '../../service/dataService';
 
 export default {
-  components: { AccountNav, AccountListFilter, AccountListShows },
+  components: { AccountNav, AccountListFilter, AccountListShows, SideFilter },
   data() {
-    return {};
+    return {
+      query: {
+        userId: localStorage.getItem('userId'),
+        country: '',
+        genre: '',
+        yearStart: '',
+        yearEnd: '',
+        status: '',
+        favourite: false,
+      },
+      bingeList: [],
+      watchList: [],
+      completedList: [],
+      pausedList: [],
+      plannedList: [],
+      droppedList: [],
+    };
   },
   name: 'My List',
   computed: {
@@ -33,26 +72,71 @@ export default {
       return this.$store.getters.getUser;
     },
   },
-  mounted() {
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-
-    const localToken = localStorage.getItem('userToken');
-    if (!localToken) {
-      this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-      console.log('My List mount');
-    }
+  async mounted() {
+    await this.loadTables();
+  },
+  watch: {
+    query: {
+      deep: true,
+      async handler() {
+        console.log('WATCH QUERY: ', this.query);
+        await this.loadTables();
+      },
+    },
   },
   methods: {
     ...mapActions(['login']),
+    async loadTables() {
+      await this.getBingeList();
+      // filtered watching
+      this.watchList = this.bingeList.filter((element) => {
+        return element.status == 'watching';
+      });
+
+      console.log('WATCH LIST: ', this.watchList);
+      // filtered completed
+      this.completedList = this.bingeList.filter((element) => {
+        return element.status == 'completed';
+      });
+      console.log('COMPLETED LIST: ', this.completedList);
+
+      // filtered paused
+      this.pausedList = this.bingeList.filter((element) => {
+        return element.status == 'paused';
+      });
+      console.log('PAUSED LIST: ', this.pausedList);
+
+      // filtered planned
+      this.plannedList = this.bingeList.filter((element) => {
+        return element.status == 'planned';
+      });
+      console.log('PLANNED LIST: ', this.plannedList);
+
+      // filtered dropped
+      this.droppedList = this.bingeList.filter((element) => {
+        return element.status == 'dropped';
+      });
+      console.log('DROPPED LIST: ', this.droppedList);
+    },
+    async getBingeList() {
+      this.bingeList = await DataService.getAccountList(this.query);
+    },
+    updateQueryStatus(status) {
+      if (status !== 'all') {
+        this.query.status = status;
+      } else {
+        this.query.status = '';
+      }
+    },
+    updateQuerySideFilter(filter) {
+      this.query.country = filter.country;
+      this.query.genre = filter.genre;
+      this.query.yearStart = filter.yearStart;
+      this.query.yearEnd = filter.yearEnd;
+    },
+    async accountShowUpdated() {
+      await this.loadTables();
+    },
   },
 };
 </script>

@@ -1,14 +1,16 @@
-// For Friends. Not in use yet.
+// For Friends and getting timezone
 const express = require("express");
 const router = express.Router();
-const user = require("../../query/user");
+const user = require("../../query/users");
 
 router.get("/", async (req, res) => {
   try {
-    const body = req.body;
-    const response = await user.fetchById(body.id);
+    const id = req.query.id;
+    const response = await user.fetchById(id);
     res.json(response);
   } catch (error) {
-    console.log("GET user by id: ", error);
+    console.log("GET user by id_user: ", error);
   }
 });
+
+module.exports = router;

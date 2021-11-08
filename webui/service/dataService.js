@@ -1,10 +1,10 @@
 import http from '../service/api.factory';
 
 class DataService {
-  // Not in use yet.
-  async updateUser(data) {
+  // UPDATE
+  async updateByUserId(data) {
     try {
-      const response = await http.dataApi.put('/user', data);
+      const response = await http.dataApi.put('/user/id', data);
       return response.data;
     } catch (e) {
       console.error('Failed to update user - ', e);
@@ -20,6 +20,34 @@ class DataService {
       return false;
     }
   }
+  async updateBanners(data) {
+    try {
+      const response = await http.dataApi.put('/banners', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update banners - ', e);
+      return false;
+    }
+  }
+  async updateUserBingeList(data) {
+    try {
+      const response = await http.dataApi.put('/bingeList', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update bingeList - ', e);
+      return false;
+    }
+  }
+  async updateComment(data) {
+    try {
+      const response = await http.dataApi.put('/comment', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update comment - ', e);
+      return false;
+    }
+  }
+  // POST
   async postRequestShow(data) {
     try {
       console.log('DATA postRequestShow dataApi: ', data);
@@ -37,6 +65,37 @@ class DataService {
       return response;
     } catch (e) {
       console.error('Failed to CREATE show - ', e);
+      return false;
+    }
+  }
+  async postBingeList(data) {
+    try {
+      console.log('DATA bingeList dataApi: ', data);
+      const response = await http.dataApi.post('/bingeList', data);
+      return response;
+    } catch (e) {
+      console.error('Failed to CREATE bingeList show - ', e);
+      return false;
+    }
+  }
+  async postComment(data) {
+    try {
+      console.log('DATA comment dataApi: ', data);
+      const response = await http.dataApi.post('/comment', data);
+      return response;
+    } catch (e) {
+      console.error('Failed to CREATE comment show - ', e);
+      return false;
+    }
+  }
+  // GET
+  async getUserById(id) {
+    try {
+      console.log('getUserById: ', id);
+      const response = await http.dataApi.get(`/user/id/?id=${id}`);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET User by Id - ', e);
       return false;
     }
   }
@@ -67,6 +126,36 @@ class DataService {
       return response.data;
     } catch (e) {
       console.error('Failed to GET show dropdown - ', e);
+      return false;
+    }
+  }
+  async getBanners() {
+    try {
+      const response = await http.dataApi.get('/banners');
+      console.log(response.data.rows[0].banners);
+      return response.data.rows[0].banners;
+    } catch (e) {
+      console.error('Failed to GET banners - ', e);
+      return false;
+    }
+  }
+  async getCheckAdd(data) {
+    try {
+      const response = await http.dataApi.get(`/bingeList/checkAdd/?userId=${data.user_id}&showId=${data.show_id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET checkAdd - ', e);
+      return false;
+    }
+  }
+  async getCommentByShow(id) {
+    try {
+      const response = await http.dataApi.get(`/comment/?showId=${id}`);
+      console.log(response.data);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET comment - ', e);
       return false;
     }
   }
@@ -102,6 +191,19 @@ class DataService {
       return false;
     }
   }
+  async getAccountList(data) {
+    try {
+      console.log('getAccountList: ', data);
+      const response = await http.dataApi.get(
+        `/bingeList/filter/?country=${data.country}&genre=${data.genre}&status=${data.status}&yearStart=${data.yearStart}&yearEnd=${data.yearEnd}&userId=${data.userId}&favourite=${data.favourite}`
+      );
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET account list - ', e);
+      return false;
+    }
+  }
+
   // Not in use yet.
   // async getRequestShowByUnprocessed() {
   //   try {
@@ -112,12 +214,31 @@ class DataService {
   //     return false;
   //   }
   // }
+  // DELETE
   async deleteShow(id) {
     try {
       const response = await http.dataApi.delete(`/show/delete/?id=${id}`);
       return response;
     } catch (e) {
       console.error('Failed to DELETE show - ', e);
+      return false;
+    }
+  }
+  async deleteBingeList(id) {
+    try {
+      const response = await http.dataApi.delete(`/bingeList/?id=${id}`);
+      return response;
+    } catch (e) {
+      console.error('Failed to DELETE bingeList - ', e);
+      return false;
+    }
+  }
+  async deleteComment(id) {
+    try {
+      const response = await http.dataApi.delete(`/comment/?idComment=${id}`);
+      return response;
+    } catch (e) {
+      console.error('Failed to DELETE comment - ', e);
       return false;
     }
   }

@@ -18,7 +18,15 @@ app.use("/auth", auth);
 
 // app.use(checkAuthHeaderSetUserUnAuthorized);
 
-//  REQUEST SHOWS
+// USERS
+app.use("/user/id", require("./routes/users/fetchById"));
+app.use("/user/id", require("./routes/users/updateByUserId"));
+
+// BANNERS
+app.use("/banners", require("./routes/users/updateBanners"));
+app.use("/banners", require("./routes/users/fetchBanners"));
+
+// REQUEST SHOWS
 app.use("/requestShow", require("./routes/showRequest/deleteShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/getShowRequest"));
 app.use("/requestShow", require("./routes/showRequest/postShowRequest"));
@@ -37,6 +45,19 @@ app.use("/actor/dropdown", require("./routes/actor/fetchActorsDropdown"));
 
 // Character
 app.use("/character/dropdown", require("./routes/character/fetchCharactersDropdown"));
+
+// User Binge Show
+app.use("/bingeList", require("./routes/bingeList/insert"));
+app.use("/bingeList", require("./routes/bingeList/update"));
+app.use("/bingeList", require("./routes/bingeList/delete"));
+app.use("/bingeList/filter", require("./routes/bingeList/getListByUserFilter"));
+app.use("/bingeList/checkAdd", require("./routes/bingeList/isShowAlreadyAdded"));
+
+// Comments
+app.use("/comment", require("./routes/comment/insert"));
+app.use("/comment", require("./routes/comment/delete"));
+app.use("/comment", require("./routes/comment/update"));
+app.use("/comment", require("./routes/comment/fetchById"));
 
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 

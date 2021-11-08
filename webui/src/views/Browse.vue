@@ -5,7 +5,7 @@
       <add-show @submitted-show="getShows"></add-show>
     </div>
     <browse-filter @browser-filter-change="setQuery" />
-    <browse-show :isAdmin="isAdmin" :showsArr="shows" />
+    <browse-show :isAdmin="isAdmin" :showsArr="shows" :loggedInUser="user" />
     <!-- Show cards -->
   </div>
 </template>
@@ -51,6 +51,12 @@ export default {
         yearEnd: '',
         searchText: '',
       },
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
     };
   },
   name: 'Browse',
@@ -66,23 +72,8 @@ export default {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      console.log('GET USER: ', this.getUser);
-      if (!this.getUser) {
-        console.log('INSIDE');
-        this.login(localToken);
-      }
-      console.log('Browse mount');
     }
-    this.$store.subscribe((setRole, role) => {
-      console.log('TYPE: ', setRole.type);
-      console.log('PAYLOAD: ', setRole.payload);
-      console.log('ROLE Browser: ', role);
-      this.role = role.payload;
-    });
-    console.log('BROWSE GET ROLE: ', this.getRole);
-    this.role = this.getRole;
-    if (this.role === 'Admin') {
+    if (this.user.roleId == 1) {
       this.isAdmin = true;
     }
     await this.getShows();
@@ -98,9 +89,7 @@ export default {
   methods: {
     ...mapActions(['login']),
     async getShows() {
-      console.log('REACHED GET SHOWS ', this.query);
       this.shows = await DataService.getShowBrowseFilter(this.query);
-      console.log('SHOWS!!!!!! ', this.shows);
     },
     setQuery(newQuery) {
       this.query = newQuery;

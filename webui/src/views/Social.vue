@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import AccountNav from '../components/AccountNav.vue';
 import FriendRequest from '../components/FriendRequest.vue';
 import FriendsList from '../components/FriendsList.vue';
@@ -26,34 +25,24 @@ import FriendsList from '../components/FriendsList.vue';
 export default {
   components: { AccountNav, FriendRequest, FriendsList },
   data() {
-    return {};
+    return {
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
+    };
   },
   name: 'Social',
-  computed: {
-    getUser() {
-      return this.$store.getters.getUser;
-    },
-  },
+  computed: {},
   mounted() {
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-      console.log('Social mount');
     }
+    console.log('Social mount');
   },
-  methods: {
-    ...mapActions(['login']),
-  },
+  methods: {},
 };
 </script>

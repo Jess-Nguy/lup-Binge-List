@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <h1 v-if="welcomeMessage">{{ welcomeMessage }}</h1>
-    <img v-if="profileUrl" :src="profileUrl" alt="profile image" width="100" height="100" />
+    <img v-if="user.profileUrl" :src="user.profileUrl" alt="profile image" width="100" height="100" />
     <h3>Manage your shows with <img src="@/assets/img/LogoBL.png" alt="BingeList" width="100" height="40" /></h3>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <ol class="carousel-indicators">
@@ -11,13 +11,13 @@
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="@/assets/img/Banner.png" alt="First slide" />
+          <img class="d-block w-100" :src="banners[0]" alt="First slide" />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="@/assets/img/kBanner.png" alt="Second slide" />
+          <img class="d-block w-100" :src="banners[1]" alt="Second slide" />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="@/assets/img/aBanner.png" alt="Third slide" />
+          <img class="d-block w-100" :src="banners[2]" alt="Third slide" />
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -33,13 +33,23 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import DataService from '../../service/dataService';
 
 export default {
   data() {
     return {
       welcomeMessage: '',
-      profileUrl: '',
+      banners: [
+        require('@/assets/img/Banner.png'),
+        require('@/assets/img/kBanner.png'),
+        require('@/assets/img/aBanner.png'),
+      ],
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
     };
   },
   name: 'Dashboard',
@@ -48,28 +58,26 @@ export default {
       return this.$store.getters.getUser;
     },
   },
-  mounted() {
-    this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-
+  async mounted() {
+    await this.getBanners();
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-      this.welcomeMessage = 'Welcome ' + this.getUser.username;
-      this.profileUrl = this.getUser.profile_image;
-      console.log('Dashboard mount');
     }
+
+    if (this.user.name !== null) {
+      this.welcomeMessage = 'Welcome ' + this.user.name;
+    }
+
+    console.log('Dashboard mount');
   },
   methods: {
-    ...mapActions(['login']),
+    async getBanners() {
+      const gotBanners = await DataService.getBanners();
+      if (gotBanners !== null) {
+        this.banners = gotBanners;
+      }
+    },
   },
 };
 </script>

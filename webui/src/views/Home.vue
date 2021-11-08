@@ -14,11 +14,15 @@
 <script>
 import ActivityList from '@/components/ActivityList.vue';
 import ShowPreview from '@/components/ShowPreview.vue';
-import { mapActions } from 'vuex';
 export default {
   data() {
     return {
-      user: {},
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
     };
   },
   name: 'Home',
@@ -26,30 +30,8 @@ export default {
     ActivityList,
     ShowPreview,
   },
-  computed: {
-    getUser() {
-      return this.$store.getters.getUser;
-    },
-    getRole() {
-      return this.$store.getters.getRole;
-    },
-  },
-  mounted() {
-    this.$store.subscribe((setUser, user) => {
-      // console.log(setUser.type);
-      // console.log(setUser.payload);
-      console.log('USER: ', user);
-      this.user = user;
-    });
-    localStorage.getItem('userToken');
-    this.$store.subscribe((setRole, role) => {
-      console.log('TYPE: ', setRole.type);
-      console.log('PAYLOAD: ', setRole.payload);
-      console.log('Home - ROLE: ', role);
-    });
-  },
-  methods: {
-    ...mapActions(['login']),
-  },
+  computed: {},
+  mounted() {},
+  methods: {},
 };
 </script>
