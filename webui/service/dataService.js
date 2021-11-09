@@ -215,17 +215,15 @@ class DataService {
       return false;
     }
   }
-
-  // Not in use yet.
-  // async getRequestShowByUnprocessed() {
-  //   try {
-  //     const response = await http.dataApi.get('/requestShow');
-  //     return response.data;
-  //   } catch (e) {
-  //     console.error('Failed to GET show request - ', e);
-  //     return false;
-  //   }
-  // }
+  async getRequestShowByUnprocessed() {
+    try {
+      const response = await http.dataApi.get('/requestShow');
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET show request - ', e);
+      return false;
+    }
+  }
   // DELETE
   async deleteShow(id) {
     try {
@@ -254,16 +252,15 @@ class DataService {
       return false;
     }
   }
-  // Not in use yet.
-  // async deleteRequestShow(id) {
-  //   try {
-  //     const response = await http.dataApi.delete('/requestShow', id);
-  //     return response.data;
-  //   } catch (e) {
-  //     console.error('Failed to DELETE show request - ', e);
-  //     return false;
-  //   }
-  // }
+  async deleteRequestShow(id) {
+    try {
+      const response = await http.dataApi.delete(`/requestShow/?id=${id}`);
+      return response;
+    } catch (e) {
+      console.error('Failed to DELETE show request - ', e);
+      return false;
+    }
+  }
   async isAdmin(user) {
     try {
       const response = await http.dataApi.get('/auth/isAdmin', user);

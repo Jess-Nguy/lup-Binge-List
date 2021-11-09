@@ -4,11 +4,11 @@ const router = express.Router();
 
 router.delete("/", async (req, res) => {
   try {
-    const body = req.body;
-    const response = await requestShows.delete(body.id);
+    const id = req.query.id;
+    const response = await requestShows.delete(id);
     res.json(response);
   } catch (error) {
-    console.log("DELETE Show request by ", body.id, " : ", error);
+    console.log("DELETE Show request by ", id, " : ", error);
   }
 });
 

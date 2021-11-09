@@ -28,12 +28,12 @@ module.exports = {
     return results.rows;
   },
   async delete(id) {
-    const result = requestId.validate(id);
-    if (result !== null) {
-      return await db.query(`DELETE from show_request where request_id = '${id.request_id}' RETURNING *`);
-    } else {
-      return Promise.reject(result.error);
-    }
+    // const result = requestId.validate(id);
+    // if (result !== null) {
+    return await db.query(`DELETE from show_request where request_id = '${id}' RETURNING *`);
+    // } else {
+    // return Promise.reject(result.error);
+    // }
   },
   async insert(showRequest) {
     const result = schema.validate(showRequest);
