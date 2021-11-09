@@ -21,6 +21,7 @@ app.use("/auth", auth);
 // USERS
 app.use("/user/id", require("./routes/users/fetchById"));
 app.use("/user/id", require("./routes/users/updateByUserId"));
+app.use("/user/filter", require("./routes/users/fetchUserByFilter"));
 
 // BANNERS
 app.use("/banners", require("./routes/users/updateBanners"));

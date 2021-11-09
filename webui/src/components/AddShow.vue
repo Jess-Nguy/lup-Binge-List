@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="add-show-container">
     <!-- Button trigger modal -->
     <button
       type="button"
@@ -214,6 +214,9 @@
 <style scoped>
 .requiredFields {
   color: red;
+}
+#add-show-container {
+  padding-top: 15px;
 }
 </style>
 <script>

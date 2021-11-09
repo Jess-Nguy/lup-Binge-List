@@ -1,55 +1,64 @@
 <template>
-  <div id="showCards" class="card" v-for="show in showsFilter" :key="show.id_show">
-    <div class="row g-0">
-      <div class="col-3">
-        <img id="showCardsImage" :src="show.show_image" :alt="show.title[0]" class="img-fluid" />
-      </div>
-      <div class="col-8">
-        <div class="card-body">
-          <div class="row mb-3">
-            <div class="col">
-              <h5 class="card-title">
-                <router-link :to="`/show/${show.id_show}`">{{ show.title[0] }}</router-link>
-              </h5>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <!-- Genre tag -->
-            <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
-              <div class="card-body">
-                <h5 class="card-title">{{ show.genre }}</h5>
+  <div style="padding: 20px">
+    <div id="showCards" class="card" v-for="show in showsFilter" :key="show.id_show">
+      <div class="row g-0">
+        <div class="col-3">
+          <img id="showCardsImage" :src="show.show_image" :alt="show.title[0]" class="img-fluid" />
+        </div>
+        <div class="col-8">
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col">
+                <h5 class="card-title">
+                  <router-link :to="`/show/${show.id_show}`">{{ show.title[0] }}</router-link>
+                </h5>
               </div>
             </div>
-            <!-- Country tag -->
-            <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
-              <div class="card-body">
-                <h5 class="card-title">{{ show.country }}</h5>
+            <div class="row mb-3">
+              <!-- Genre tag -->
+              <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
+                <div class="card-body">
+                  <h5 class="card-title">{{ show.genre }}</h5>
+                </div>
               </div>
-            </div>
-            <!-- Finished tag -->
-            <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
-              <div class="card-body">
-                <h5 class="card-title">{{ show.airing_status }}</h5>
+              <!-- Country tag -->
+              <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
+                <div class="card-body">
+                  <h5 class="card-title">{{ show.country }}</h5>
+                </div>
               </div>
-            </div>
-            <!-- Year released tag -->
-            <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
-              <div class="card-body">
-                <h5 class="card-title" v-if="show.release_year">{{ show.release_year }}</h5>
+              <!-- Finished tag -->
+              <div class="card text-center border border-danger shadow-0 col" id="filter-selection-cards">
+                <div class="card-body">
+                  <h5 class="card-title">{{ show.airing_status }}</h5>
+                </div>
+              </div>
+              <!-- Year released tag -->
+              <div
+                v-if="show.release_year"
+                class="card text-center border border-danger shadow-0 col"
+                id="filter-selection-cards"
+              >
+                <div class="card-body">
+                  <h5 class="card-title">{{ show.release_year }}</h5>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-1">
-        <div>
-          <div v-if="isAdmin">
-            <edit-show :show_id="show.id_show" :show_name="show.title[0]"></edit-show>
-          </div>
-          <div v-else>
-            <a @click="addAsWatching(show)"><i class="fas fa-play"></i></a><br />
-            <a @click="addAsCompleted(show)"><i class="fas fa-check"></i></a><br />
-            <a @click="addAsPlanned(show)"><i class="fas fa-calendar-alt"></i></a>
+        <div class="col-1">
+          <div id="side-buttons">
+            <div v-if="isAdmin">
+              <edit-show :show_id="show.id_show" :show_name="show.title[0]" title="Edit show details"></edit-show>
+              <a @click="addAsWatching(show)" title="Add to Watching list"><i class="fas fa-play"></i></a><br />
+              <a @click="addAsCompleted(show)" title="Add to Completed list"><i class="fas fa-check"></i></a><br />
+              <a @click="addAsPlanned(show)" title="Add to Planned list"><i class="fas fa-calendar-alt"></i></a>
+            </div>
+            <div v-else>
+              <a @click="addAsWatching(show)" title="Add to Watching list"><i class="fas fa-play"></i></a><br />
+              <a @click="addAsCompleted(show)" title="Add to Completed list"><i class="fas fa-check"></i></a><br />
+              <a @click="addAsPlanned(show)" title="Add to Planned list"><i class="fas fa-calendar-alt"></i></a>
+            </div>
           </div>
         </div>
       </div>
@@ -224,14 +233,18 @@ export default {
 </script>
 <style scoped>
 #showCards {
-  height: 150px;
+  height: 155px;
 }
 
 #showCardsImage {
   height: 150px;
+  padding-top: 2px;
 }
 
 #filter-selection-cards {
   height: 4rem;
+}
+#side-buttons {
+  padding-top: 20%;
 }
 </style>

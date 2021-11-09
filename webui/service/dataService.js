@@ -89,6 +89,18 @@ class DataService {
     }
   }
   // GET
+  async getUserByFilter(user) {
+    try {
+      console.log('getUserByFilter: ', user);
+      const response = await http.dataApi.get(
+        `/user/filter/?idUser=${user.id_user}&googleId=${user.google_id}&username=${user.username}&roleId=${user.role_id}&timezone=${user.time_zone}`
+      );
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET User by Id - ', e);
+      return false;
+    }
+  }
   async getUserById(id) {
     try {
       console.log('getUserById: ', id);

@@ -67,4 +67,34 @@ module.exports = {
       return Promise.reject(result.error);
     }
   },
+  async fetchUserByFilter(user) {
+    let nullUser = {
+      idUser: null,
+      email: null,
+      googleId: null,
+      username: null,
+      roleId: null,
+      timezone: null,
+    };
+    for (const [key, value] of Object.entries(user)) {
+      if (value !== "") {
+        if (key == "username") {
+          nullUser[key] = "'%" + value + "%'";
+        } else {
+          nullUser[key] = "'" + value + "'";
+        }
+      }
+    }
+
+    const response = await db.query(
+      `select * from users where 
+        (${nullUser.idUser} is null or id_user = ${nullUser.idUser}) and 
+        (${nullUser.email} is null or email = ${nullUser.email}) and
+        (${nullUser.googleId} is null or google_id = ${nullUser.googleId}) and
+        (${nullUser.username} is null or username ilike ${nullUser.username}) and 
+        (${nullUser.roleId} is null or role_id = ${nullUser.roleId}) and 
+        (${nullUser.timezone} is null or time_zone = ${nullUser.timezone})`
+    );
+    return response;
+  },
 };
