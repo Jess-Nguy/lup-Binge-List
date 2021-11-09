@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       query: {
-        userId: localStorage.getItem('userId'),
+        userId: this.$route.params.id,
         country: '',
         genre: '',
         yearStart: '',
@@ -46,6 +46,9 @@ export default {
     };
   },
   name: 'Favourite',
+  created() {
+    this.query.userId = this.$route.params.id;
+  },
   watch: {
     query: {
       deep: true,

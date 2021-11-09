@@ -1,6 +1,6 @@
 <template>
   <div class="social">
-    <h1>Social</h1>
+    <h1>Social {{ user.id }}</h1>
     <account-nav />
     <label>Request</label>
     <div class="card border border-dark shadow-0">
@@ -29,13 +29,16 @@ export default {
       user: {
         name: localStorage.getItem('username'),
         profileUrl: localStorage.getItem('profileImage'),
-        id: localStorage.getItem('userId'),
+        id: this.$route.params.id,
         roleId: localStorage.getItem('userRoleId'),
       },
     };
   },
   name: 'Social',
   computed: {},
+  created() {
+    this.user.id = this.$route.params.id;
+  },
   mounted() {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {

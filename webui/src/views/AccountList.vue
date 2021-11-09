@@ -1,6 +1,11 @@
 <template>
   <div class="accountList">
-    <h1>My List</h1>
+    <div v-if="query.userId === loggedInUser.id">
+      <h1>My List</h1>
+    </div>
+    <div v-else>
+      <h1>{{ userQuery.username }}'s Account</h1>
+    </div>
     <account-nav />
     <account-list-filter @status-change="updateQueryStatus" />
     <side-filter @side-filter-change="updateQuerySideFilter" />
@@ -50,13 +55,27 @@ export default {
   data() {
     return {
       query: {
-        userId: localStorage.getItem('userId'),
+        userId: this.$route.params.id,
         country: '',
         genre: '',
         yearStart: '',
         yearEnd: '',
         status: '',
         favourite: false,
+      },
+      userQuery: {
+        id_user: this.$route.params.id,
+        email: '',
+        google_id: '',
+        username: '',
+        role_id: '',
+        time_zone: '',
+      },
+      loggedInUser: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
       },
       bingeList: [],
       watchList: [],
@@ -71,6 +90,11 @@ export default {
     getUser() {
       return this.$store.getters.getUser;
     },
+  },
+  async created() {
+    this.query.userId = this.$route.params.id;
+    this.userQuery.id_user = this.$route.params.id;
+    await this.getUsers();
   },
   async mounted() {
     await this.loadTables();
@@ -136,6 +160,12 @@ export default {
     },
     async accountShowUpdated() {
       await this.loadTables();
+    },
+    async getUsers() {
+      const response = await DataService.getUserByFilter(this.userQuery);
+      this.userQuery = response[0];
+      console.log('USER: ', this.user);
+      this.role = this.user.role_id == 1 ? 'Admin' : 'User';
     },
   },
 };

@@ -4,16 +4,16 @@
       <!-- Links -->
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/account" class="nav-link">Overview</router-link>
+          <router-link :to="`/account/${id}`" class="nav-link">Overview</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/accountList" class="nav-link">My List</router-link>
+          <router-link :to="`/accountList/${id}`" class="nav-link">My List</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/favourite" class="nav-link">Favourite</router-link>
+          <router-link :to="`/favourite/${id}`" class="nav-link">Favourite</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/social" class="nav-link">Social</router-link>
+          <router-link :to="`/social/${id}`" class="nav-link">Social</router-link>
         </li>
       </ul>
     </div>
@@ -30,3 +30,17 @@
   transform: translate(-50%, -50%);
 }
 </style>
+<script>
+export default {
+  props: {
+    id: {
+      type: String,
+      required: true,
+      default: '',
+    },
+  },
+  mounted() {
+    console.log('NAV ID: ', this.id);
+  },
+};
+</script>

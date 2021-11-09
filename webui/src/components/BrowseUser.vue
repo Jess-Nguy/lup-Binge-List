@@ -7,7 +7,9 @@
         </div>
         <div class="col-8">
           <div>
-            <h4>{{ user.username }}</h4>
+            <h4>
+              <router-link :to="`/account/${user.id_user}`">{{ user.username }}</router-link>
+            </h4>
           </div>
         </div>
         <div class="col-1">
@@ -42,13 +44,8 @@ export default {
       this.showsFilter = value;
     },
   },
-  async mounted() {
-    await this.getUsers();
-  },
+  mounted() {},
   methods: {
-    async getUsers() {
-      //   this.shows = await DataService.getShowBrowseFilter(this.query);
-    },
     sendFriendRequest(addFriend) {
       console.log('ADD this friend: ', addFriend);
     },

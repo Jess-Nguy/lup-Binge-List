@@ -47,31 +47,31 @@ const routes = [
     name: 'admin',
     component: Admin,
   },
-  {
-    path: '/account',
-    name: 'Account',
-    component: () => import('../views/Account.vue'),
-  },
+  // {
+  //   path: '/account',
+  //   name: 'Account',
+  //   component: () => import('../views/Account.vue'),
+  // },
   {
     path: '/settings',
     name: 'settings',
     component: () => import('../views/Settings.vue'),
   },
-  {
-    path: '/accountList',
-    name: 'Account List',
-    component: () => import('../views/AccountList.vue'),
-  },
-  {
-    path: '/favourite',
-    name: 'Favourite',
-    component: () => import('../views/FavouriteList.vue'),
-  },
-  {
-    path: '/social',
-    name: 'Social',
-    component: () => import('../views/Social.vue'),
-  },
+  // {
+  //   path: '/accountList',
+  //   name: 'Account List',
+  //   component: () => import('../views/AccountList.vue'),
+  // },
+  // {
+  //   path: '/favourite',
+  //   name: 'Favourite',
+  //   component: () => import('../views/FavouriteList.vue'),
+  // },
+  // {
+  //   path: '/social',
+  //   name: 'Social',
+  //   component: () => import('../views/Social.vue'),
+  // },
   {
     path: '/show/:id',
     component: () => import('../views/Show.vue'),
@@ -80,6 +80,23 @@ const routes = [
     path: '/users',
     name: 'Users',
     component: () => import('../views/Users.vue'),
+  },
+  {
+    path: '/account/:id',
+    component: () => import('../views/Account.vue'),
+  },
+  {
+    path: '/accountList/:id',
+    component: () => import('../views/AccountList.vue'),
+  },
+  {
+    path: '/favourite/:id',
+    component: () => import('../views/FavouriteList.vue'),
+  },
+  {
+    path: '/social/:id',
+    name: 'Social',
+    component: () => import('../views/Social.vue'),
   },
 ];
 
