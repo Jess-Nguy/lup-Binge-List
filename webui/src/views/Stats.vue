@@ -1,6 +1,5 @@
 <template>
   <div class="stats">
-    <h1>This is a stats page</h1>
     <!-- Year type dropdown input -->
     <div class="form-outline mb-4">
       <label class="form-label" for="form6Example4"> Year </label>

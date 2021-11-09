@@ -1,6 +1,5 @@
 <template>
   <div class="browse">
-    <h1>This is a browse page</h1>
     <div v-if="isAdmin">
       <add-show @submitted-show="getShows"></add-show>
     </div>

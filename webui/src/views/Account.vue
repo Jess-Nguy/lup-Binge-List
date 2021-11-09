@@ -6,19 +6,21 @@
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">{{ user.name }}</h5>
+        <!-- Add user details? -->
       </div>
     </div>
-    <h1>Activity List</h1>
-    <activity-list />
-    <overview-stats />
+    <!-- Hidden since not in use -->
+    <!-- <h1>Activity List</h1> -->
+    <!-- <activity-list /> -->
+    <!-- <overview-stats /> -->
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 import AccountNav from '@/components/AccountNav.vue';
-import ActivityList from '@/components/ActivityList.vue';
-import OverviewStats from '@/components/OverviewStats.vue';
+// import ActivityList from '@/components/ActivityList.vue';
+// import OverviewStats from '@/components/OverviewStats.vue';
 export default {
   data() {
     return {
@@ -33,8 +35,6 @@ export default {
   name: 'My Account',
   components: {
     AccountNav,
-    ActivityList,
-    OverviewStats,
   },
   computed: {},
   mounted() {},

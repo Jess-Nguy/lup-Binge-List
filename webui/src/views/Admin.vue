@@ -26,7 +26,8 @@ export default {
     //   this.$router.push('/home');
     // }
     if (this.user.roleId != 1) {
-      this.$router.push('/home');
+      // this.$router.push('/home');
+      this.$router.push('/browse');
     }
   },
 };

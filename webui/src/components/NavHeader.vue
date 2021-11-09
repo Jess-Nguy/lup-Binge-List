@@ -22,11 +22,15 @@
       <div v-if="user" class="collapse navbar-collapse" id="navHeader">
         <!-- Links -->
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <!-- Temporary hidding since not in use. -->
+          <!-- <li class="nav-item">
             <router-link to="/home" class="nav-link"><i class="fas fa-home"></i>Home</router-link>
-          </li>
+          </li> -->
           <li class="nav-item">
             <router-link to="/browse" class="nav-link"><i class="fas fa-search"></i>Browse</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/users" class="nav-link"><i class="fas fa-users"></i>Users</router-link>
           </li>
           <li class="nav-item">
             <router-link to="/stats" class="nav-link"><i class="fas fa-chart-bar"></i>Stats</router-link>
