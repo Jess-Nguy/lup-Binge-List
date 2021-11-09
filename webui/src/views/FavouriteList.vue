@@ -1,7 +1,7 @@
 <template>
   <div class="favourite">
     <h1>Favourite</h1>
-    <account-nav />
+    <account-nav :id="query.userId" />
     <side-filter @side-filter-change="updateQuerySideFilter" />
     <div class="card border border-dark shadow-0">
       <div class="card-body">

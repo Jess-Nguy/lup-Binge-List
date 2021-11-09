@@ -83,14 +83,17 @@ const routes = [
   },
   {
     path: '/account/:id',
+    name: 'Account',
     component: () => import('../views/Account.vue'),
   },
   {
     path: '/accountList/:id',
+    name: 'Account List',
     component: () => import('../views/AccountList.vue'),
   },
   {
     path: '/favourite/:id',
+    name: 'Favourite',
     component: () => import('../views/FavouriteList.vue'),
   },
   {

@@ -1,7 +1,7 @@
 <template>
   <div class="social">
     <h1>Social {{ user.id }}</h1>
-    <account-nav />
+    <account-nav :id="user.id" />
     <label>Request</label>
     <div class="card border border-dark shadow-0">
       <div class="card-body">

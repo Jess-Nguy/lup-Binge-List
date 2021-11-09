@@ -6,7 +6,7 @@
     <div v-else>
       <h1>{{ userQuery.username }}'s Account</h1>
     </div>
-    <account-nav />
+    <account-nav :id="query.userId" />
     <account-list-filter @status-change="updateQueryStatus" />
     <side-filter @side-filter-change="updateQuerySideFilter" />
     <account-list-shows

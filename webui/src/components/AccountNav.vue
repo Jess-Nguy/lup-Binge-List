@@ -39,7 +39,7 @@ export default {
       default: '',
     },
   },
-  mounted() {
+  created() {
     console.log('NAV ID: ', this.id);
   },
 };
