@@ -58,11 +58,11 @@ module.exports = {
     }
     const response = await db.query(`
         SELECT
-        count(case when status='paused' then 1 end) as total_paused,
-        count(case when status='planned' then 1 end) as total_planned,
-        count(case when status='completed' then 1 end) as total_completed,
         count(case when status='watching' then 1 end) as total_watching,
+        count(case when status='completed' then 1 end) as total_completed,
+        count(case when status='paused' then 1 end) as total_paused,
         count(case when status='dropped' then 1 end) as total_dropped,
+        count(case when status='planned' then 1 end) as total_planned,
         count(*) as total
         from display_list_all dla where (${nullId} is null or user_id = ${nullId}) and status <> '';`);
     return response;
