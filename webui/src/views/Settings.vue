@@ -118,6 +118,7 @@ export default {
         id_user: this.user.id,
       };
       await DataService.updateByUserId(data);
+      alert('Updated user details');
     },
     async getUserInfo() {
       const result = await DataService.getUserById(this.user.id);
