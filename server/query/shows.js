@@ -52,10 +52,6 @@ module.exports = {
     const results = await db.query(`SELECT * FROM display_shows`);
     return results;
   },
-  //   async fetchFilterSearch() {
-  //     const results = await db.query(`SELECT * FROM show_request WHERE processed_by IS NULL`);
-  //     return results.rows;
-  //   },
   async delete(id) {
     const result = showId.validate(id);
     if (result !== null) {
@@ -155,12 +151,15 @@ module.exports = {
       }
     }
 
-    const filterQuery = `select * from display_shows where (${nullFilter.country} is null or country = ${nullFilter.country}) and
+    const filterQuery = `select *,
+      (select count(*) from display_shows) as total
+      from display_shows where (${nullFilter.country} is null or country = ${nullFilter.country}) and
       (${nullFilter.genre} is null or genre = ${nullFilter.genre}) and
       (${nullFilter.airingStatus} is null or airing_status = ${nullFilter.airingStatus}) and
       (${nullFilter.yearStart} is null or release_year >= ${nullFilter.yearStart}) and
       (${nullFilter.yearEnd} is null or release_year <= ${nullFilter.yearEnd}) and
-      (${nullFilter.searchText} is null or title::text ilike ${nullFilter.searchText})`;
+      (${nullFilter.searchText} is null or title::text ilike ${nullFilter.searchText} or native_title::text ilike ${nullFilter.searchText} or romanization::text ilike ${nullFilter.searchText}) 
+      offset ${browseFilter.offset} limit ${browseFilter.limit}`;
 
     return await db.query(filterQuery);
   },

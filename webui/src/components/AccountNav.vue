@@ -41,6 +41,6 @@ export default {
   },
   created() {
     console.log('NAV ID: ', this.id);
-  },
+  }, // Add watch in change of user id
 };
 </script>

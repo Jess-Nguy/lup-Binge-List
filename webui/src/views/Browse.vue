@@ -4,8 +4,16 @@
       <add-show @submitted-show="getShows"></add-show>
     </div>
     <browse-filter @browser-filter-change="setQuery" />
-    <browse-show :isAdmin="isAdmin" :showsArr="shows" :loggedInUser="user" />
+    <browse-show :isAdmin="isAdmin" :showsArr="shows" :loggedInUser="user" @updated-show-info="getShows" />
+    <div v-if="isNotFound">
+      <h2 style="color: red">Could not find any shows.</h2>
+    </div>
     <!-- Show cards -->
+    <div>
+      <footer>
+        <pagination v-model="page" :records="total" :per-page="perPage" @paginate="onPageChanged($event)" />
+      </footer>
+    </div>
   </div>
 </template>
 <style lang="scss">
@@ -49,13 +57,19 @@ export default {
         yearStart: '',
         yearEnd: '',
         searchText: '',
+        offset: 0,
+        limit: 10,
       },
+      perPage: 10,
+      page: 1,
       user: {
         name: localStorage.getItem('username'),
         profileUrl: localStorage.getItem('profileImage'),
         id: localStorage.getItem('userId'),
         roleId: localStorage.getItem('userRoleId'),
       },
+      total: 0,
+      isNotFound: false,
     };
   },
   name: 'Browse',
@@ -88,10 +102,23 @@ export default {
   methods: {
     ...mapActions(['login']),
     async getShows() {
-      this.shows = await DataService.getShowBrowseFilter(this.query);
+      const response = await DataService.getShowBrowseFilter(this.query);
+      this.shows = response;
+      if (this.shows.length > 0) {
+        console.log('THIS SHOW: ', this.shows);
+        this.total = this.shows[0].total;
+        this.isNotFound = false;
+      } else {
+        this.total = 0;
+        this.isNotFound = true;
+      }
     },
     setQuery(newQuery) {
-      this.query = newQuery;
+      this.query = { ...this.query, ...newQuery };
+    },
+    onPageChanged(selectedPage) {
+      this.page = selectedPage;
+      this.query.offset = this.query.limit * (selectedPage - 1);
     },
   },
 };

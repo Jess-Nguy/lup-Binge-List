@@ -60,6 +60,11 @@ app.use("/comment", require("./routes/comment/delete"));
 app.use("/comment", require("./routes/comment/update"));
 app.use("/comment", require("./routes/comment/fetchById"));
 
+// Stats
+app.use("/stats/genre", require("./routes/stats/fetchGenreCounts"));
+app.use("/stats/score", require("./routes/stats/fetchScoreCounts"));
+app.use("/stats/status", require("./routes/stats/fetchStatusCounts"));
+
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 
 // this * route is to serve project on different page routes except root `/`

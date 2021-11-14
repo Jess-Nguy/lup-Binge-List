@@ -1,6 +1,6 @@
 <template>
   <div class="bargraphstats">
-    <canvas id="chart-mixed-example"></canvas>
+    <vue3-chart-js v-bind="{ ...barChart }" />
   </div>
 </template>
 
@@ -23,45 +23,121 @@ a {
 </style>
 
 <script>
-import * as mdb from 'mdb-ui-kit';
+import { mapActions } from 'vuex';
+import Vue3ChartJs from '@j-t-mcc/vue3-chartjs';
 
 export default {
   name: 'bar graph stats',
+  props: {
+    dataCounts: {
+      type: Array,
+      required: true,
+      default: () => [],
+    },
+    tableHeaders: {
+      type: Array,
+      require: true,
+      default: () => [],
+    },
+    tableType: {
+      type: String,
+      require: true,
+      default: 'genre',
+    },
+    total: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    xLabel: {
+      type: String,
+      required: true,
+      default: '',
+    },
+    yLabel: {
+      type: String,
+      required: true,
+      default: '',
+    },
+  },
   data() {
     return {
-      dataMixedChartExample: {
+      barChart: {
         type: 'bar',
-        data: {
-          labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday '],
-          datasets: [
-            // First dataset (bar)
-            {
-              label: 'Impressions',
-              data: [2112, 2343, 2545, 3423, 2365, 1985, 987],
-              order: 2,
+        options: {
+          min: 0,
+          max: 100,
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
             },
-            // Second dataset (line)
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 100,
+              ticks: {
+                callback: function (value) {
+                  return `${value}%`;
+                },
+              },
+            },
+          },
+        },
+        data: {
+          labels: [],
+          datasets: [
             {
-              label: 'Impressions (absolute top) %',
-              data: [211, 2543, 2745, 3123, 2765, 1485, 587],
-              type: 'line',
-              order: 1,
-              backgroundColor: 'rgba(66, 133, 244, 0.0)',
-              borderColor: '#94DFD7',
-              borderWidth: 2,
-              pointBorderColor: '#94DFD7',
-              pointBackgroundColor: '#94DFD7',
-              lineTension: 0.0,
+              label: '',
+              data: [],
+              backgroundColor: [
+                '#1abc9c',
+                '#f1c40f',
+                '#2980b9',
+                '#34495e',
+                '#94AED0',
+                '#863ADD',
+                '#3E572F',
+                '#C89E98',
+                '#052D59',
+                '#7F5C5D',
+                '#D58D16',
+                '#655777',
+              ],
             },
           ],
         },
       },
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
+      isAdmin: false,
     };
   },
   computed: {
     getUser() {
       return this.$store.getters.getUser;
     },
+  },
+  components: {
+    Vue3ChartJs,
+  },
+  created() {
+    this.barChart.data.labels = this.tableHeaders;
+    // this.barChart.data.datasets[0].label = this.tableHeaders;
+
+    // TO DO: set x and y labels.
+
+    for (const [key, value] of Object.entries(this.dataCounts)) {
+      // useless if condition but needed to use key so that eslint doesn't complain
+      if (key) {
+        this.barChart.data.datasets[0].data.push(value);
+      }
+    }
   },
   mounted() {
     this.$store.subscribe((setUser, user) => {
@@ -74,16 +150,15 @@ export default {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
-    } else {
-      if (!this.getUser) {
-        this.login(localToken);
-      }
-      this.welcomeMessage = 'Welcome ' + this.getUser.username;
-      this.profileUrl = this.getUser.profile_image;
-      console.log('Bargraph mount');
     }
-    new mdb.Chart(document.getElementById('chart-mixed-example'), this.dataMixedChartExample);
+    if (this.user.roleId == 1) {
+      this.isAdmin = true;
+    }
+
+    console.log('Bargraph mount');
   },
-  methods: {},
+  methods: {
+    ...mapActions(['login']),
+  },
 };
 </script>

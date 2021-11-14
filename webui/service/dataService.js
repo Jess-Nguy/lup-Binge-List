@@ -195,7 +195,7 @@ class DataService {
   async getShowBrowseFilter(browserFilter) {
     try {
       const response = await http.dataApi.get(
-        `/show/filter/?country=${browserFilter.country}&genre=${browserFilter.genre}&airingStatus=${browserFilter.airingStatus}&yearStart=${browserFilter.yearStart}&yearEnd=${browserFilter.yearEnd}&searchText=${browserFilter.searchText}`
+        `/show/filter/?country=${browserFilter.country}&genre=${browserFilter.genre}&airingStatus=${browserFilter.airingStatus}&yearStart=${browserFilter.yearStart}&yearEnd=${browserFilter.yearEnd}&searchText=${browserFilter.searchText}&offset=${browserFilter.offset}&limit=${browserFilter.limit}`
       );
       return response.data.rows;
     } catch (e) {
@@ -221,6 +221,33 @@ class DataService {
       return response.data;
     } catch (e) {
       console.error('Failed to GET show request - ', e);
+      return false;
+    }
+  }
+  async getGenreCounts(id) {
+    try {
+      const response = await http.dataApi.get(`/stats/genre/?id=${id}`);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET genre count - ', e);
+      return false;
+    }
+  }
+  async getScoreCounts(id) {
+    try {
+      const response = await http.dataApi.get(`/stats/score/?id=${id}`);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET score count - ', e);
+      return false;
+    }
+  }
+  async getStatusCounts(id) {
+    try {
+      const response = await http.dataApi.get(`/stats/status/?id=${id}`);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to GET status count - ', e);
       return false;
     }
   }

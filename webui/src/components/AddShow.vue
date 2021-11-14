@@ -290,7 +290,7 @@ export default {
         title = title.replace(/'/g, "''");
         let titleSynonyms = this.enteredTitleSynonyms;
         titleSynonyms = titleSynonyms.replace(/'/g, "''");
-        const titles = [title, titleSynonyms];
+        const titles = [title.trim(), titleSynonyms.trim()];
         let synopsis = this.enteredSynopsis;
         synopsis = synopsis.replace(/'/g, "''");
         // TO DO: completed_date errors if not set because of postgresql type

@@ -677,7 +677,7 @@ export default createStore({
         localStorage.setItem('userRoleId', user.role_id);
         localStorage.setItem('profileImage', user.profile_image);
         localStorage.setItem('username', user.username);
-        console.log('USER FROM STORE: ', user);
+        // console.log('USER FROM STORE: ', user);
 
         const isAdmin = await DataService.isAdmin(user);
         if (isAdmin) {

@@ -1,42 +1,52 @@
 <template>
   <div class="stats">
-    <!-- Year type dropdown input -->
-    <div class="form-outline mb-4">
-      <label class="form-label" for="form6Example4"> Year </label>
-      <div class="form-outline btn-group">
-        <button
-          id="form6Example2"
-          type="button"
-          class="btn btn-light dropdown-toggle"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          All time
-        </button>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">All time</a></li>
-        </ul>
-      </div>
-    </div>
     <!-- Chart/table switch -->
     <div class="form-check form-switch">
-      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-      <label class="form-check-label" for="flexSwitchCheckDefault">Chart/Table</label>
+      <input @click="toggleViews" class="form-check-input" type="checkbox" id="barTableToggle" v-model="isBar" />
+      <label class="form-check-label" for="barTableToggle">Table/Bar</label>
     </div>
+    <!-- GENRE -->
     <h1>Genre</h1>
-    <!-- <bar-graph-stats /> -->
-    <table-stats />
+    <div v-if="isBar">
+      <bar-graph-stats
+        :dataCounts="genreCount"
+        :tableHeaders="listOfGenres"
+        :tableType="'genre'"
+        :total="genreTotal"
+        :xLabel="'Types of genre'"
+      />
+    </div>
+    <div v-else>
+      <table-stats :dataCounts="genreCount" :tableHeaders="listOfGenres" :tableType="'genre'" :total="genreTotal" />
+    </div>
+    <!-- SCORE -->
     <h1>Score</h1>
-    <!-- <bar-graph-stats /> -->
-    <table-stats />
+    <div v-if="isBar">
+      <bar-graph-stats :dataCounts="scoreCount" :tableHeaders="listOfScores" :tableType="'score'" :total="scoreTotal" />
+    </div>
+    <div v-else>
+      <table-stats :dataCounts="scoreCount" :tableHeaders="listOfScores" :tableType="'score'" :total="scoreTotal" />
+    </div>
+    <!-- STATUS -->
     <h1>Status</h1>
-    <!-- <bar-graph-stats /> -->
-    <table-stats />
+    <div v-if="isBar">
+      <bar-graph-stats
+        :dataCounts="statusCount"
+        :tableHeaders="listOfStatus"
+        :tableType="'status'"
+        :total="statusTotal"
+      />
+    </div>
+    <div v-else>
+      <table-stats :dataCounts="statusCount" :tableHeaders="listOfStatus" :tableType="'status'" :total="statusTotal" />
+    </div>
   </div>
 </template>
 <script>
-// import BarGraphStats from '@/components/BarGraphStats.vue';
+import BarGraphStats from '@/components/BarGraphStats.vue';
 import TableStats from '@/components/TableStats.vue';
+import DataService from '../../service/dataService';
+
 export default {
   data() {
     return {
@@ -46,14 +56,41 @@ export default {
         id: localStorage.getItem('userId'),
         roleId: localStorage.getItem('userRoleId'),
       },
+      isBar: false,
+      genreCount: [],
+      scoreCount: [],
+      statusCount: [],
+      genreTotal: 0,
+      scoreTotal: 0,
+      statusTotal: 0,
+      listOfGenres: [],
+      listOfScores: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      listOfStatus: [],
     };
   },
   name: 'Stats',
   components: {
-    // BarGraphStats,
+    BarGraphStats,
     TableStats,
   },
-  computed: {},
+  computed: {
+    getGenres() {
+      return this.$store.getters.getGenres;
+    },
+    getListStatus() {
+      return this.$store.getters.getListStatus;
+    },
+  },
+  async created() {
+    await this.getGenre();
+    console.log('GENRE COUNT: ', JSON.stringify(this.genreCount));
+    await this.getScore();
+    console.log('SCORE COUNT: ', JSON.stringify(this.scoreCount));
+    await this.getStatus();
+    console.log('STATUS COUNT: ', JSON.stringify(this.statusCount));
+    this.listOfGenres = this.getGenres;
+    this.listOfStatus = this.getListStatus;
+  },
   mounted() {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
@@ -61,6 +98,35 @@ export default {
     }
     console.log('Status mount');
   },
-  methods: {},
+  methods: {
+    toggleViews() {
+      this.isBar = this.isBar ? false : true;
+    },
+    async getGenre() {
+      if (this.user.roleId != 1) {
+        this.genreCount = await DataService.getGenreCounts(this.user.id);
+      } else {
+        this.genreCount = await DataService.getGenreCounts('');
+      }
+      this.genreTotal = this.genreCount.total_genre;
+    },
+    async getScore() {
+      if (this.user.roleId != 1) {
+        this.scoreCount = await DataService.getScoreCounts(this.user.id);
+      } else {
+        this.scoreCount = await DataService.getScoreCounts('');
+      }
+      this.scoreTotal = this.scoreCount.total_num_score;
+      console.log('score total: ', this.scoreTotal);
+    },
+    async getStatus() {
+      if (this.user.roleId != 1) {
+        this.statusCount = await DataService.getStatusCounts(this.user.id);
+      } else {
+        this.statusCount = await DataService.getStatusCounts('');
+      }
+      this.statusTotal = this.statusCount.total_status;
+    },
+  },
 };
 </script>

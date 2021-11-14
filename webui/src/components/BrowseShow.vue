@@ -150,6 +150,7 @@ export default {
         };
         await DataService.updateUserBingeList(updateData);
         alert('Updated show to be in watch list');
+        this.$emit('updated-show-info');
       }
     },
     async addAsCompleted(show) {
