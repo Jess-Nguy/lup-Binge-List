@@ -108,7 +108,7 @@ export default {
       } else {
         this.genreCount = await DataService.getGenreCounts('');
       }
-      this.genreTotal = this.genreCount.total_genre;
+      this.genreTotal = this.genreCount.total;
     },
     async getScore() {
       if (this.user.roleId != 1) {
@@ -116,7 +116,7 @@ export default {
       } else {
         this.scoreCount = await DataService.getScoreCounts('');
       }
-      this.scoreTotal = this.scoreCount.total_num_score;
+      this.scoreTotal = this.scoreCount.total;
       console.log('score total: ', this.scoreTotal);
     },
     async getStatus() {
@@ -125,7 +125,7 @@ export default {
       } else {
         this.statusCount = await DataService.getStatusCounts('');
       }
-      this.statusTotal = this.statusCount.total_status;
+      this.statusTotal = this.statusCount.total;
     },
   },
 };

@@ -79,7 +79,7 @@ export default {
               max: 100,
               ticks: {
                 callback: function (value) {
-                  return `${value}%`;
+                  return `${value}`;
                 },
               },
             },
@@ -138,6 +138,9 @@ export default {
         this.barChart.data.datasets[0].data.push(value);
       }
     }
+
+    console.log('data count lenght: ', this.dataCounts.total);
+    this.barChart.options.scales.y.max = this.dataCounts.total;
   },
   mounted() {
     this.$store.subscribe((setUser, user) => {

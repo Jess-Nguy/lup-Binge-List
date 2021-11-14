@@ -26,7 +26,7 @@ module.exports = {
         count(case when genre='War' then 1 end) as total_war,
         count(case when genre='Animation' then 1 end) as total_animation,
         count(case when genre='Music' then 1 end) as total_music,
-        count(*) as total_genre
+        count(*) as total
         FROM display_list_all dla WHERE (${nullId} is null or user_id = ${nullId})`);
     return response;
   },
@@ -47,7 +47,7 @@ module.exports = {
         count(case when score=8 then 1 end) as total_eight,
         count(case when score=9 then 1 end) as total_nine,
         count(case when score=10 then 1 end) as total_ten,
-        count(*) as total_num_score
+        count(*) as total
         from display_list_all dla where (${nullId} is null or user_id = ${nullId}) and dla.score > 0`);
     return response;
   },
@@ -63,7 +63,7 @@ module.exports = {
         count(case when status='completed' then 1 end) as total_completed,
         count(case when status='watching' then 1 end) as total_watching,
         count(case when status='dropped' then 1 end) as total_dropped,
-        count(*) as total_status
+        count(*) as total
         from display_list_all dla where (${nullId} is null or user_id = ${nullId}) and status <> '';`);
     return response;
   },
