@@ -65,6 +65,13 @@ app.use("/stats/genre", require("./routes/stats/fetchGenreCounts"));
 app.use("/stats/score", require("./routes/stats/fetchScoreCounts"));
 app.use("/stats/status", require("./routes/stats/fetchStatusCounts"));
 
+// User relations
+app.use("/userrelations", require("./routes/userRelation/insert"));
+app.use("/userrelations/request", require("./routes/userRelation/fetchRelationsByUserId"));
+app.use("/userrelations/friends", require("./routes/userRelation/fetchFriendsList"));
+app.use("/userrelations/accept", require("./routes/userRelation/update"));
+app.use("/userrelations", require("./routes/userRelation/delete"));
+
 app.use("/", serveStatic(path.join(__dirname, "../webui/dist")));
 
 // this * route is to serve project on different page routes except root `/`

@@ -8,7 +8,7 @@ router.delete("/", async (req, res) => {
     const response = await comments.delete(req.query.idComment);
     res.json(response);
   } catch (error) {
-    console.log("Delete comments ", req.query.id, ". \n", error);
+    console.log("Delete comments ", req.query.idComment, ". \n", error);
   }
 });
 

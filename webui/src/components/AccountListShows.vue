@@ -9,7 +9,7 @@
             <th scope="col">Title</th>
             <th scope="col">Score</th>
             <th scope="col">Progress</th>
-            <th scope="col">Edit</th>
+            <th scope="col" v-if="isMyAccount">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
             </td>
             <td>{{ show.score }}/10</td>
             <td>{{ show.episode_progress }}</td>
-            <td>
+            <td v-if="isMyAccount">
               <edit-account-show :selectedEdit="show" @update-account-show="this.$emit('update-account-show')" />
             </td>
           </tr>
@@ -48,6 +48,11 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+    isMyAccount: {
+      type: Boolean,
+      require: true,
+      default: false,
     },
   },
   data() {

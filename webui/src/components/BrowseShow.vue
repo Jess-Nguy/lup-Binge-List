@@ -107,13 +107,14 @@ export default {
     },
   },
   async mounted() {
-    await this.getShows();
-    console.log('SHOWS: ', this.shows);
+    // await this.getShows();
+    // console.log('SHOWS: ', this.shows);
   },
   methods: {
-    async getShows() {
-      this.shows = await DataService.getShowBrowseFilter(this.query);
-    },
+    // Doesn't get used
+    // async getShows() {
+    //   this.shows = await DataService.getShowBrowseFilter(this.query);
+    // },
     async addAsWatching(show) {
       // Check if it already exists and if it does update the status instead.
       const checkData = {

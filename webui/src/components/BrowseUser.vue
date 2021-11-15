@@ -12,12 +12,12 @@
             </h4>
           </div>
         </div>
-        <div class="col-1">
+        <!-- <div class="col-1">
           <div id="side-button">
             <a @click="sendFriendRequest(user)" title="Send friend request"><i class="fas fa-plus-square fa-lg"></i></a
             ><br />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -37,7 +37,14 @@ export default {
   },
   components: {},
   data() {
-    return {};
+    return {
+      user: {
+        name: localStorage.getItem('username'),
+        profileUrl: localStorage.getItem('profileImage'),
+        id: localStorage.getItem('userId'),
+        roleId: localStorage.getItem('userRoleId'),
+      },
+    };
   },
   watch: {
     showsArr: function (value) {
@@ -46,9 +53,16 @@ export default {
   },
   mounted() {},
   methods: {
-    sendFriendRequest(addFriend) {
-      console.log('ADD this friend: ', addFriend);
-    },
+    // Will not do it this version
+    // async sendFriendRequest(addFriend) {
+    //   console.log('ADD this friend: ', addFriend);
+    //   const data = {
+    //     type: 'request',
+    //     userId1: this.user.id,
+    //     userId2: addFriend.id_user,
+    //   };
+    //   await DataService.postUserRelation(data);
+    // },
   },
 };
 </script>

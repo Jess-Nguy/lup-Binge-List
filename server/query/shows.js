@@ -165,10 +165,22 @@ module.exports = {
   },
   async update(show) {
     const id = show.id;
-    // const idResult = showId.validate(id);
-    // const result = schema.validate(show);
-    console.log("SHOW QUERY: ", show);
-    // if (result !== null) {
+
+    // Update user_binge_show that have this show.
+    const idUserShow = await db.query(`SELECT * FROM user_binge_show ubs WHERE show_id = '${id}'`);
+    const userShowRows = idUserShow.rows;
+    userShowRows.forEach(async (row) => {
+      if (row.status == "completed" || row.episode_progress > show.episodes) {
+        const bothUpdate = `update user_binge_show set total_episodes='${show.episodes}',
+        episode_progress='${show.episodes}' where id_user_show='${row.id_user_show}'`;
+        await db.query(bothUpdate);
+      } else {
+        const oneUpdate = `update user_binge_show set total_episodes='${show.episodes}' where id_user_show='${row.id_user_show}'`;
+        await db.query(oneUpdate);
+      }
+    });
+
+    // console.log("SHOW QUERY: ", show);
     let titles = show.title;
     titles = titles.length === 0 ? "" : "'" + titles.join("','") + "'";
 
@@ -220,10 +232,8 @@ module.exports = {
         synopsis=${nullShow.synopsis},
         updated_at=now()
         WHERE id_show = '${id}' RETURNING *`;
-    console.log("UPDATE ", updateQuery);
-    return await db.query(updateQuery);
-    // } else {
-    //   return Promise.reject(result.error);
-    // }
+    const updatedShow = await db.query(updateQuery);
+    console.log("update show: ", updatedShow);
+    return updatedShow;
   },
 };

@@ -14,6 +14,7 @@ class DataService {
   async updateShow(data) {
     try {
       const response = await http.dataApi.put('/show', data);
+      console.log('update reponse data: ', response.data);
       return response.data;
     } catch (e) {
       console.error('Failed to update show - ', e);
@@ -44,6 +45,16 @@ class DataService {
       return response.data;
     } catch (e) {
       console.error('Failed to update comment - ', e);
+      return false;
+    }
+  }
+  async updateFriendRequest(data) {
+    try {
+      console.log('DATA - id: ', data);
+      const response = await http.dataApi.put('/userrelations/accept', data);
+      return response.data;
+    } catch (e) {
+      console.error('Failed to update accept friend request - ', e);
       return false;
     }
   }
@@ -85,6 +96,16 @@ class DataService {
       return response;
     } catch (e) {
       console.error('Failed to CREATE comment show - ', e);
+      return false;
+    }
+  }
+  async postUserRelation(data) {
+    try {
+      console.log('DATA user relation dataApi: ', data);
+      const response = await http.dataApi.post('/userrelations', data);
+      return response;
+    } catch (e) {
+      console.error('Failed to CREATE user relations show - ', e);
       return false;
     }
   }
@@ -251,6 +272,24 @@ class DataService {
       return false;
     }
   }
+  async getRelationsByUserId(data) {
+    try {
+      const response = await http.dataApi.get(`/userrelations/request/?id=${data.id}&type=${data.type}`);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET relation by user id - ', e);
+      return false;
+    }
+  }
+  async getFriendsList(id) {
+    try {
+      const response = await http.dataApi.get(`/userrelations/friends/?id=${id}`);
+      return response.data.rows;
+    } catch (e) {
+      console.error('Failed to GET friends list - ', e);
+      return false;
+    }
+  }
   // DELETE
   async deleteShow(id) {
     try {
@@ -285,6 +324,15 @@ class DataService {
       return response;
     } catch (e) {
       console.error('Failed to DELETE show request - ', e);
+      return false;
+    }
+  }
+  async deleteFriend(id) {
+    try {
+      const response = await http.dataApi.delete(`/userrelations/?id=${id}`);
+      return response;
+    } catch (e) {
+      console.error('Failed to DELETE friend - ', e);
       return false;
     }
   }

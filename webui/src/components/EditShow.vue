@@ -322,9 +322,9 @@ export default {
         };
 
         console.log('SHOW DATA: ', showData);
-        const resultShow = await DataService.updateShow(showData);
-        console.log('result: ', resultShow.data);
-        console.log('result id: ', resultShow.data[0].id_show);
+        await DataService.updateShow(showData);
+        // console.log('result: ', resultShow.data);
+        // console.log('result id: ', resultShow.data[0].id_show);
       } else {
         alert('Show creation failed in validation');
       }

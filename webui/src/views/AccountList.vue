@@ -14,30 +14,35 @@
       :tableName="'Watching'"
       :bingeStatusList="watchList"
       @update-account-show="accountShowUpdated"
+      :isMyAccount="isSameUser"
     />
     <account-list-shows
       v-show="query.status == 'completed' || query.status == ''"
       :tableName="'Completed'"
       :bingeStatusList="completedList"
       @update-account-show="accountShowUpdated"
+      :isMyAccount="isSameUser"
     />
     <account-list-shows
       v-show="query.status == 'paused' || query.status == ''"
       :tableName="'Paused'"
       :bingeStatusList="pausedList"
       @update-account-show="accountShowUpdated"
+      :isMyAccount="isSameUser"
     />
     <account-list-shows
       v-show="query.status == 'dropped' || query.status == ''"
       :tableName="'Dropped'"
       :bingeStatusList="droppedList"
       @update-account-show="accountShowUpdated"
+      :isMyAccount="isSameUser"
     />
     <account-list-shows
       v-show="query.status == 'planned' || query.status == ''"
       :tableName="'Planned'"
       :bingeStatusList="plannedList"
       @update-account-show="accountShowUpdated"
+      :isMyAccount="isSameUser"
     />
   </div>
 </template>
@@ -77,6 +82,7 @@ export default {
         id: localStorage.getItem('userId'),
         roleId: localStorage.getItem('userRoleId'),
       },
+      isSameUser: false,
       bingeList: [],
       watchList: [],
       completedList: [],
@@ -95,6 +101,7 @@ export default {
     this.query.userId = this.$route.params.id;
     this.userQuery.id_user = this.$route.params.id;
     await this.getUsers();
+    this.isSameUser = this.userQuery.id_user == this.loggedInUser.id;
   },
   async mounted() {
     await this.loadTables();
@@ -164,8 +171,8 @@ export default {
     async getUsers() {
       const response = await DataService.getUserByFilter(this.userQuery);
       this.userQuery = response[0];
-      console.log('USER: ', this.user);
-      this.role = this.user.role_id == 1 ? 'Admin' : 'User';
+      console.log('AL USER: ', this.userQuery);
+      this.role = this.userQuery.role_id == 1 ? 'Admin' : 'User';
     },
   },
 };

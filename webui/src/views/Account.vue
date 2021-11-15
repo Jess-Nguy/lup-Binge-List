@@ -6,9 +6,14 @@
     <div v-else>
       <h1>{{ user.username }}'s Account</h1>
       <br />
-      <button type="button" class="btn btn-success">
-        Send friend request <i class="fas fa-plus-square fa-lg"></i>
-      </button>
+      <div v-if="hasRelations">
+        <h3 style="color: green">You are friends</h3>
+      </div>
+      <div v-else>
+        <button type="button" class="btn btn-success" :disabled="hasRequest">
+          Send friend request <i class="fas fa-plus-square fa-lg"></i>
+        </button>
+      </div>
     </div>
     <account-nav :id="query.id_user" />
     <img :src="user.profile_image" alt="profile image" width="100" height="100" />
@@ -63,6 +68,10 @@ export default {
         roleId: localStorage.getItem('userRoleId'),
       },
       role: 'User',
+      listFriendRequests: [],
+      hasRequest: false,
+      hasRelations: false,
+      listFriends: [],
     };
   },
   name: 'My Account',
@@ -73,6 +82,8 @@ export default {
   async created() {
     this.query.id_user = this.$route.params.id;
     await this.getUsers();
+    await this.getMyFriendRequests();
+    await this.getMyFriends();
   },
   methods: {
     ...mapActions(['login']),
@@ -81,6 +92,33 @@ export default {
       this.user = response[0];
       console.log('USER: ', this.user);
       this.role = this.user.role_id == 1 ? 'Admin' : 'User';
+    },
+    async getMyFriendRequests() {
+      const data = {
+        id: this.loggedInUser.id,
+        type: 'request',
+      };
+      const response = await DataService.getRelationsByUserId(data);
+      this.listFriendRequests = response;
+      console.log('friends request: ', this.listFriendRequests);
+      response.forEach((element) => {
+        if (element.user_id1 == this.query.id_user) {
+          this.hasRequest = true;
+          this.hasRelations = false;
+        }
+      });
+    },
+    async getMyFriends() {
+      const response = await DataService.getFriendsList(this.loggedInUser.id);
+      this.listFriends = response;
+      console.log('list friends: ', this.listFriends);
+
+      response.forEach((element) => {
+        if (element.user_id1 == this.query.id_user) {
+          this.hasRequest = false;
+          this.hasRelations = true;
+        }
+      });
     },
   },
 };
