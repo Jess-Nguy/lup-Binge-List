@@ -78,20 +78,23 @@ export default {
         roleId: localStorage.getItem('userRoleId'),
       },
       isAdmin: false,
-      percentCount: [],
     };
   },
-  created() {
-    // doesn't work. doesn't load as quickly as the rest of the table.
-    for (const key in this.dataCounts) {
-      if (this.dataCounts[key] != 0) {
-        console.log(Math.round((this.dataCounts[key] / this.total) * 100));
-        this.percentCount.push(Math.round((this.dataCounts[key] / this.total) * 100));
-      } else {
-        this.percentCount.push(0);
+  computed: {
+    percentCount() {
+      const percent = [];
+      for (const key in this.dataCounts) {
+        if (this.dataCounts[key] != 0) {
+          console.log(Math.round((this.dataCounts[key] / this.total) * 100));
+          percent.push(Math.round((this.dataCounts[key] / this.total) * 100));
+        } else {
+          percent.push(0);
+        }
       }
-    }
+      return percent;
+    },
   },
+  created() {},
   mounted() {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
