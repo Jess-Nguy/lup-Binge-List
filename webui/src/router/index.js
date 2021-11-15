@@ -47,31 +47,16 @@ const routes = [
     name: 'admin',
     component: Admin,
   },
-  // {
-  //   path: '/account',
-  //   name: 'Account',
-  //   component: () => import('../views/Account.vue'),
-  // },
+  {
+    path: '/myaccount',
+    name: 'My Account',
+    component: () => import('../views/MyAccount.vue'),
+  },
   {
     path: '/settings',
     name: 'settings',
     component: () => import('../views/Settings.vue'),
   },
-  // {
-  //   path: '/accountList',
-  //   name: 'Account List',
-  //   component: () => import('../views/AccountList.vue'),
-  // },
-  // {
-  //   path: '/favourite',
-  //   name: 'Favourite',
-  //   component: () => import('../views/FavouriteList.vue'),
-  // },
-  // {
-  //   path: '/social',
-  //   name: 'Social',
-  //   component: () => import('../views/Social.vue'),
-  // },
   {
     path: '/show/:id',
     component: () => import('../views/Show.vue'),

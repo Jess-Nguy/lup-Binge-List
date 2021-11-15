@@ -1,21 +1,9 @@
 <template>
   <div class="account">
-    <div v-if="query.id_user === loggedInUser.id">
+    <div>
       <h1>My Account</h1>
     </div>
-    <div v-else>
-      <h1>{{ user.username }}'s Account</h1>
-      <br />
-      <div v-if="hasRelations">
-        <h3 style="color: green">You are friends</h3>
-      </div>
-      <div v-else>
-        <button @click="sendFriendRequest(user)" type="button" class="btn btn-success" :disabled="hasRequest">
-          Send friend request <i class="fas fa-plus-square fa-lg"></i>
-        </button>
-      </div>
-    </div>
-    <account-nav :id="query.id_user" />
+    <account-nav :id="loggedInUser.id" />
     <img :src="user.profile_image" alt="profile image" width="100" height="100" />
     <div class="card">
       <div class="card-body">
@@ -53,16 +41,6 @@ export default {
   data() {
     return {
       user: {},
-      query: {
-        id_user: '',
-        email: '',
-        google_id: '',
-        username: '',
-        role_id: '',
-        time_zone: '',
-        offset: 0,
-        limit: 4,
-      },
       loggedInUser: {
         name: localStorage.getItem('username'),
         profileUrl: localStorage.getItem('profileImage'),
@@ -76,13 +54,26 @@ export default {
       listFriends: [],
     };
   },
-  name: 'Account',
+  name: 'My Account',
   components: {
     AccountNav,
   },
-  computed: {},
+  computed: {
+    query() {
+      return {
+        id_user: this.loggedInUser.id,
+        email: '',
+        google_id: '',
+        username: '',
+        role_id: '',
+        time_zone: '',
+        offset: 0,
+        limit: 4,
+      };
+    },
+  },
   async created() {
-    this.query.id_user = this.$route.params.id;
+    // this.query.id_user = this.$route.params.id;
     await this.getUsers();
     await this.getMyFriendRequests();
     await this.getMyFriends();

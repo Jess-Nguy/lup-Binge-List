@@ -52,7 +52,7 @@
             <label>Profile</label>
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-4">
-            <router-link :to="`/account/${user.id}`" class="dropdown-item">My account</router-link>
+            <router-link to="/myaccount" class="dropdown-item">My account</router-link>
             <router-link to="/settings" class="dropdown-item">Settings</router-link>
           </div>
         </ul>
