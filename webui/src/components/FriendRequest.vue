@@ -43,6 +43,7 @@ export default {
   methods: {
     async acceptFriendRequest(id) {
       await DataService.updateFriendRequest({ idUserRelations: id });
+      alert('Accepted friend request!');
       this.$emit('accept-friend-request');
     },
   },

@@ -53,7 +53,7 @@ export default {
   },
   mounted() {},
   methods: {
-    // Will not do it this version
+    // Will not do it this version because need to implement button disable
     // async sendFriendRequest(addFriend) {
     //   console.log('ADD this friend: ', addFriend);
     //   const data = {

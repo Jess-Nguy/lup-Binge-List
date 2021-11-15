@@ -8,7 +8,7 @@
         <div class="card-body" v-if="listFriendRequests.length > 0">
           <friend-request :friendRequests="listFriendRequests" @accept-friend-request="loadData" />
         </div>
-        <div class="card-body" v-if="user">
+        <div class="card-body" v-else>
           <h2 style="color: red">No friends</h2>
         </div>
       </div>
@@ -78,6 +78,7 @@ export default {
         type: 'request',
       };
       this.listFriendRequests = await DataService.getRelationsByUserId(data);
+      console.log('list friends request: ', this.listFriendRequests);
     },
     async getMyFriends() {
       this.listFriends = await DataService.getFriendsList(this.loggedInUser.id);

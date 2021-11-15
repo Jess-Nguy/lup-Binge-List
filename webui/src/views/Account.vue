@@ -10,7 +10,7 @@
         <h3 style="color: green">You are friends</h3>
       </div>
       <div v-else>
-        <button type="button" class="btn btn-success" :disabled="hasRequest">
+        <button @click="sendFriendRequest(user)" type="button" class="btn btn-success" :disabled="hasRequest">
           Send friend request <i class="fas fa-plus-square fa-lg"></i>
         </button>
       </div>
@@ -119,6 +119,17 @@ export default {
           this.hasRelations = true;
         }
       });
+    },
+    async sendFriendRequest(addFriend) {
+      console.log('ADD this friend: ', addFriend);
+      const data = {
+        type: 'request',
+        userId1: this.loggedInUser.id,
+        userId2: addFriend.id_user,
+      };
+      await DataService.postUserRelation(data);
+      alert('Sent friend request!');
+      await this.getMyFriendRequests();
     },
   },
 };

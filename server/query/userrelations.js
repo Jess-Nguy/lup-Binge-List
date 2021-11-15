@@ -27,7 +27,7 @@ module.exports = {
             (select profile_image from users where id_user = user_id1) as profile_image1,
             (select username from users where id_user = user_id2) as username2,
             (select profile_image from users where id_user = user_id2) as profile_image2
-            from user_relations  where user_id1 = '${id}' or user_id2 = '${id}' and type = 'friends';
+            from user_relations where (user_id1 = '${id}' or user_id2 = '${id}') and type = 'friends';
           `);
     return response;
   },
