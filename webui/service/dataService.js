@@ -114,7 +114,7 @@ class DataService {
     try {
       console.log('getUserByFilter: ', user);
       const response = await http.dataApi.get(
-        `/user/filter/?idUser=${user.id_user}&googleId=${user.google_id}&username=${user.username}&roleId=${user.role_id}&timezone=${user.time_zone}`
+        `/user/filter/?idUser=${user.id_user}&googleId=${user.google_id}&username=${user.username}&roleId=${user.role_id}&timezone=${user.time_zone}&offset=${user.offset}&limit=${user.limit}`
       );
       return response.data.rows;
     } catch (e) {

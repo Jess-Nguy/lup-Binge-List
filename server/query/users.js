@@ -87,13 +87,16 @@ module.exports = {
     }
 
     const response = await db.query(
-      `select * from users where 
+      `select *,
+        (select count(*) from users) as total
+        from users where 
         (${nullUser.idUser} is null or id_user = ${nullUser.idUser}) and 
         (${nullUser.email} is null or email = ${nullUser.email}) and
         (${nullUser.googleId} is null or google_id = ${nullUser.googleId}) and
         (${nullUser.username} is null or username ilike ${nullUser.username}) and 
         (${nullUser.roleId} is null or role_id = ${nullUser.roleId}) and 
-        (${nullUser.timezone} is null or time_zone = ${nullUser.timezone})`
+        (${nullUser.timezone} is null or time_zone = ${nullUser.timezone})
+        offset ${user.offset} limit ${user.limit}`
     );
     return response;
   },

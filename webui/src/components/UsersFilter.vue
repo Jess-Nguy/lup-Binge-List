@@ -27,6 +27,8 @@ export default {
         username: '',
         role_id: '',
         time_zone: '',
+        offset: 0,
+        limit: 4,
       },
     };
   },
