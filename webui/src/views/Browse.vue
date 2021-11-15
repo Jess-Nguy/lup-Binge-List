@@ -59,6 +59,7 @@ export default {
         searchText: '',
         offset: 0,
         limit: 10,
+        order: 'title[1] ASC',
       },
       perPage: 10,
       page: 1,
@@ -105,7 +106,6 @@ export default {
       const response = await DataService.getShowBrowseFilter(this.query);
       this.shows = response;
       if (this.shows.length > 0) {
-        console.log('THIS SHOW: ', this.shows);
         if (this.shows.length < this.perPage && this.query.offset == 0) {
           this.total = this.shows.length;
         } else {

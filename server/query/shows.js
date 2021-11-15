@@ -158,7 +158,8 @@ module.exports = {
       (${nullFilter.airingStatus} is null or airing_status = ${nullFilter.airingStatus}) and
       (${nullFilter.yearStart} is null or release_year >= ${nullFilter.yearStart}) and
       (${nullFilter.yearEnd} is null or release_year <= ${nullFilter.yearEnd}) and
-      (${nullFilter.searchText} is null or title::text ilike ${nullFilter.searchText} or native_title::text ilike ${nullFilter.searchText} or romanization::text ilike ${nullFilter.searchText}) 
+      (${nullFilter.searchText} is null or title::text ilike ${nullFilter.searchText} or native_title::text ilike ${nullFilter.searchText} or romanization::text ilike ${nullFilter.searchText})
+      ORDER BY ${browseFilter.order}
       offset ${browseFilter.offset} limit ${browseFilter.limit}`;
 
     return await db.query(filterQuery);

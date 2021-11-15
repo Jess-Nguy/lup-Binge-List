@@ -73,7 +73,12 @@
       </select>
     </div>
     <div class="btn-group">
-      <a><i class="fas fa-sort-alpha-up"></i></a> <a><i class="fas fa-sort-alpha-down"></i></a>
+      <button @click="orderByAsc" style="border-radius: 20%" class="btn btn-warning" :class="{ active: isAsc }">
+        <i class="fas fa-sort-alpha-up fa-lg"></i>
+      </button>
+      <button @click="orderByDesc" style="border-radius: 20%" class="btn btn-warning" :class="{ active: !isAsc }">
+        <i class="fas fa-sort-alpha-down fa-lg"></i>
+      </button>
     </div>
     <!-- show filter picks -->
     <!-- <div class="card">
@@ -94,8 +99,34 @@ export default {
     return {
       listOfStatus: ['Airing', 'Finished', 'Not released', 'Not airing'],
       listOfYears: [
-        1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
-        2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+        1998,
+        1999,
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
       ],
       listOfCountries: [],
       listOfGenres: [],
@@ -108,7 +139,9 @@ export default {
         searchText: '',
         limit: 10,
         offset: 0,
+        order: 'title[1] ASC',
       },
+      isAsc: true,
     };
   },
   name: 'BrowserFilter',
@@ -128,7 +161,16 @@ export default {
     this.listOfCountries = this.getCountries;
     this.listOfGenres = this.getGenres;
   },
-  methods: {},
+  methods: {
+    orderByAsc() {
+      this.isAsc = true;
+      this.query.order = 'title[1] ASC';
+    },
+    orderByDesc() {
+      this.isAsc = false;
+      this.query.order = 'title[1] DESC';
+    },
+  },
   watch: {
     query: {
       deep: true,

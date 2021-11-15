@@ -92,13 +92,13 @@ export default {
   data() {
     return {
       showsFilter: [],
-      query: {
-        country: '',
-        genre: '',
-        airingStatus: '',
-        yearStart: '',
-        yearEnd: '',
-      },
+      // query: {
+      //   country: '',
+      //   genre: '',
+      //   airingStatus: '',
+      //   yearStart: '',
+      //   yearEnd: '',
+      // },
     };
   },
   watch: {
@@ -122,7 +122,6 @@ export default {
         show_id: show.id_show,
       };
       const check = await DataService.getCheckAdd(checkData);
-      console.log('CHECK: ', check);
       if (check === null) {
         const data = {
           user_id: this.loggedInUser.id,
@@ -160,7 +159,6 @@ export default {
         show_id: show.id_show,
       };
       const check = await DataService.getCheckAdd(checkData);
-      console.log('CHECK: ', check);
       if (check === null) {
         const data = {
           user_id: this.loggedInUser.id,
@@ -176,7 +174,6 @@ export default {
         alert('Added show to completed list');
       } else if (check.status !== 'completed') {
         // update
-        console.log('UPDATE SHOW. ', check);
         const updateData = {
           status: 'completed',
           episode_progress: show.episodes,
@@ -198,7 +195,6 @@ export default {
         show_id: show.id_show,
       };
       const check = await DataService.getCheckAdd(checkData);
-      console.log('CHECK: ', check);
       if (check === null) {
         const data = {
           user_id: this.loggedInUser.id,
@@ -214,7 +210,6 @@ export default {
         alert('Added show to planned list');
       } else if (check.status !== 'planned') {
         // update
-        console.log('UPDATE SHOW. ', check);
         const updateData = {
           status: 'planned',
           episode_progress: show.episodes,

@@ -216,7 +216,7 @@ class DataService {
   async getShowBrowseFilter(browserFilter) {
     try {
       const response = await http.dataApi.get(
-        `/show/filter/?country=${browserFilter.country}&genre=${browserFilter.genre}&airingStatus=${browserFilter.airingStatus}&yearStart=${browserFilter.yearStart}&yearEnd=${browserFilter.yearEnd}&searchText=${browserFilter.searchText}&offset=${browserFilter.offset}&limit=${browserFilter.limit}`
+        `/show/filter/?country=${browserFilter.country}&genre=${browserFilter.genre}&airingStatus=${browserFilter.airingStatus}&yearStart=${browserFilter.yearStart}&yearEnd=${browserFilter.yearEnd}&searchText=${browserFilter.searchText}&offset=${browserFilter.offset}&limit=${browserFilter.limit}&order=${browserFilter.order}`
       );
       return response.data.rows;
     } catch (e) {
