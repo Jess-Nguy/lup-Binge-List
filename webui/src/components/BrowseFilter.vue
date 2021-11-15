@@ -132,6 +132,8 @@ export default {
         yearStart: '',
         yearEnd: '',
         searchText: '',
+        limit: 10,
+        offset: 0,
       },
     };
   },

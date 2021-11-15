@@ -106,7 +106,11 @@ export default {
       this.shows = response;
       if (this.shows.length > 0) {
         console.log('THIS SHOW: ', this.shows);
-        this.total = this.shows[0].total;
+        if (this.shows.length < this.perPage && this.query.offset == 0) {
+          this.total = this.shows.length;
+        } else {
+          this.total = this.shows[0].total;
+        }
         this.isNotFound = false;
       } else {
         this.total = 0;
