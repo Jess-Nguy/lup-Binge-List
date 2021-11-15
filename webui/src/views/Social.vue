@@ -9,7 +9,7 @@
           <friend-request :friendRequests="listFriendRequests" @accept-friend-request="loadData" />
         </div>
         <div class="card-body" v-else>
-          <h2 style="color: red">No friends</h2>
+          <h2 style="color: red">No friends requests</h2>
         </div>
       </div>
     </div>
