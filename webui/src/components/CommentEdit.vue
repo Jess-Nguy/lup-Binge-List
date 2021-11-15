@@ -7,6 +7,7 @@
     <br />
     <!-- Modal -->
     <div
+      v-if="isOpen"
       class="modal top fade"
       id="editCommentModal"
       tabindex="-1"
@@ -29,21 +30,14 @@
               ></button>
             </div>
 
-            <div v-if="isLoading">
-              <div class="modal-body">
-                <textarea type="text" id="editComment" v-model="editCommentText" class="form-control" />
-              </div>
-              <div class="modal-footer">
-                <button type="button" @click="closeModal" class="btn btn-danger mr-auto" data-bs-dismiss="modal">
-                  Close
-                </button>
-                <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
-              </div>
+            <div class="modal-body">
+              <textarea type="text" id="editComment" v-model="editCommentText" class="form-control" />
             </div>
-            <div v-else>
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
+            <div class="modal-footer">
+              <button type="button" @click="closeModal" class="btn btn-danger mr-auto" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
             </div>
           </div>
         </div>
@@ -64,7 +58,7 @@ export default {
   data() {
     return {
       editCommentText: this.selectedComment.comment,
-      isLoading: false,
+      isOpen: false,
     };
   },
   methods: {
@@ -79,12 +73,10 @@ export default {
       this.$emit('updated-comment-text');
     },
     loadModal() {
-      console.log('WAITING');
-      setTimeout(() => (this.isLoading = true), 1000);
-      console.log('LOADING: ', this.isLoading);
+      this.isOpen = true;
     },
     closeModal() {
-      this.isLoading = false;
+      this.isOpen = false;
     },
   },
 };

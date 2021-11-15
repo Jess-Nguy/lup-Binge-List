@@ -319,6 +319,7 @@ export default {
         const resultShow = await DataService.postShow(showData);
         console.log('result: ', resultShow.data);
         console.log('result id: ', resultShow.data[0].id_show);
+        this.resetModal();
         this.$emit('submitted-show');
       } else {
         alert('Show creation failed in validation');
@@ -369,6 +370,29 @@ export default {
     },
     closeModal() {
       this.isOpen = false;
+    },
+    resetModal() {
+      this.enteredShowImage = '';
+      this.enteredShowName = '';
+      this.enteredTitleSynonyms = '';
+      this.enteredNativeTitle = '';
+      this.enteredRomanization = '';
+      this.enteredDateAired = '';
+      this.enteredDateCompleted = '';
+      this.enteredCountry = '';
+      this.enteredGenre = '';
+      this.enteredCompany = '';
+      this.enteredMainCharacter = '00000000-0000-0000-0000-000000000000';
+      this.enteredSideCharacter1 = '00000000-0000-0000-0000-000000000000';
+      this.enteredSideCharacter2 = '00000000-0000-0000-0000-000000000000';
+      this.enteredMCActorActress = '00000000-0000-0000-0000-000000000000';
+      this.enteredSCActorActress1 = '00000000-0000-0000-0000-000000000000';
+      this.enteredSCActorActress2 = '00000000-0000-0000-0000-000000000000';
+      this.enteredNumSeasons = 0;
+      this.enteredNumEpisodes = 0;
+      this.enteredSynopsis = '';
+      this.actors = [{ id: '00000000-0000-0000-0000-000000000000', value: 'Not Assigned' }];
+      this.characters = [{ id: '00000000-0000-0000-0000-000000000000', value: 'Not Assigned', image: '' }];
     },
   },
 };

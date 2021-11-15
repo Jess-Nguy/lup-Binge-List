@@ -25,8 +25,9 @@
                   @updated-comment-text="loadComments"
                 />
                 <a v-if="comment.user_id != user.id" @click="flagComment(comment)"
-                  ><i class="fas fa-flag" style="color: gold"></i
-                ></a>
+                  ><i class="fas fa-flag" style="color: gold"></i>
+                  <p v-if="user.roleId == 1">{{ comment.flag }}</p></a
+                >
               </div>
             </div>
           </div>
@@ -136,8 +137,10 @@ export default {
         flag: comment.flag + 1,
         id_comment: comment.id_comment,
       };
+      alert('This comment is flagged');
       console.log('DATA: ', data);
-      // await DataService.updateComment(data);
+      await DataService.updateComment(data);
+      await this.loadComments();
       // await this.loadComments();
     },
   },
