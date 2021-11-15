@@ -5,8 +5,11 @@
     <div v-if="isSameUser">
       <label>Request</label>
       <div class="card border border-dark shadow-0">
-        <div class="card-body" v-if="user">
+        <div class="card-body" v-if="listFriendRequests.length > 0">
           <friend-request :friendRequests="listFriendRequests" @accept-friend-request="loadData" />
+        </div>
+        <div class="card-body" v-if="user">
+          <h2 style="color: red">No friends</h2>
         </div>
       </div>
     </div>
@@ -16,7 +19,7 @@
         <div class="card-body" v-if="listFriends.length > 0">
           <friends-list :friends="listFriends" @deleted-user-relation="loadData" />
         </div>
-        <div class="card-body">
+        <div v-else class="card-body">
           <h2 style="color: red">No friends</h2>
         </div>
       </div>

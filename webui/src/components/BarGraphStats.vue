@@ -30,9 +30,9 @@ export default {
   name: 'bar graph stats',
   props: {
     dataCounts: {
-      type: Array,
+      type: Object,
       required: true,
-      default: () => [],
+      default: () => {},
     },
     tableHeaders: {
       type: Array,

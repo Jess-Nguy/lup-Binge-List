@@ -15,7 +15,7 @@
         </tr>
         <tr>
           <th scope="row">Percent</th>
-          <td v-for="(count, i) in dataCounts" :key="i">{{ Math.round((count / total) * 100) }}%</td>
+          <td v-for="(percent, i) in percentCount" :key="i">{{ percent }}%</td>
         </tr>
       </tbody>
     </table>
@@ -49,9 +49,9 @@ export default {
   name: 'table stats',
   props: {
     dataCounts: {
-      type: Array,
+      type: Object,
       required: true,
-      default: () => [],
+      default: () => {},
     },
     tableHeaders: {
       type: Array,
@@ -78,13 +78,19 @@ export default {
         roleId: localStorage.getItem('userRoleId'),
       },
       isAdmin: false,
-      items: [
-        { age: 40, first_name: 'Dickerson', last_name: 'Macdonald' },
-        { age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-        { age: 38, first_name: 'Jami', last_name: 'Carney' },
-      ],
+      percentCount: [],
     };
+  },
+  created() {
+    // doesn't work. doesn't load as quickly as the rest of the table.
+    for (const key in this.dataCounts) {
+      if (this.dataCounts[key] != 0) {
+        console.log(Math.round((this.dataCounts[key] / this.total) * 100));
+        this.percentCount.push(Math.round((this.dataCounts[key] / this.total) * 100));
+      } else {
+        this.percentCount.push(0);
+      }
+    }
   },
   mounted() {
     const localToken = localStorage.getItem('userToken');
