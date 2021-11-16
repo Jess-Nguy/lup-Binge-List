@@ -7,43 +7,55 @@
       <h1>{{ userQuery.username }}'s Account</h1>
     </div>
     <account-nav :id="query.userId" />
-    <account-list-filter @status-change="updateQueryStatus" />
-    <side-filter @side-filter-change="updateQuerySideFilter" />
-    <account-list-shows
-      v-show="query.status == 'watching' || query.status == ''"
-      :tableName="'Watching'"
-      :bingeStatusList="watchList"
-      @update-account-show="accountShowUpdated"
-      :isMyAccount="isSameUser"
-    />
-    <account-list-shows
-      v-show="query.status == 'completed' || query.status == ''"
-      :tableName="'Completed'"
-      :bingeStatusList="completedList"
-      @update-account-show="accountShowUpdated"
-      :isMyAccount="isSameUser"
-    />
-    <account-list-shows
-      v-show="query.status == 'paused' || query.status == ''"
-      :tableName="'Paused'"
-      :bingeStatusList="pausedList"
-      @update-account-show="accountShowUpdated"
-      :isMyAccount="isSameUser"
-    />
-    <account-list-shows
-      v-show="query.status == 'dropped' || query.status == ''"
-      :tableName="'Dropped'"
-      :bingeStatusList="droppedList"
-      @update-account-show="accountShowUpdated"
-      :isMyAccount="isSameUser"
-    />
-    <account-list-shows
-      v-show="query.status == 'planned' || query.status == ''"
-      :tableName="'Planned'"
-      :bingeStatusList="plannedList"
-      @update-account-show="accountShowUpdated"
-      :isMyAccount="isSameUser"
-    />
+    <div class="container-fluid">
+      <div class="row mb-3">
+        <div class="col-2">
+          <div class="row align-items-center">
+            <account-list-filter style="grid-area: menu" @status-change="updateQueryStatus" />
+          </div>
+          <div class="row">
+            <side-filter style="grid-area: menu" @side-filter-change="updateQuerySideFilter" />
+          </div>
+        </div>
+        <div class="col-10">
+          <account-list-shows
+            v-show="query.status == 'watching' || query.status == ''"
+            :tableName="'Watching'"
+            :bingeStatusList="watchList"
+            @update-account-show="accountShowUpdated"
+            :isMyAccount="isSameUser"
+          />
+          <account-list-shows
+            v-show="query.status == 'completed' || query.status == ''"
+            :tableName="'Completed'"
+            :bingeStatusList="completedList"
+            @update-account-show="accountShowUpdated"
+            :isMyAccount="isSameUser"
+          />
+          <account-list-shows
+            v-show="query.status == 'paused' || query.status == ''"
+            :tableName="'Paused'"
+            :bingeStatusList="pausedList"
+            @update-account-show="accountShowUpdated"
+            :isMyAccount="isSameUser"
+          />
+          <account-list-shows
+            v-show="query.status == 'dropped' || query.status == ''"
+            :tableName="'Dropped'"
+            :bingeStatusList="droppedList"
+            @update-account-show="accountShowUpdated"
+            :isMyAccount="isSameUser"
+          />
+          <account-list-shows
+            v-show="query.status == 'planned' || query.status == ''"
+            :tableName="'Planned'"
+            :bingeStatusList="plannedList"
+            @update-account-show="accountShowUpdated"
+            :isMyAccount="isSameUser"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -112,7 +124,6 @@ export default {
     query: {
       deep: true,
       async handler() {
-        console.log('WATCH QUERY: ', this.query);
         await this.loadTables();
       },
     },

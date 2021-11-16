@@ -1,7 +1,7 @@
 <template>
   <!--TO DO:  Could be renamed to side filter since it's the same in both favourite and accountlistfilter.. -->
   <div>
-    <div class="vstack gap-2 col-md-1 mx-auto">
+    <div class="vstack gap-2 col-lg mx-auto">
       <!-- Country filter -->
       <label class="form-label" for="sideFilterCountry">Country</label>
 

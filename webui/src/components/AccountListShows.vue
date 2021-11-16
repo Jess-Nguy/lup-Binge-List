@@ -14,8 +14,8 @@
         </thead>
         <tbody>
           <tr v-for="show in bingeStatusList" :key="show.show_id">
-            <th scope="row">
-              <img id="showImage" :src="show.show_image" :alt="show.title[0]" width="150" heigth="350" />
+            <th>
+              <img id="showImage" :src="show.show_image" :alt="show.title[0]" width="100" heigth="150" />
             </th>
             <td>
               <router-link :to="`/show/${show.show_id}`">{{ show.title[0] }}</router-link>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="btn-group-vertical">
+    <div class="btn-group-vertical col-lg mx-auto">
       <button type="button" class="btn btn-primary" @click="statusChange('all')">All</button>
       <button type="button" class="btn btn-primary" @click="statusChange('watching')">Watching</button>
       <button type="button" class="btn btn-primary" @click="statusChange('completed')">Completed</button>
