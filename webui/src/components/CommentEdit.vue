@@ -64,7 +64,7 @@ export default {
   methods: {
     async editComment(comment) {
       const data = {
-        comment: this.editCommentText,
+        comment: this.editCommentText.replace(/'/g, "''"),
         flag: comment.flag,
         id_comment: comment.id_comment,
       };

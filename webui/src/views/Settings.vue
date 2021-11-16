@@ -7,18 +7,18 @@
         <h5 class="card-title">Avatar</h5>
         <div v-show="isAdmin">
           <form @submit.prevent="updateBanners">
-            <h3>Add the webpage's</h3>
+            <h3>Add the webpage's Banners</h3>
             <label for="image-link1">Banner 1: </label>
             <input type="text" id="image-link1" v-model="banners[0]" />
-            <img :src="banners[0]" alt="profile image" width="350" height="200" />
+            <img :src="banners[0]" alt="banner image 1" width="350" height="200" />
             <br />
             <label for="image-link1">Banner 2: </label>
             <input type="text" id="image-link2" v-model="banners[1]" />
-            <img :src="banners[1]" alt="profile image" width="350" height="200" />
+            <img :src="banners[1]" alt="banner image 2" width="350" height="200" />
             <br />
             <label for="image-link1">Banner 3: </label>
             <input type="text" id="image-link3" v-model="banners[2]" />
-            <img :src="banners[2]" alt="profile image" width="350" height="200" /><br />
+            <img :src="banners[2]" alt="banner image 3" width="350" height="200" /><br />
             <button type="submit" class="btn btn-primary">Update Banners</button>
           </form>
         </div>
@@ -101,11 +101,22 @@ export default {
     },
     async updateBanners() {
       if (this.isAdmin) {
+        if (this.banners[0] == '') {
+          this.banners[0] = require('@/assets/img/Banner.png');
+        }
+        if (this.banners[1] == '') {
+          this.banners[1] = require('@/assets/img/kBanner.png');
+        }
+        if (this.banners[2] == '') {
+          this.banners[2] = require('@/assets/img/aBanner.png');
+        }
+
         const data = {
           banners: this.banners,
           id: this.user.id,
         };
         await DataService.updateBanners(data);
+        await this.getBanners();
         alert('Updated banners');
       }
     },
