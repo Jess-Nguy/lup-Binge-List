@@ -207,7 +207,7 @@ export default {
         favourite: this.editForm.favourite,
         start_date: this.editForm.startDate,
         end_date: this.editForm.endDate,
-        note: this.editForm.note,
+        note: this.editForm.note.replace(/'/g, "''"),
       };
       await DataService.updateUserBingeList(updateData);
       this.$emit('update-account-show');

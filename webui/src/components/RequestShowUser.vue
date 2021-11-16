@@ -133,13 +133,13 @@ export default {
         alert('SUCCESSFULLY SUBMITTED FORM!');
         const data = {
           requested_by: this.user.id,
-          show_title: this.enteredShowName,
+          show_title: this.enteredShowName.replace(/'/g, "''"),
           country: this.enteredCountry,
           release_date: this.enteredDateAired,
           genre: this.enteredGenre,
           seasons: this.enteredNumSeasons,
           number_episodes: this.enteredNumEpisodes,
-          note: this.enteredNote,
+          note: this.enteredNote.replace(/'/g, "''"),
         };
         await DataService.postRequestShow(data);
       } else {

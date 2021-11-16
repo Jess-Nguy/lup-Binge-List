@@ -106,12 +106,13 @@ export default {
           id: this.user.id,
         };
         await DataService.updateBanners(data);
+        alert('Updated banners');
       }
     },
     async updateUserDetails() {
       localStorage.setItem('username', this.username);
       const data = {
-        username: this.username,
+        username: this.username.replace(/'/g, "''"),
         timezone: this.timezone,
         id_user: this.user.id,
       };
