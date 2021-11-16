@@ -2,7 +2,7 @@
   <div>
     <users-filter @users-filter-change="setUserFilter" />
     <browse-user :users="listOfUsers" />
-    <div>
+    <div class="position-absolute bottom--50 start-50 translate-middle-x">
       <footer>
         <pagination v-model="page" :records="total" :per-page="perPage" @paginate="onPageChanged($event)" />
       </footer>

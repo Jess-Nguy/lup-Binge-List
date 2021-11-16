@@ -9,7 +9,7 @@
       <h2 style="color: red">Could not find any shows.</h2>
     </div>
     <!-- Show cards -->
-    <div>
+    <div class="position-absolute bottom--50 start-50 translate-middle-x">
       <footer>
         <pagination v-model="page" :records="total" :per-page="perPage" @paginate="onPageChanged($event)" />
       </footer>

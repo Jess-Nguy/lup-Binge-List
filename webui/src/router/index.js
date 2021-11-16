@@ -93,4 +93,14 @@ const router = createRouter({
   routes,
 });
 
+// router.beforeEach((to, from, next) => {
+//   const loginPage = ['/'];
+//   const authReq = !loginPage.includes(to.path);
+//   const loggedIn = localStorage.getItem('token');
+//   if (authReq && !loggedIn) {
+//     return next('/login');
+//   }
+//   next();
+// });
+
 export default router;
