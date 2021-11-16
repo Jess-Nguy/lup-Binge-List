@@ -2,16 +2,20 @@
   <div class="favourite">
     <h1>Favourite</h1>
     <account-nav :id="query.userId" />
-    <side-filter @side-filter-change="updateQuerySideFilter" />
-    <div class="card border border-dark shadow-0">
-      <div class="card-body">
-        <div v-if="favourites.length > 0">
-          <div v-for="fav in favourites" :key="fav.id_user_show">
-            <favourite-show :showFav="fav" />
+    <div class="row">
+      <div class="col-2">
+        <side-filter @side-filter-change="updateQuerySideFilter" />
+      </div>
+      <div class="card border border-dark shadow-0 col-10">
+        <div class="card-body">
+          <div v-if="favourites.length > 0">
+            <div v-for="fav in favourites" :key="fav.id_user_show">
+              <favourite-show :showFav="fav" />
+            </div>
           </div>
-        </div>
-        <div v-else id="emptyFavourites">
-          <p>No favourites found</p>
+          <div v-else id="emptyFavourites">
+            <p>No favourites found</p>
+          </div>
         </div>
       </div>
     </div>

@@ -131,6 +131,10 @@ export default {
       this.v$.$validate();
       if (!this.v$.$error) {
         alert('SUCCESSFULLY SUBMITTED FORM!');
+        if (this.enteredNote) {
+          console.log('enteredNote: ', this.enteredNote);
+          this.enteredNote = this.enteredNote.replace(/'/g, "''");
+        }
         const data = {
           requested_by: this.user.id,
           show_title: this.enteredShowName.replace(/'/g, "''"),
@@ -139,7 +143,7 @@ export default {
           genre: this.enteredGenre,
           seasons: this.enteredNumSeasons,
           number_episodes: this.enteredNumEpisodes,
-          note: this.enteredNote.replace(/'/g, "''"),
+          note: this.enteredNote,
         };
         await DataService.postRequestShow(data);
       } else {

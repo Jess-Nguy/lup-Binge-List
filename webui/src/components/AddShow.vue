@@ -289,7 +289,10 @@ export default {
         let title = this.enteredShowName;
         title = title.replace(/'/g, "''");
         let titleSynonyms = this.enteredTitleSynonyms;
-        titleSynonyms = titleSynonyms.replace(/'/g, "''");
+        if (titleSynonyms) {
+          console.log('titleSynonyms: ', titleSynonyms);
+          titleSynonyms = titleSynonyms.replace(/'/g, "''");
+        }
         const titles = [title.trim(), titleSynonyms.trim()];
         let synopsis = this.enteredSynopsis;
         synopsis = synopsis.replace(/'/g, "''");

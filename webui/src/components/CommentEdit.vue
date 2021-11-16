@@ -63,8 +63,12 @@ export default {
   },
   methods: {
     async editComment(comment) {
+      if (this.editCommentText) {
+        console.log('editCommentText: ', this.editCommentText);
+        this.editCommentText = this.editCommentText.replace(/'/g, "''");
+      }
       const data = {
-        comment: this.editCommentText.replace(/'/g, "''"),
+        comment: this.editCommentText,
         flag: comment.flag,
         id_comment: comment.id_comment,
       };

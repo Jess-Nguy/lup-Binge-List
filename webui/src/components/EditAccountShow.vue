@@ -198,6 +198,10 @@ export default {
     },
     async submitEditAccountShow() {
       // note should accept quotes
+      if (this.editForm.note) {
+        console.log('EDIT NOTE: ', this.editForm.note);
+        this.editForm.note = this.editForm.note.replace(/'/g, "''");
+      }
       const updateData = {
         status: this.editForm.status,
         episode_progress: this.editForm.episodeProgress,
@@ -207,10 +211,11 @@ export default {
         favourite: this.editForm.favourite,
         start_date: this.editForm.startDate,
         end_date: this.editForm.endDate,
-        note: this.editForm.note.replace(/'/g, "''"),
+        note: this.editForm.note,
       };
       await DataService.updateUserBingeList(updateData);
       this.$emit('update-account-show');
+      alert('UPDATED BingeList show');
     },
     async deleteAccountShow() {
       await DataService.deleteBingeList(this.selectedEdit.id_user_show);

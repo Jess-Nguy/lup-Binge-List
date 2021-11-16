@@ -118,12 +118,16 @@ export default {
       this.commentList = await DataService.getCommentByShow(this.showId);
     },
     async submitComment() {
+      if (this.commentText) {
+        console.log('commentText: ', this.commentText);
+        this.commentText = this.commentText.replace(/'/g, "''");
+      }
       const data = {
         user_id: this.user.id,
         show_id: this.showId,
         profile_url: this.user.profileUrl,
         username: this.user.name,
-        comment: this.commentText.replace(/'/g, "''"),
+        comment: this.commentText,
         flag: 0,
       };
       await DataService.postComment(data);

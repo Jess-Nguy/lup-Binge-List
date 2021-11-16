@@ -25,8 +25,9 @@
       </div>
       <form @submit.prevent="updateUserDetails">
         <div class="card-body">
-          <label for="account-username">Username: </label>
+          <label for="account-username">Username* : </label>
           <input type="text" id="account-username" v-model="username" />
+          <div class="requiredFields" v-if="v$.username.$error">Genre field is required</div>
         </div>
         <div class="card-body">
           <label for="image-link">Time zone: </label>
@@ -51,10 +52,13 @@
 </style>
 <script>
 import DataService from '../../service/dataService';
+import { required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
 
 export default {
   data() {
     return {
+      v$: useVuelidate(),
       isAdmin: false,
       banners: [
         require('@/assets/img/Banner.png'),
@@ -92,6 +96,11 @@ export default {
     }
     await this.getUserInfo();
   },
+  validations() {
+    return {
+      username: { required },
+    };
+  },
   methods: {
     async getBanners() {
       const gotBanners = await DataService.getBanners();
@@ -121,14 +130,19 @@ export default {
       }
     },
     async updateUserDetails() {
-      localStorage.setItem('username', this.username);
-      const data = {
-        username: this.username.replace(/'/g, "''"),
-        timezone: this.timezone,
-        id_user: this.user.id,
-      };
-      await DataService.updateByUserId(data);
-      alert('Updated user details');
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        localStorage.setItem('username', this.username);
+        const data = {
+          username: this.username.replace(/'/g, "''"),
+          timezone: this.timezone,
+          id_user: this.user.id,
+        };
+        await DataService.updateByUserId(data);
+        alert('Updated user details');
+      } else {
+        alert('Need to fill in a username!');
+      }
     },
     async getUserInfo() {
       const result = await DataService.getUserById(this.user.id);
