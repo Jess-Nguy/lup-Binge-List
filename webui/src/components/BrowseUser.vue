@@ -56,7 +56,6 @@ export default {
   methods: {
     // Will not do it this version because need to implement button disable
     // async sendFriendRequest(addFriend) {
-    //   console.log('ADD this friend: ', addFriend);
     //   const data = {
     //     type: 'request',
     //     userId1: this.user.id,

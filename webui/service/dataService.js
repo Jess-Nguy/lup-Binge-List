@@ -14,7 +14,6 @@ class DataService {
   async updateShow(data) {
     try {
       const response = await http.dataApi.put('/show', data);
-      console.log('update reponse data: ', response.data);
       return response.data;
     } catch (e) {
       console.error('Failed to update show - ', e);
@@ -50,7 +49,6 @@ class DataService {
   }
   async updateFriendRequest(data) {
     try {
-      console.log('DATA - id: ', data);
       const response = await http.dataApi.put('/userrelations/accept', data);
       return response.data;
     } catch (e) {
@@ -61,7 +59,6 @@ class DataService {
   // POST
   async postRequestShow(data) {
     try {
-      console.log('DATA postRequestShow dataApi: ', data);
       const response = await http.dataApi.post('/requestShow', data);
       return response;
     } catch (e) {
@@ -71,7 +68,6 @@ class DataService {
   }
   async postShow(data) {
     try {
-      console.log('DATA postShow dataApi: ', data);
       const response = await http.dataApi.post('/show', data);
       return response;
     } catch (e) {
@@ -81,7 +77,6 @@ class DataService {
   }
   async postBingeList(data) {
     try {
-      console.log('DATA bingeList dataApi: ', data);
       const response = await http.dataApi.post('/bingeList', data);
       return response;
     } catch (e) {
@@ -91,7 +86,6 @@ class DataService {
   }
   async postComment(data) {
     try {
-      console.log('DATA comment dataApi: ', data);
       const response = await http.dataApi.post('/comment', data);
       return response;
     } catch (e) {
@@ -101,7 +95,6 @@ class DataService {
   }
   async postUserRelation(data) {
     try {
-      console.log('DATA user relation dataApi: ', data);
       const response = await http.dataApi.post('/userrelations', data);
       return response;
     } catch (e) {
@@ -112,7 +105,6 @@ class DataService {
   // GET
   async getUserByFilter(user) {
     try {
-      console.log('getUserByFilter: ', user);
       const response = await http.dataApi.get(
         `/user/filter/?idUser=${user.id_user}&googleId=${user.google_id}&username=${user.username}&roleId=${user.role_id}&timezone=${user.time_zone}&offset=${user.offset}&limit=${user.limit}`
       );
@@ -124,7 +116,6 @@ class DataService {
   }
   async getUserById(id) {
     try {
-      console.log('getUserById: ', id);
       const response = await http.dataApi.get(`/user/id/?id=${id}`);
       return response.data.rows;
     } catch (e) {
@@ -135,7 +126,6 @@ class DataService {
   async getCharactersDropdown() {
     try {
       const response = await http.dataApi.get('/character/dropdown');
-      console.log(response.data.rows);
       return response.data.rows;
     } catch (e) {
       console.error('Failed to GET character - ', e);
@@ -145,7 +135,6 @@ class DataService {
   async getActorDropdown() {
     try {
       const response = await http.dataApi.get('/actor/dropdown');
-      console.log(response.data.rows);
       return response.data.rows;
     } catch (e) {
       console.error('Failed to GET actor - ', e);
@@ -154,7 +143,6 @@ class DataService {
   }
   async getShowDropdown() {
     try {
-      console.log('DATA getShowDropdown dataApi: ');
       const response = await http.dataApi.get('/show/dropdown');
       return response.data;
     } catch (e) {
@@ -165,7 +153,6 @@ class DataService {
   async getBanners() {
     try {
       const response = await http.dataApi.get('/banners');
-      console.log(response.data.rows[0].banners);
       return response.data.rows[0].banners;
     } catch (e) {
       console.error('Failed to GET banners - ', e);
@@ -175,7 +162,6 @@ class DataService {
   async getCheckAdd(data) {
     try {
       const response = await http.dataApi.get(`/bingeList/checkAdd/?userId=${data.user_id}&showId=${data.show_id}`);
-      console.log(response.data);
       return response.data;
     } catch (e) {
       console.error('Failed to GET checkAdd - ', e);
@@ -185,7 +171,6 @@ class DataService {
   async getCommentByShow(id) {
     try {
       const response = await http.dataApi.get(`/comment/?showId=${id}`);
-      console.log(response.data);
       return response.data.rows;
     } catch (e) {
       console.error('Failed to GET comment - ', e);
@@ -195,7 +180,6 @@ class DataService {
   // Might not need anymore? was in browseshow.vue but using filter now.
   async getShowDisplay() {
     try {
-      console.log('DATA getShowDisplay dataApi: ');
       const response = await http.dataApi.get('/show/display');
       return response.data.rows;
     } catch (e) {
@@ -205,7 +189,6 @@ class DataService {
   }
   async getShowById(id) {
     try {
-      console.log('DATA getShowById dataApi: ', id);
       const response = await http.dataApi.get(`/show/?id=${id}`);
       return response.data.rows;
     } catch (e) {
@@ -226,7 +209,6 @@ class DataService {
   }
   async getAccountList(data) {
     try {
-      console.log('getAccountList: ', data);
       const response = await http.dataApi.get(
         `/bingeList/filter/?country=${data.country}&genre=${data.genre}&status=${data.status}&yearStart=${data.yearStart}&yearEnd=${data.yearEnd}&userId=${data.userId}&favourite=${data.favourite}`
       );

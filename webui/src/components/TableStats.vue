@@ -92,7 +92,6 @@ export default {
       const percent = [];
       for (const key in this.dataCounts) {
         if (this.dataCounts[key] != 0) {
-          console.log(Math.round((this.dataCounts[key] / this.total) * 100));
           percent.push(Math.round((this.dataCounts[key] / this.total) * 100));
         } else {
           percent.push(0);

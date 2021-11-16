@@ -43,8 +43,6 @@ export default {
       default: '',
     },
   },
-  created() {
-    console.log('NAV ID: ', this.id);
-  }, // Add watch in change of user id
+  created() {},
 };
 </script>

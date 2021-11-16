@@ -138,7 +138,11 @@ export default {
         this.barChart.data.datasets[0].data.push(value);
       }
     }
-    this.barChart.options.scales.y.max = this.dataCounts.total;
+    // y height be the max value that isn't total.
+    let dataCountArray = Object.values(this.dataCounts);
+    dataCountArray = dataCountArray.slice(0, dataCountArray.length - 1);
+    const max = Math.max(...dataCountArray);
+    this.barChart.options.scales.y.max = max;
   },
   mounted() {
     this.$store.subscribe((setUser, user) => {

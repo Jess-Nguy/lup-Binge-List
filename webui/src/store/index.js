@@ -669,7 +669,6 @@ export default createStore({
     async login({ commit }, token) {
       commit('setToken', token);
       if (token !== '') {
-        console.log('REACHED');
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const user = JSON.parse(window.atob(base64));
@@ -677,11 +676,9 @@ export default createStore({
         localStorage.setItem('userRoleId', user.role_id);
         localStorage.setItem('profileImage', user.profile_image);
         localStorage.setItem('username', user.username);
-        // console.log('USER FROM STORE: ', user);
 
         const isAdmin = await DataService.isAdmin(user);
         if (isAdmin) {
-          console.log('IS ADMIN LOGIN');
           commit('setRole', 'Admin');
         } else {
           commit('setRole', 'User');
