@@ -21,7 +21,7 @@
           >
           <router-link :to="`/account/${friend.user_id2}`" v-else> {{ friend.username2 }}</router-link>
         </h5>
-        <button @click="removeFriend(friend.id_user_relations)" class="btn btn-danger">Remove</button>
+        <button v-if="sameUser" @click="removeFriend(friend.id_user_relations)" class="btn btn-danger">Remove</button>
       </div>
     </div>
   </div>
@@ -35,6 +35,11 @@ export default {
       type: Array,
       require: true,
       default: () => [],
+    },
+    sameUser: {
+      type: Boolean,
+      require: true,
+      default: false,
     },
   },
   data() {

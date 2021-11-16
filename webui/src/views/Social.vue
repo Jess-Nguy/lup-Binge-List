@@ -17,7 +17,7 @@
       <label>Friends</label>
       <div class="card border border-dark shadow-0">
         <div class="card-body" v-if="listFriends.length > 0">
-          <friends-list :friends="listFriends" @deleted-user-relation="loadData" />
+          <friends-list :friends="listFriends" :sameUser="isSameUser" @deleted-user-relation="loadData" />
         </div>
         <div v-else class="card-body">
           <h2 style="color: red">No friends</h2>
@@ -65,7 +65,6 @@ export default {
       this.$router.push('/');
     }
     this.isSameUser = this.user.id == this.loggedInUser.id;
-    console.log('Social mount');
   },
   methods: {
     async loadData() {
@@ -77,12 +76,28 @@ export default {
         id: this.loggedInUser.id,
         type: 'request',
       };
-      this.listFriendRequests = await DataService.getRelationsByUserId(data);
-      console.log('list friends request: ', this.listFriendRequests);
+      const response = await DataService.getRelationsByUserId(data);
+      this.listFriendRequests = response;
+      response.forEach((element) => {
+        if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
+          this.hasRequest = true;
+          this.hasRelations = false;
+        }
+      });
     },
     async getMyFriends() {
-      this.listFriends = await DataService.getFriendsList(this.loggedInUser.id);
-      console.log('list friends: ', this.listFriends);
+      const data = {
+        id: this.user.id,
+        type: 'friends',
+      };
+      const response = await DataService.getRelationsByUserId(data);
+      this.listFriends = response;
+      response.forEach((element) => {
+        if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
+          this.hasRequest = true;
+          this.hasRelations = false;
+        }
+      });
     },
   },
 };

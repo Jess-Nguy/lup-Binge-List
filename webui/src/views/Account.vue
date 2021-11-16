@@ -105,7 +105,7 @@ export default {
       this.listFriendRequests = response;
       console.log('friends request: ', this.listFriendRequests);
       response.forEach((element) => {
-        if (element.user_id1 == this.query.id_user) {
+        if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
           this.hasRequest = true;
           this.hasRelations = false;
         }
@@ -117,7 +117,7 @@ export default {
       console.log('list friends: ', this.listFriends);
 
       response.forEach((element) => {
-        if (element.user_id1 == this.query.id_user) {
+        if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
           this.hasRequest = false;
           this.hasRelations = true;
         }
@@ -131,8 +131,8 @@ export default {
         userId2: addFriend.id_user,
       };
       await DataService.postUserRelation(data);
-      alert('Sent friend request!');
       await this.getMyFriendRequests();
+      alert('Sent friend request!');
     },
   },
 };

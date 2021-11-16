@@ -263,15 +263,6 @@ class DataService {
       return false;
     }
   }
-  async getFriendsList(id) {
-    try {
-      const response = await http.dataApi.get(`/userrelations/friends/?id=${id}`);
-      return response.data.rows;
-    } catch (e) {
-      console.error('Failed to GET friends list - ', e);
-      return false;
-    }
-  }
   // DELETE
   async deleteShow(id) {
     try {

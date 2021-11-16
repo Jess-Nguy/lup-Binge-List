@@ -68,7 +68,6 @@ app.use("/stats/status", require("./routes/stats/fetchStatusCounts"));
 // User relations
 app.use("/userrelations", require("./routes/userRelation/insert"));
 app.use("/userrelations/request", require("./routes/userRelation/fetchRelationsByUserId"));
-app.use("/userrelations/friends", require("./routes/userRelation/fetchFriendsList"));
 app.use("/userrelations/accept", require("./routes/userRelation/update"));
 app.use("/userrelations", require("./routes/userRelation/delete"));
 
