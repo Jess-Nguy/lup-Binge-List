@@ -52,9 +52,7 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     }
-    console.log('Forum mount');
     await this.getRequests();
-    console.log('REQUESTS: ', this.listOfShowRequest);
   },
   methods: {
     async deleteRequest(showRequest) {

@@ -50,7 +50,6 @@ export default {
   create() {},
   methods: {
     async removeFriend(id) {
-      console.log('REMOVE THIS RELATION: ', id);
       await DataService.deleteFriend(id);
       alert('DELETE user!');
       this.$emit('deleted-user-relation');

@@ -83,11 +83,8 @@ export default {
   },
   async created() {
     await this.getGenre();
-    console.log('GENRE COUNT: ', JSON.stringify(this.genreCount));
     await this.getScore();
-    console.log('SCORE COUNT: ', JSON.stringify(this.scoreCount));
     await this.getStatus();
-    console.log('STATUS COUNT: ', JSON.stringify(this.statusCount));
     this.listOfGenres = this.getGenres;
     this.listOfStatus = this.getListStatus;
   },
@@ -96,7 +93,6 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     }
-    console.log('Status mount');
   },
   methods: {
     toggleViews() {
@@ -117,7 +113,6 @@ export default {
         this.scoreCount = await DataService.getScoreCounts('');
       }
       this.scoreTotal = this.scoreCount.total;
-      console.log('score total: ', this.scoreTotal);
     },
     async getStatus() {
       if (this.user.roleId != 1) {

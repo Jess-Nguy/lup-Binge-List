@@ -92,13 +92,6 @@ export default {
   data() {
     return {
       showsFilter: [],
-      // query: {
-      //   country: '',
-      //   genre: '',
-      //   airingStatus: '',
-      //   yearStart: '',
-      //   yearEnd: '',
-      // },
     };
   },
   watch: {
@@ -106,15 +99,8 @@ export default {
       this.showsFilter = value;
     },
   },
-  async mounted() {
-    // await this.getShows();
-    // console.log('SHOWS: ', this.shows);
-  },
+  async mounted() {},
   methods: {
-    // Doesn't get used
-    // async getShows() {
-    //   this.shows = await DataService.getShowBrowseFilter(this.query);
-    // },
     async addAsWatching(show) {
       // Check if it already exists and if it does update the status instead.
       const checkData = {

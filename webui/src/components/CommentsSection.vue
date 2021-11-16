@@ -8,11 +8,11 @@
         <div v-for="comment in commentList" :key="comment.id_comment" class="card border border-primary shadow-0">
           <div class="card-body">
             <div class="row g-0">
-              <div class="col-2">
+              <div class="col-1">
                 <img id="userProfileImage" :src="comment.profile_url" :alt="comment.username" class="img-fluid" />
                 <h6>{{ comment.username }}</h6>
               </div>
-              <div class="col-9">
+              <div class="col-10">
                 <p>{{ comment.comment }}</p>
               </div>
               <div class="col-1">
@@ -33,11 +33,13 @@
             </div>
           </div>
         </div>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCommentModal">
-          Add Comment
-        </button>
-
+        <div v-if="commentList.length <= 0">Be the first to add a comment!</div>
+        <div>
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCommentModal">
+            Add Comment
+          </button>
+        </div>
         <!-- Modal -->
         <div
           class="modal top fade"
@@ -53,14 +55,22 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="addCommentModalLabel">Add comment</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button
+                    @click="clearText"
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div class="modal-body">
                   <label class="form-label" for="editComment">Comment</label>
                   <textarea type="text" id="editComment" v-model="commentText" class="form-control" />
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger mr-auto" data-bs-dismiss="modal">Close</button>
+                  <button @click="clearText" type="button" class="btn btn-danger mr-auto" data-bs-dismiss="modal">
+                    Close
+                  </button>
                   <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Submit</button>
                 </div>
               </div>
@@ -106,10 +116,8 @@ export default {
     },
     async getCommentList() {
       this.commentList = await DataService.getCommentByShow(this.showId);
-      console.log('COMMENT: ', this.commentList);
     },
     async submitComment() {
-      console.log('SUBMIT: ', this.commentText);
       const data = {
         user_id: this.user.id,
         show_id: this.showId,
@@ -120,29 +128,28 @@ export default {
       };
       await DataService.postComment(data);
       await this.loadComments();
+      this.commentText = '';
     },
     async deleteComment(comment) {
-      console.log('delete: ', comment);
       await DataService.deleteComment(comment.id_comment);
       await this.loadComments();
     },
-    async editComment(comment) {
-      console.log('edit: ', comment);
+    async editComment() {
       await this.loadComments();
     },
     async flagComment(comment) {
       // flag may need to be changed to a number type so that it can count how many times that comment has been flagged
-      console.log('flag: ', comment);
       const data = {
         comment: comment.comment,
         flag: comment.flag + 1,
         id_comment: comment.id_comment,
       };
       alert('This comment is flagged');
-      console.log('DATA: ', data);
       await DataService.updateComment(data);
       await this.loadComments();
-      // await this.loadComments();
+    },
+    clearText() {
+      this.commentText = '';
     },
   },
 };

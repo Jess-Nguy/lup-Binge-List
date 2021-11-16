@@ -76,7 +76,6 @@ export default {
     if (this.selectedItem) {
       this.searchValue = this.selectedItem[0].value;
     }
-    console.log('LIST: ', this.items);
   },
   unmounted() {
     document.removeEventListener('click', this.handleClickOutside);

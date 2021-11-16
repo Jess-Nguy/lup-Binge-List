@@ -138,18 +138,10 @@ export default {
       }
     },
   },
-  // create() {
-  //   this.user.name = localStorage.getItem('username');
-  //   this.user.profileUrl = localStorage.getItem('profileImage');
-  //   this.user.id = localStorage.getItem('userId');
-  //   console.log('USER ID: ', this.user.id);
-  //   this.user.roleId = localStorage.getItem('userRoleId');
-  // },
   mounted() {
     this.user.name = localStorage.getItem('username');
     this.user.profileUrl = localStorage.getItem('profileImage');
     this.user.id = localStorage.getItem('userId');
-    console.log('Mount USER ID: ', this.user.id);
     this.user.roleId = localStorage.getItem('userRoleId');
   },
   methods: {

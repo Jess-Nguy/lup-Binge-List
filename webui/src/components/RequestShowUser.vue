@@ -125,7 +125,6 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     }
-    console.log('Forum mount');
   },
   methods: {
     async submitRequestShow() {
@@ -142,18 +141,10 @@ export default {
           number_episodes: this.enteredNumEpisodes,
           note: this.enteredNote,
         };
-        const result = await DataService.postRequestShow(data);
-        console.log('RESULT: ', result);
+        await DataService.postRequestShow(data);
       } else {
         alert('Form failed validation');
       }
-      console.log('enteredShowName: ', this.enteredShowName);
-      console.log('enteredCountry: ', this.enteredCountry);
-      console.log('enteredDateAired: ', this.enteredDateAired);
-      console.log('enteredGenre: ', this.enteredGenre);
-      console.log('enteredNumSeasons: ', this.enteredNumSeasons);
-      console.log('enteredNumEpisodes: ', this.enteredNumEpisodes);
-      console.log('enteredNote: ', this.enteredNote);
     },
   },
 };

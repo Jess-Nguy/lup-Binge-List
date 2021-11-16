@@ -159,7 +159,6 @@ export default {
     loadModal() {
       this.listOfStatus = this.getListStatus;
       this.editForm.favourite = this.selectedEdit.favourite;
-      console.log('this.selectedEdit: ', this.selectedEdit);
       this.editForm.status = this.selectedEdit.status;
       this.editForm.score = this.selectedEdit.score;
 

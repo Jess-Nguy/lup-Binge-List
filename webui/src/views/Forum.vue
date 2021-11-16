@@ -32,7 +32,6 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     }
-    console.log('Forum mount');
   },
   methods: {},
 };

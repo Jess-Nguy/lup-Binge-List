@@ -138,15 +138,10 @@ export default {
         this.barChart.data.datasets[0].data.push(value);
       }
     }
-
-    console.log('data count lenght: ', this.dataCounts.total);
     this.barChart.options.scales.y.max = this.dataCounts.total;
   },
   mounted() {
     this.$store.subscribe((setUser, user) => {
-      console.log(setUser.type);
-      console.log(setUser.payload);
-      console.log('USER: ', user);
       this.user = user;
     });
 
@@ -157,8 +152,6 @@ export default {
     if (this.user.roleId == 1) {
       this.isAdmin = true;
     }
-
-    console.log('Bargraph mount');
   },
   methods: {
     ...mapActions(['login']),

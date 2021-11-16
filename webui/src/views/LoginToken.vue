@@ -15,6 +15,7 @@ export default {
     if (token) {
       localStorage.setItem('userToken', token);
       this.login(token);
+      //  Next version code
       // this.$router.push('/home');
       this.$router.push('/browse');
     } else {

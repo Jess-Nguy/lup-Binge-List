@@ -59,11 +59,7 @@ export default {
     return {};
   },
   components: { EditAccountShow },
-  methods: {
-    loadModal() {
-      console.log('LOADING EDIT MODAL');
-    },
-  },
+  methods: {},
 };
 </script>
 <style scoped></style>

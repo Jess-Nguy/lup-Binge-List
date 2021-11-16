@@ -314,11 +314,7 @@ export default {
           episodes: this.enteredNumEpisodes,
           synopsis: synopsis,
         };
-
-        console.log('SHOW DATA: ', showData);
-        const resultShow = await DataService.postShow(showData);
-        console.log('result: ', resultShow.data);
-        console.log('result id: ', resultShow.data[0].id_show);
+        await DataService.postShow(showData);
         this.resetModal();
         this.$emit('submitted-show');
       } else {

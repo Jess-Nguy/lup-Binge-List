@@ -39,8 +39,15 @@ a {
   color: #42b983;
 }
 
-.tablestats {
-  background-color: #eaeae0;
+th {
+  font-weight: bold;
+}
+table {
+  width: 90%;
+  background-color: #9ad4fa;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
 

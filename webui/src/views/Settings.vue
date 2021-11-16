@@ -82,7 +82,6 @@ export default {
     this.timezones = this.getTimezone;
 
     if (this.user.roleId == 1) {
-      console.log('REACHED inside if');
       this.isAdmin = true;
     }
     await this.getBanners();
@@ -91,7 +90,6 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     }
-    console.log('Settings mount');
     await this.getUserInfo();
   },
   methods: {

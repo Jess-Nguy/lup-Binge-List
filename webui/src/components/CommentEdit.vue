@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     async editComment(comment) {
-      console.log('EDIT COMMENT: ', comment);
       const data = {
         comment: this.editCommentText,
         flag: comment.flag,

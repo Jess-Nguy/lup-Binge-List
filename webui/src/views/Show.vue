@@ -247,7 +247,6 @@ export default {
         show_id: this.id,
       };
       this.selectedEdit = await DataService.getCheckAdd(data);
-      console.log('selectedEdit: ', this.selectedEdit);
     },
     favouriteToggle() {
       this.editForm.favourite = this.editForm.favourite ? false : true;
@@ -292,10 +291,8 @@ export default {
     },
     async loadPage() {
       setTimeout(() => (this.isLoading = false), 1000);
-      console.log('LOADING: ', this.isLoading);
       this.id = this.$route.params.id;
       await this.retrieveSelectedShow();
-      console.log('retrieveSelectedShow: ', this.selectedShow);
       this.listOfStatus = this.getListStatus;
       await this.getUserShowDetails();
 
@@ -314,9 +311,7 @@ export default {
       // SET editForm
       if (this.selectedEdit) {
         this.editForm.status = this.selectedEdit.status;
-        console.log('STATUS: ', this.editForm.status);
         this.editForm.favourite = this.selectedEdit.favourite;
-        console.log('FAVOURITE: ', this.editForm.favourite);
       }
     },
   },

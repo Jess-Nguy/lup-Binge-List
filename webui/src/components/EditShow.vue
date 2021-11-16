@@ -320,11 +320,7 @@ export default {
           episodes: this.enteredNumEpisodes,
           synopsis: synopsis,
         };
-
-        console.log('SHOW DATA: ', showData);
         await DataService.updateShow(showData);
-        // console.log('result: ', resultShow.data);
-        // console.log('result id: ', resultShow.data[0].id_show);
       } else {
         alert('Show creation failed in validation');
       }
@@ -361,7 +357,6 @@ export default {
     },
     async retrieveSelectedShow() {
       this.selectedShow = await DataService.getShowById(this.show_id);
-      console.log('SELECTED SHOW: ', this.selectedShow);
     },
     setSelectedShowModal() {
       this.enteredShowImage = this.selectedShow[0].show_image;
@@ -402,7 +397,7 @@ export default {
     },
     async retrieveCharactersDropdown() {
       const resultCharacter = await DataService.getCharactersDropdown();
-      // TO DO: Display character image.
+      // TO DO v2: Display character image.
       this.characters = resultCharacter.map((item) => ({
         id: item.id_character,
         value: item.full_name,
@@ -413,7 +408,6 @@ export default {
       this.isOpen = false;
     },
     async deleteShow() {
-      console.log('DELETE ME ', this.show_id);
       await DataService.deleteShow(this.show_id);
     },
   },

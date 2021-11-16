@@ -63,7 +63,6 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     }
-    console.log('Favourite mount');
     await this.loadTables();
   },
   methods: {

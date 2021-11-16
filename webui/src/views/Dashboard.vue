@@ -68,8 +68,6 @@ export default {
     if (this.user.name !== null) {
       this.welcomeMessage = 'Welcome ' + this.user.name;
     }
-
-    console.log('Dashboard mount');
   },
   methods: {
     async getBanners() {

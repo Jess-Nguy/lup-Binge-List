@@ -96,9 +96,6 @@ export default {
   },
   methods: {
     ...mapActions(['login']),
-    submitRequestShow() {
-      console.log('enteredCountry: ', this.enteredCountry);
-    },
   },
   watch: {
     query: {

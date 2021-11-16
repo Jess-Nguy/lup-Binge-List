@@ -4,9 +4,9 @@
       <h1>My Account</h1>
     </div>
     <account-nav :id="loggedInUser.id" />
-    <img :src="user.profile_image" alt="profile image" width="100" height="100" />
-    <div class="card">
+    <div class="card border-primary">
       <div class="card-body">
+        <img :src="user.profile_image" alt="profile image" width="100" height="100" />
         <h5 class="card-title">{{ user.username }}</h5>
         <!-- Add user details? -->
       </div>

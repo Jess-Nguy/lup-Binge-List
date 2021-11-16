@@ -12,7 +12,8 @@
             </h4>
           </div>
         </div>
-        <!-- <div class="col-1">
+        <!-- Next Version code
+        <div class="col-1">
           <div id="side-button">
             <a @click="sendFriendRequest(user)" title="Send friend request"><i class="fas fa-plus-square fa-lg"></i></a
             ><br />

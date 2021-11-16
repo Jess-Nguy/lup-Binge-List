@@ -47,11 +47,8 @@ export default {
   },
   methods: {
     async getUsers() {
-      console.log('GET users');
       this.listOfUsers = await DataService.getUserByFilter(this.query);
-      console.log('LIST USERS: ', this.listOfUsers);
       if (this.listOfUsers.length > 0) {
-        console.log('THIS listOfUsers: ', this.listOfUsers);
         if (this.listOfUsers.length < this.perPage && this.query.offset == 0) {
           this.total = this.listOfUsers.length;
         } else {
@@ -64,7 +61,6 @@ export default {
       }
     },
     setUserFilter(newQuery) {
-      // this.query = newQuery;
       this.query = { ...this.query, ...newQuery };
     },
     onPageChanged(selectedPage) {
