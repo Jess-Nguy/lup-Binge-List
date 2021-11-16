@@ -1,5 +1,11 @@
 <template>
   <div class="stats">
+    <div v-if="user.roleId == 1">
+      <h2>Admin All Stats</h2>
+    </div>
+    <div v-else>
+      <h2>My Stats</h2>
+    </div>
     <!-- Chart/table switch -->
     <div class="form-check form-switch">
       <input @click="toggleViews" class="form-check-input" type="checkbox" id="barTableToggle" v-model="isBar" />
