@@ -45,7 +45,7 @@
         aria-label="Default select example"
       >
         <option value="">-</option>
-        <option v-for="(status, i) in listOfStatus" :key="i" :value="status">{{ status }}</option>
+        <option v-for="(status, i) in listOfAiringStatus" :key="i" :value="status">{{ status }}</option>
       </select>
     </div>
     <!-- Year start range -->
@@ -63,7 +63,7 @@
       <p>to</p>
       <!-- Year end range -->
       <select
-        v-model="query.yearStart"
+        v-model="query.yearEnd"
         id="browseFilterYearRange"
         class="form-select"
         aria-label="Default select example"
@@ -97,37 +97,8 @@
 export default {
   data() {
     return {
-      listOfStatus: ['Airing', 'Finished', 'Not released', 'Not airing'],
-      listOfYears: [
-        1998,
-        1999,
-        2000,
-        2001,
-        2002,
-        2003,
-        2004,
-        2005,
-        2006,
-        2007,
-        2008,
-        2009,
-        2010,
-        2011,
-        2012,
-        2013,
-        2014,
-        2015,
-        2016,
-        2017,
-        2018,
-        2019,
-        2020,
-        2021,
-        2022,
-        2023,
-        2024,
-        2025,
-      ],
+      listOfAiringStatus: [],
+      listOfYears: [],
       listOfCountries: [],
       listOfGenres: [],
       query: {
@@ -146,6 +117,12 @@ export default {
   },
   name: 'BrowserFilter',
   computed: {
+    getYears() {
+      return this.$store.getters.getYears;
+    },
+    getAiringStatus() {
+      return this.$store.getters.getAiringStatus;
+    },
     getCountries() {
       return this.$store.getters.getCountries;
     },
@@ -160,6 +137,8 @@ export default {
     }
     this.listOfCountries = this.getCountries;
     this.listOfGenres = this.getGenres;
+    this.listOfYears = this.getYears;
+    this.listOfAiringStatus = this.getAiringStatus;
   },
   methods: {
     orderByAsc() {

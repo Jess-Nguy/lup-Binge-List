@@ -181,7 +181,6 @@ module.exports = {
       }
     });
 
-    // console.log("SHOW QUERY: ", show);
     let titles = show.title;
     titles = titles.length === 0 ? "" : "'" + titles.join("','") + "'";
 

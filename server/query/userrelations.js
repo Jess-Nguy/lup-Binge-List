@@ -11,10 +11,10 @@ module.exports = {
   },
   async fetchRelationsByUserId(data) {
     const response = await db.query(`
-       SELECT u.profile_image, u.username, ur.user_id1 , ur.type, ur.id_user_relations
-            FROM user_relations ur JOIN users u ON (ur.user_id1 = u.id_user) 
-            WHERE user_id2 = '${data.id}' and ur.type = '${data.type}';
-        `);
+      SELECT DISTINCT u.profile_image, u.username, u.id_user , ur.type, ur.id_user_relations
+        FROM user_relations ur JOIN users u ON (ur.user_id1 = u.id_user) 
+        WHERE user_id2 = '${data.id}' and ur.type = '${data.type}';
+      `);
     return response;
   },
   async update(id) {

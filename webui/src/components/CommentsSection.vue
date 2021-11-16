@@ -26,7 +26,8 @@
                 />
                 <a v-if="comment.user_id != user.id" @click="flagComment(comment)"
                   ><i class="fas fa-flag" style="color: gold"></i>
-                  <p v-if="user.roleId == 1">{{ comment.flag }}</p></a
+                  <br />
+                  <span class="badge bg-primary rounded-pill" v-if="user.roleId == 1">{{ comment.flag }}</span></a
                 >
               </div>
             </div>
