@@ -2,10 +2,10 @@
   <div v-if="users.length > 0" style="padding: 50px">
     <div id="userCards" class="card" v-for="user in users" :key="user.id_user">
       <div class="row g-0">
-        <div class="col-3">
+        <div class="col-1">
           <img id="profileCardsImage" :src="user.profile_image" :alt="user.username" class="img-fluid" />
         </div>
-        <div class="col-8">
+        <div class="col-10">
           <div>
             <h4>
               <router-link :to="`/account/${user.id_user}`">{{ user.username }}</router-link>

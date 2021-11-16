@@ -2,10 +2,10 @@
   <div style="padding: 20px">
     <div id="showCards" class="card" v-for="show in showsFilter" :key="show.id_show">
       <div class="row g-0">
-        <div class="col-3">
+        <div class="col-1">
           <img id="showCardsImage" :src="show.show_image" :alt="show.title[0]" class="img-fluid" />
         </div>
-        <div class="col-8">
+        <div class="col-10">
           <div class="card-body">
             <div class="row mb-3">
               <div class="col">
