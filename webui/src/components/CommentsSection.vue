@@ -119,7 +119,6 @@ export default {
     },
     async submitComment() {
       if (this.commentText) {
-        console.log('commentText: ', this.commentText);
         this.commentText = this.commentText.replace(/'/g, "''");
       }
       const data = {

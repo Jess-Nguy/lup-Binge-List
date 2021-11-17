@@ -83,7 +83,6 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriendRequests = response;
-      console.log('social friend request: ', response);
       response.forEach((element) => {
         if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
           this.hasRequest = true;
@@ -98,7 +97,6 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriends = response;
-      console.log('social friend list: ', response);
       response.forEach((element) => {
         if (element.user_id1 == this.user.id || element.user_id2 == this.user.id) {
           this.hasRequest = true;

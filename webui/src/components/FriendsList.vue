@@ -48,14 +48,7 @@ export default {
     },
   },
   data() {
-    return {
-      user: {
-        name: localStorage.getItem('username'),
-        profileUrl: localStorage.getItem('profileImage'),
-        id: localStorage.getItem('userId'),
-        roleId: localStorage.getItem('userRoleId'),
-      },
-    };
+    return {};
   },
   create() {},
   methods: {

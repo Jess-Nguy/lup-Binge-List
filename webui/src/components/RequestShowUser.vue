@@ -132,7 +132,6 @@ export default {
       if (!this.v$.$error) {
         alert('SUCCESSFULLY SUBMITTED FORM!');
         if (this.enteredNote) {
-          console.log('enteredNote: ', this.enteredNote);
           this.enteredNote = this.enteredNote.replace(/'/g, "''");
         }
         const data = {

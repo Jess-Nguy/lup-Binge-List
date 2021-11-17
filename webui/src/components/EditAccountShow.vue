@@ -199,7 +199,6 @@ export default {
     async submitEditAccountShow() {
       // note should accept quotes
       if (this.editForm.note) {
-        console.log('EDIT NOTE: ', this.editForm.note);
         this.editForm.note = this.editForm.note.replace(/'/g, "''");
       }
       const updateData = {

@@ -93,7 +93,6 @@ export default {
     async getUsers() {
       const response = await DataService.getUserByFilter(this.query);
       this.user = response[0];
-      console.log('USER: ', this.user);
       this.role = this.user.role_id == 1 ? 'Admin' : 'User';
     },
     async getMyFriendRequests() {
@@ -103,7 +102,6 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriendRequests = response;
-      console.log('friends request: ', this.listFriendRequests);
       response.forEach((element) => {
         if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
           this.hasRequest = true;
@@ -114,7 +112,6 @@ export default {
     async getMyFriends() {
       const response = await DataService.getFriendsList(this.query.id_user);
       this.listFriends = response;
-      console.log('list friends: ', this.listFriends);
 
       response.forEach((element) => {
         if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
@@ -124,7 +121,6 @@ export default {
       });
     },
     async sendFriendRequest(addFriend) {
-      console.log('ADD this friend: ', addFriend);
       const data = {
         type: 'request',
         userId1: this.loggedInUser.id,

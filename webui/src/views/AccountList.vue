@@ -137,30 +137,25 @@ export default {
         return element.status == 'watching';
       });
 
-      console.log('WATCH LIST: ', this.watchList);
       // filtered completed
       this.completedList = this.bingeList.filter((element) => {
         return element.status == 'completed';
       });
-      console.log('COMPLETED LIST: ', this.completedList);
 
       // filtered paused
       this.pausedList = this.bingeList.filter((element) => {
         return element.status == 'paused';
       });
-      console.log('PAUSED LIST: ', this.pausedList);
 
       // filtered planned
       this.plannedList = this.bingeList.filter((element) => {
         return element.status == 'planned';
       });
-      console.log('PLANNED LIST: ', this.plannedList);
 
       // filtered dropped
       this.droppedList = this.bingeList.filter((element) => {
         return element.status == 'dropped';
       });
-      console.log('DROPPED LIST: ', this.droppedList);
     },
     async getBingeList() {
       this.bingeList = await DataService.getAccountList(this.query);
@@ -184,7 +179,6 @@ export default {
     async getUsers() {
       const response = await DataService.getUserByFilter(this.userQuery);
       this.userQuery = response[0];
-      console.log('AL USER: ', this.userQuery);
       this.role = this.userQuery.role_id == 1 ? 'Admin' : 'User';
     },
   },
