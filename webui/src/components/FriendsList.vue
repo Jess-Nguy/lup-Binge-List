@@ -7,7 +7,7 @@
           alt="profile image"
           width="150"
           height="150"
-          v-if="friend.user_id1 != user.id"
+          v-if="friend.user_id1 != paramUserId"
         />
         <img :src="friend.profile_image2" alt="profile image" width="150" height="150" v-else />
         <a href="#!">
@@ -16,7 +16,7 @@
       </div>
       <div class="card-body">
         <h5 class="card-title">
-          <router-link :to="`/account/${friend.user_id1}`" v-if="friend.user_id1 != user.id">
+          <router-link :to="`/account/${friend.user_id1}`" v-if="friend.user_id1 != paramUserId">
             {{ friend.username1 }}</router-link
           >
           <router-link :to="`/account/${friend.user_id2}`" v-else> {{ friend.username2 }}</router-link>
@@ -40,6 +40,11 @@ export default {
       type: Boolean,
       require: true,
       default: false,
+    },
+    paramUserId: {
+      type: String,
+      require: true,
+      default: '',
     },
   },
   data() {

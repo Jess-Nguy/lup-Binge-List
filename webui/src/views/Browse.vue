@@ -4,7 +4,13 @@
       <add-show @submitted-show="getShows"></add-show>
     </div>
     <browse-filter @browser-filter-change="setQuery" />
-    <browse-show :isAdmin="isAdmin" :showsArr="shows" :loggedInUser="user" @updated-show-info="getShows" />
+    <browse-show
+      @deleted-show="getShows"
+      :isAdmin="isAdmin"
+      :showsArr="shows"
+      :loggedInUser="user"
+      @updated-show-info="getShows"
+    />
     <div v-if="isNotFound">
       <h2 style="color: red">Could not find any shows.</h2>
     </div>

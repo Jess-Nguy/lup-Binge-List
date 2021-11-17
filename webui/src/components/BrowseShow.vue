@@ -49,7 +49,12 @@
         <div class="col-1">
           <div id="side-buttons">
             <div v-if="isAdmin">
-              <edit-show :show_id="show.id_show" :show_name="show.title[0]" title="Edit show details"></edit-show>
+              <edit-show
+                @deleted-show="showDeleted"
+                :show_id="show.id_show"
+                :show_name="show.title[0]"
+                title="Edit show details"
+              ></edit-show>
               <a @click="addAsWatching(show)" title="Add to Watching list"><i class="fas fa-play"></i></a><br />
               <a @click="addAsCompleted(show)" title="Add to Completed list"><i class="fas fa-check"></i></a><br />
               <a @click="addAsPlanned(show)" title="Add to Planned list"><i class="fas fa-calendar-alt"></i></a>
@@ -210,6 +215,9 @@ export default {
         await DataService.updateUserBingeList(updateData);
         alert('Updated show to be planned list');
       }
+    },
+    showDeleted() {
+      this.$emit('deleted-show');
     },
   },
 };

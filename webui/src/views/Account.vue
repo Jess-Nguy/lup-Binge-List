@@ -112,7 +112,7 @@ export default {
       });
     },
     async getMyFriends() {
-      const response = await DataService.getFriendsList(this.loggedInUser.id);
+      const response = await DataService.getFriendsList(this.query.id_user);
       this.listFriends = response;
       console.log('list friends: ', this.listFriends);
 

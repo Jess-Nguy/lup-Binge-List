@@ -290,10 +290,22 @@ export default {
         title = title.replace(/'/g, "''");
         let titleSynonyms = this.enteredTitleSynonyms;
         if (titleSynonyms) {
-          console.log('titleSynonyms: ', titleSynonyms);
           titleSynonyms = titleSynonyms.replace(/'/g, "''");
+          titleSynonyms = titleSynonyms.trim();
         }
-        const titles = [title.trim(), titleSynonyms.trim()];
+        if (this.enteredNativeTitle) {
+          this.enteredNativeTitle = this.enteredNativeTitle.replace(/'/g, "''");
+          this.enteredNativeTitle = this.enteredNativeTitle.trim();
+        }
+        if (this.enteredRomanization) {
+          this.enteredRomanization = this.enteredRomanization.replace(/'/g, "''");
+          this.enteredRomanization = this.enteredRomanization.trim();
+        }
+        if (this.enteredCountry) {
+          this.enteredCountry = this.enteredCountry.replace(/'/g, "''");
+          this.enteredCountry = this.enteredCountry.trim();
+        }
+        const titles = [title.trim(), titleSynonyms];
         let synopsis = this.enteredSynopsis;
         synopsis = synopsis.replace(/'/g, "''");
         // TO DO: completed_date errors if not set because of postgresql type

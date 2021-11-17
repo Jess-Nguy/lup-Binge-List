@@ -17,7 +17,12 @@
       <label>Friends</label>
       <div class="card border border-dark shadow-0">
         <div class="card-body" v-if="listFriends.length > 0">
-          <friends-list :friends="listFriends" :sameUser="isSameUser" @deleted-user-relation="loadData" />
+          <friends-list
+            :paramUserId="user.id"
+            :friends="listFriends"
+            :sameUser="isSameUser"
+            @deleted-user-relation="loadData"
+          />
         </div>
         <div v-else class="card-body">
           <h2 style="color: red">No friends</h2>
@@ -73,11 +78,12 @@ export default {
     },
     async getMyFriendRequests() {
       const data = {
-        id: this.loggedInUser.id,
+        id: this.user.id,
         type: 'request',
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriendRequests = response;
+      console.log('social friend request: ', response);
       response.forEach((element) => {
         if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
           this.hasRequest = true;
@@ -92,8 +98,9 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriends = response;
+      console.log('social friend list: ', response);
       response.forEach((element) => {
-        if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
+        if (element.user_id1 == this.user.id || element.user_id2 == this.user.id) {
           this.hasRequest = true;
           this.hasRelations = false;
         }
