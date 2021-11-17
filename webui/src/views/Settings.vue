@@ -4,7 +4,7 @@
     <!-- profile -->
     <div class="card">
       <div class="card-body">
-        <img :src="user.profile_image" alt="profile image" width="100" height="100" />
+        <img :src="user.profileUrl" alt="profile image" width="100" height="100" />
         <div v-show="isAdmin">
           <form @submit.prevent="updateBanners">
             <h3>Add the webpage's Banners</h3>
