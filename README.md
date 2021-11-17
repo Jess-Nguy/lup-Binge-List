@@ -7,12 +7,18 @@ Newly improved BingeList coming soon... Capstone project.
 To start the server:
 `cd server`
 `npm run dev`
+or
+In root folder:
+`npm run dev`
 
 ## Webui
 
 To start the webui:
 `cd webui`
 `npm run serve`
+or
+`cd webui`
+`npm run start`
 
 ## MBD and Font awesome
 

@@ -40,23 +40,25 @@
           </li>
         </ul>
         <!-- Dropdown -->
-        <ul id="profile-dropdown" class="nav-item">
-          <a
-            class="nav-link dropdown-toggle"
-            id="navbarDropdownMenuLink-4"
-            data-bs-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            <i class="fas fa-user"></i>
-            <label>Profile</label>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-4">
-            <router-link to="/myaccount" class="dropdown-item">My account</router-link>
-            <router-link to="/settings" class="dropdown-item">Settings</router-link>
+        <div class="ms-auto">
+          <div id="profile-dropdown" class="d-flex justify-content-end">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdownMenuLink-4"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <i class="fas fa-user"></i>
+              <label>Profile</label>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-4">
+              <router-link to="/myaccount" class="dropdown-item">My account</router-link>
+              <router-link to="/settings" class="dropdown-item">Settings</router-link>
+            </div>
           </div>
-        </ul>
-        <div v-if="user" id="logout-button">
+        </div>
+        <div v-if="user" id="logout-button" class="d-flex justify-content-end">
           <button data-cy="test-logout-button" class="btn btn-danger" v-on:click="logoutUser">
             <i class="fas fa-sign-out-alt"></i> Logout
           </button>
