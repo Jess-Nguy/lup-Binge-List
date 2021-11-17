@@ -6,7 +6,11 @@
       <label>Request</label>
       <div class="card border border-dark shadow-0">
         <div class="card-body" v-if="listFriendRequests.length > 0">
-          <friend-request :friendRequests="listFriendRequests" @accept-friend-request="loadData" />
+          <friend-request
+            :paramUserId="user.id"
+            :friendRequests="listFriendRequests"
+            @accept-friend-request="loadData"
+          />
         </div>
         <div class="card-body" v-else>
           <h2 style="color: red">No friend requests</h2>
@@ -64,12 +68,13 @@ export default {
 
     await this.loadData();
   },
-  mounted() {
+  async mounted() {
     const localToken = localStorage.getItem('userToken');
     if (!localToken) {
       this.$router.push('/');
     }
     this.isSameUser = this.user.id == this.loggedInUser.id;
+    await this.loadData();
   },
   methods: {
     async loadData() {
@@ -83,12 +88,15 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriendRequests = response;
-      response.forEach((element) => {
-        if (element.user_id1 == this.query.id_user || element.user_id2 == this.query.id_user) {
-          this.hasRequest = true;
-          this.hasRelations = false;
-        }
-      });
+      console.log('friend request: ', response);
+      // if (response) {
+      //   response.forEach((element) => {
+      //     if (element.user_id1 == this.user.id || element.user_id2 == this.user.id) {
+      //       this.hasRequest = true;
+      //       this.hasRelations = false;
+      //     }
+      //   });
+      // }
     },
     async getMyFriends() {
       const data = {
@@ -97,12 +105,12 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriends = response;
-      response.forEach((element) => {
-        if (element.user_id1 == this.user.id || element.user_id2 == this.user.id) {
-          this.hasRequest = true;
-          this.hasRelations = false;
-        }
-      });
+      // response.forEach((element) => {
+      //   if (element.user_id1 == this.user.id || element.user_id2 == this.user.id) {
+      //     this.hasRequest = true;
+      //     this.hasRelations = false;
+      //   }
+      // });
     },
   },
 };

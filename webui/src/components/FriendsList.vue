@@ -10,9 +10,6 @@
           v-if="friend.user_id1 != paramUserId"
         />
         <img :src="friend.profile_image2" alt="profile image" width="150" height="150" v-else />
-        <a href="#!">
-          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-        </a>
       </div>
       <div class="card-body">
         <h5 class="card-title">

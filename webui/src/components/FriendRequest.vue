@@ -2,12 +2,22 @@
   <div>
     <div v-for="request in friendRequests" :key="request.id_user_relations">
       <div class="bg-image hover-overlay">
-        <img :src="request.profile_image" :alt="request.username" width="150" height="150" />
+        <img
+          :src="request.profile_image1"
+          :alt="request.username1"
+          width="150"
+          height="150"
+          v-if="request.user_id1 != paramUserId"
+        />
+        <img :src="request.profile_image2" alt="profile image" width="150" height="150" v-else />
       </div>
       <div class="card-body">
         <h5 class="card-title">
-          <a @click="acceptFriendRequest(request.id_user_relations)"
-            >{{ request.username }} <i class="fas fa-plus-square"></i
+          <a @click="acceptFriendRequest(request.id_user_relations)" v-if="request.user_id1 != paramUserId"
+            >{{ request.username1 }} <i class="fas fa-plus-square"></i
+          ></a>
+          <a @click="acceptFriendRequest(request.id_user_relations)" v-else
+            >{{ request.username2 }} <i class="fas fa-plus-square"></i
           ></a>
         </h5>
       </div>
@@ -27,6 +37,11 @@ export default {
       type: Array,
       required: true,
       default: () => [],
+    },
+    paramUserId: {
+      type: String,
+      require: true,
+      default: '',
     },
   },
   data() {
