@@ -1,26 +1,11 @@
 <template>
-  <div class="bargraphstats">
-    <vue3-chart-js v-bind="{ ...barChart }" />
+  <div class="d-flex justify-content-center">
+    <vue3-chart-js v-bind="{ ...barChart }" height="400" width="700" />
   </div>
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+<style scoped lang="scss"></style>
 
 <script>
 import { mapActions } from 'vuex';
@@ -67,7 +52,7 @@ export default {
         options: {
           min: 0,
           max: 100,
-          responsive: true,
+          responsive: false,
           plugins: {
             legend: {
               position: 'top',
