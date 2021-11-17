@@ -7,164 +7,182 @@
       </div>
     </div>
     <div v-else>
-      <div>
-        <h1>{{ selectedShow.title[0] }}</h1>
-        <h6 v-show="selectedShow.title[1]">{{ selectedShow.title[1] }}</h6>
-      </div>
-      <div>
-        <p>{{ selectedShow.synopsis }}</p>
-      </div>
-      <div>
-        <!-- Show poster -->
-        <img
-          v-if="selectedShow.show_image !== ''"
-          :src="selectedShow.show_image"
-          alt="show image"
-          width="200"
-          height="350"
-        />
-        <img v-else :src="defaultImage" alt="default image" width="200" height="350" />
-        <!-- Status drop down -->
-        <select v-model="editForm.status" id="editStatus" class="form-select" aria-label="Default select example">
-          <option v-for="(status, i) in listOfStatus" :key="i">{{ status }}</option>
-        </select>
-        <!-- Favourite button -->
-        <div>
-          <!-- true/false css change? -->
-          <button
-            @click="favouriteToggle"
-            class="btn btn-danger"
-            :class="{ active: editForm.favourite }"
-            style="border-radius: 50%"
-          >
-            <i class="fas fa-heart"></i>
-          </button>
-        </div>
-        <!-- Show details -->
-        <div>
-          <div class="card border border-primary shadow-0">
-            <div class="card-body">
-              <!-- Episodes -->
-              <div class="row mb-3">
-                <h5 class="card-title">Episodes</h5>
-                <p v-if="selectedShow.episodes !== null" class="card-text">
-                  {{ selectedShow.episodes }}
-                </p>
-                <p v-else class="card-text">N/A</p>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-2">
+            <br />
+            <div>
+              <!-- Show poster -->
+              <img
+                v-if="selectedShow.show_image !== ''"
+                :src="selectedShow.show_image"
+                alt="show image"
+                width="300"
+                height="450"
+              />
+              <img v-else :src="defaultImage" alt="default image" width="350" height="400" />
+            </div>
+            <br />
+            <div class="row">
+              <!-- Status drop down -->
+              <div class="col-10">
+                <select
+                  v-model="editForm.status"
+                  id="editStatus"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option v-for="(status, i) in listOfStatus" :key="i">{{ status }}</option>
+                </select>
               </div>
-              <!-- Seasons -->
-              <div class="row mb-3">
-                <h5 class="card-title">Seasons</h5>
-                <p v-if="selectedShow.seasons !== null" class="card-text">
-                  {{ selectedShow.seasons }}
-                </p>
-                <p v-else class="card-text">N/A</p>
+              <!-- Favourite button -->
+              <div class="col-1">
+                <button
+                  @click="favouriteToggle"
+                  class="btn btn-danger"
+                  :class="{ active: editForm.favourite }"
+                  style="border-radius: 50%"
+                >
+                  <i class="fas fa-heart"></i>
+                </button>
               </div>
-              <!-- Release Date -->
-              <div class="row mb-3">
-                <h5 class="card-title">Release Date</h5>
-                <p v-if="selectedShow.releaseDate !== null" class="card-text">
-                  {{ releaseDate }}
-                </p>
-                <p v-else class="card-text">N/A</p>
-              </div>
-              <!-- Native Title -->
-              <div class="row mb-3">
-                <h5 class="card-title">Native Title</h5>
-                <p v-if="selectedShow.native_title !== 'null'" class="card-text">
-                  {{ selectedShow.native_title }}
-                </p>
-                <p v-else class="card-text">N/A</p>
-              </div>
-              <!-- Romanization -->
-              <div class="row mb-3">
-                <h5 class="card-title">Romanization</h5>
-                <p v-if="selectedShow.romanization !== 'null'" class="card-text">
-                  {{ selectedShow.romanization }}
-                </p>
-                <p v-else class="card-text">N/A</p>
-              </div>
-              <!-- Company -->
-              <div class="row mb-3">
-                <h5 class="card-title">Company</h5>
-                <p v-if="selectedShow.company !== 'null'" class="card-text">
-                  {{ selectedShow.company }}
-                </p>
-                <p v-else class="card-text">N/A</p>
-              </div>
-              <!-- Country -->
-              <div class="row mb-3">
-                <h5 class="card-title">Country</h5>
-                <p class="card-text">
-                  {{ selectedShow.country }}
-                </p>
-              </div>
-              <!-- Genre -->
-              <div class="row mb-3">
-                <h5 class="card-title">Genre</h5>
-                <p class="card-text">
-                  {{ selectedShow.genre }}
-                </p>
+            </div>
+            <!-- Show details -->
+            <div class="row">
+              <div class="card border border-primary shadow-0">
+                <div class="card-body">
+                  <!-- Episodes -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Episodes</h5>
+                    <p v-if="selectedShow.episodes !== null" class="card-text">
+                      {{ selectedShow.episodes }}
+                    </p>
+                    <p v-else class="card-text">N/A</p>
+                  </div>
+                  <!-- Seasons -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Seasons</h5>
+                    <p v-if="selectedShow.seasons !== null" class="card-text">
+                      {{ selectedShow.seasons }}
+                    </p>
+                    <p v-else class="card-text">N/A</p>
+                  </div>
+                  <!-- Release Date -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Release Date</h5>
+                    <p v-if="selectedShow.releaseDate !== null" class="card-text">
+                      {{ releaseDate }}
+                    </p>
+                    <p v-else class="card-text">N/A</p>
+                  </div>
+                  <!-- Native Title -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Native Title</h5>
+                    <p v-if="selectedShow.native_title !== 'null'" class="card-text">
+                      {{ selectedShow.native_title }}
+                    </p>
+                    <p v-else class="card-text">N/A</p>
+                  </div>
+                  <!-- Romanization -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Romanization</h5>
+                    <p v-if="selectedShow.romanization !== 'null'" class="card-text">
+                      {{ selectedShow.romanization }}
+                    </p>
+                    <p v-else class="card-text">N/A</p>
+                  </div>
+                  <!-- Company -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Company</h5>
+                    <p v-if="selectedShow.company !== 'null'" class="card-text">
+                      {{ selectedShow.company }}
+                    </p>
+                    <p v-else class="card-text">N/A</p>
+                  </div>
+                  <!-- Country -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Country</h5>
+                    <p class="card-text">
+                      {{ selectedShow.country }}
+                    </p>
+                  </div>
+                  <!-- Genre -->
+                  <div class="row mb-3">
+                    <h5 class="card-title">Genre</h5>
+                    <p class="card-text">
+                      {{ selectedShow.genre }}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div>
-        <!-- characters -->
-        <h2>Characters</h2>
-        <div class="card border border-primary shadow-0">
-          <div class="row mb-3">
-            <!-- Main character -->
-            <div class="col">
-              <img
-                v-if="selectedShow.main_character_image !== null"
-                :src="selectedShow.main_character_image"
-                alt="show image"
-                width="300"
-                height="300"
-              />
-              <img v-else :src="defaultImage" alt="default image" width="300" height="300" />
-              <h5 class="card-title">{{ selectedShow.main_character_name }}</h5>
-              <p class="card-text">
-                {{ selectedShow.main_actor_name }}
-              </p>
+          <div class="col-10">
+            <div>
+              <h1>{{ selectedShow.title[0] }}</h1>
+              <h6 v-show="selectedShow.title[1]">{{ selectedShow.title[1] }}</h6>
             </div>
-            <!-- side character 1 -->
-            <div class="col">
-              <img
-                v-if="selectedShow.side_character1_image !== null"
-                :src="selectedShow.side_character1_image"
-                alt="show image"
-                width="300"
-                height="300"
-              />
-              <img v-else :src="defaultImage" alt="default image" width="300" height="300" />
-              <h5 class="card-title">{{ selectedShow.side_character1_name }}</h5>
-              <p class="card-text">
-                {{ selectedShow.side_actor1_name }}
-              </p>
+            <div>
+              <p>{{ selectedShow.synopsis }}</p>
             </div>
-            <!-- side character 2 -->
-            <div class="col">
-              <img
-                v-if="selectedShow.side_character2_image !== null"
-                :src="selectedShow.side_character2_image"
-                alt="show image"
-                width="300"
-                height="300"
-              />
-              <img v-else :src="defaultImage" alt="default image" width="300" height="300" />
-              <h5 class="card-title">{{ selectedShow.side_character2_name }}</h5>
-              <p class="card-text">
-                {{ selectedShow.side_actor2_name }}
-              </p>
+            <div>
+              <!-- characters -->
+              <h2>Characters</h2>
+              <div class="card border border-primary shadow-0">
+                <div class="row mb-3">
+                  <!-- Main character -->
+                  <div class="col">
+                    <img
+                      v-if="selectedShow.main_character_image !== null"
+                      :src="selectedShow.main_character_image"
+                      alt="show image"
+                      width="300"
+                      height="300"
+                    />
+                    <img v-else :src="defaultImage" alt="default image" width="300" height="300" />
+                    <h5 class="card-title">{{ selectedShow.main_character_name }}</h5>
+                    <p class="card-text">
+                      {{ selectedShow.main_actor_name }}
+                    </p>
+                  </div>
+                  <!-- side character 1 -->
+                  <div class="col">
+                    <img
+                      v-if="selectedShow.side_character1_image !== null"
+                      :src="selectedShow.side_character1_image"
+                      alt="show image"
+                      width="300"
+                      height="300"
+                    />
+                    <img v-else :src="defaultImage" alt="default image" width="300" height="300" />
+                    <h5 class="card-title">{{ selectedShow.side_character1_name }}</h5>
+                    <p class="card-text">
+                      {{ selectedShow.side_actor1_name }}
+                    </p>
+                  </div>
+                  <!-- side character 2 -->
+                  <div class="col">
+                    <img
+                      v-if="selectedShow.side_character2_image !== null"
+                      :src="selectedShow.side_character2_image"
+                      alt="show image"
+                      width="300"
+                      height="300"
+                    />
+                    <img v-else :src="defaultImage" alt="default image" width="300" height="300" />
+                    <h5 class="card-title">{{ selectedShow.side_character2_name }}</h5>
+                    <p class="card-text">
+                      {{ selectedShow.side_actor2_name }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <comments-section :showId="id" />
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <comments-section :showId="id" />
       </div>
     </div>
   </div>
