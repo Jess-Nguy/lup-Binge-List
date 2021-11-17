@@ -373,12 +373,15 @@ export default {
       this.selectedShow = await DataService.getShowById(this.show_id);
     },
     setSelectedShowModal() {
+      if (this.selectedShow[0].release_date) {
+        this.enteredDateAired = new Date(this.selectedShow[0].release_date);
+      }
       this.enteredShowImage = this.selectedShow[0].show_image;
       this.enteredShowName = this.selectedShow[0].title[0];
       this.enteredTitleSynonyms = this.selectedShow[0].title[1];
       this.enteredNativeTitle = this.selectedShow[0].native_title;
       this.enteredRomanization = this.selectedShow[0].romanization;
-      this.enteredDateAired = new Date(this.selectedShow[0].release_date);
+
       this.enteredDateCompleted = new Date(this.selectedShow[0].completed_date);
       this.enteredCountry = this.selectedShow[0].country;
       this.enteredGenre = this.selectedShow[0].genre;
@@ -401,6 +404,11 @@ export default {
       day = ('0' + this.enteredDateCompleted.getDate()).slice(-2);
       month = ('0' + (this.enteredDateCompleted.getMonth() + 1)).slice(-2);
       this.enteredDateCompleted = this.enteredDateCompleted.getFullYear() + '-' + month + '-' + day;
+    },
+    convertDate(date) {
+      var day = ('0' + date.getDate()).slice(-2);
+      var month = ('0' + (date.getMonth() + 1)).slice(-2);
+      date = date.getFullYear() + '-' + month + '-' + day;
     },
     async retrieveActorDropdown() {
       const resultActor = await DataService.getActorDropdown();
