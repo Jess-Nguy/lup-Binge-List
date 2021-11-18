@@ -88,15 +88,6 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriendRequests = response;
-      console.log('friend request: ', response);
-      // if (response) {
-      //   response.forEach((element) => {
-      //     if (element.user_id1 == this.user.id || element.user_id2 == this.user.id) {
-      //       this.hasRequest = true;
-      //       this.hasRelations = false;
-      //     }
-      //   });
-      // }
     },
     async getMyFriends() {
       const data = {
@@ -105,12 +96,6 @@ export default {
       };
       const response = await DataService.getRelationsByUserId(data);
       this.listFriends = response;
-      // response.forEach((element) => {
-      //   if (element.user_id1 == this.user.id || element.user_id2 == this.user.id) {
-      //     this.hasRequest = true;
-      //     this.hasRelations = false;
-      //   }
-      // });
     },
   },
 };
