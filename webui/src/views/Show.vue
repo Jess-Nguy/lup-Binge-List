@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- <h2>Show {{ id }}</h2> -->
     <div v-if="isLoading">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -308,6 +307,7 @@ export default {
       await DataService.updateUserBingeList(updateData);
     },
     async loadPage() {
+      // Loading animation.
       setTimeout(() => (this.isLoading = false), 1000);
       this.id = this.$route.params.id;
       await this.retrieveSelectedShow();

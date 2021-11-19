@@ -104,6 +104,7 @@ export default {
     toggleViews() {
       this.isBar = this.isBar ? false : true;
     },
+    // Depending on Role will get category as a whole or by user.
     async getGenre() {
       if (this.user.roleId != 1) {
         this.genreCount = await DataService.getGenreCounts(this.user.id);

@@ -1,10 +1,11 @@
 <template>
   <div class="settings">
     <h1>Settings</h1>
-    <!-- profile -->
     <div class="card">
       <div class="card-body">
+        <!-- Profile image -->
         <img :src="user.profileUrl" alt="profile image" width="100" height="100" />
+        <!-- Admin Update banner -->
         <div v-show="isAdmin">
           <form @submit.prevent="updateBanners">
             <h3>Add the webpage's Banners</h3>
@@ -23,6 +24,7 @@
           </form>
         </div>
       </div>
+      <!-- user detail update -->
       <form @submit.prevent="updateUserDetails">
         <div class="card-body">
           <label for="account-username">Username* : </label>
@@ -109,6 +111,7 @@ export default {
       }
     },
     async updateBanners() {
+      // Reset default image if input fields are empty.
       if (this.isAdmin) {
         if (this.banners[0] == '') {
           this.banners[0] = require('@/assets/img/Banner.png');

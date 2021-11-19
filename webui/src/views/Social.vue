@@ -63,6 +63,7 @@ export default {
   name: 'Social',
   computed: {},
   async created() {
+    // Set id from url params.
     this.user.id = this.$route.params.id;
     this.isSameUser = this.user.id == this.loggedInUser.id;
 
@@ -73,6 +74,7 @@ export default {
     if (!localToken) {
       this.$router.push('/');
     }
+    // Check that the user the url is looking for is the same person logged in.
     this.isSameUser = this.user.id == this.loggedInUser.id;
     await this.loadData();
   },

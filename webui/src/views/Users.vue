@@ -12,6 +12,7 @@
 <script>
 import BrowseUser from '../components/BrowseUser.vue';
 import UsersFilter from '../components/UsersFilter.vue';
+// Data Service has all the front end endpoint.
 import DataService from '../../service/dataService';
 export default {
   data() {
@@ -46,8 +47,10 @@ export default {
     this.getUsers();
   },
   methods: {
+    // Get all users by filter.
     async getUsers() {
       this.listOfUsers = await DataService.getUserByFilter(this.query);
+      // Set pagination depending on length of return.
       if (this.listOfUsers.length > 0) {
         if (this.listOfUsers.length < this.perPage && this.query.offset == 0) {
           this.total = this.listOfUsers.length;
