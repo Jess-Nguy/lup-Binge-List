@@ -60,6 +60,8 @@ https://www.npmjs.com/package/joi/v/14.0.4
 
 ## Moment.js
 
+NEVER USED. But possibly useful in future versions.
+
 To parse and display dates in any timezone.
 https://momentjs.com/timezone/
 
