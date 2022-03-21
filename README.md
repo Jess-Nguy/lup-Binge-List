@@ -54,6 +54,8 @@ https://www.passportjs.org/docs/oauth2-api/
 
 ## Joi Validation
 
+Used for back end API validation.
+
 Express Validation
 https://softchris.github.io/pages/joi.html
 https://www.npmjs.com/package/joi/v/14.0.4
