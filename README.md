@@ -167,6 +167,8 @@ https://www.digitalocean.com/community/tutorials/vuejs-vue-autocomplete-componen
 
 ## Cypress E2E
 
+DIDN'T USE much.
+
 https://docs.cypress.io/guides/getting-started/testing-your-app#Step-1-Start-your-server
 
 ## FAQ
