@@ -1,6 +1,10 @@
 # BingeList-v2
 
-Newly improved BingeList coming soon... Capstone project.
+Newly improved BingeList beta is out. Capstone project.
+
+![image](https://user-images.githubusercontent.com/38814279/210406560-2c542a90-243a-41c1-ab1a-4f7405084d02.png)
+
+![image](https://user-images.githubusercontent.com/38814279/210406346-69d03c0d-97ec-4e05-9c22-3a681dab8ed9.png)
 
 ## Server
 
